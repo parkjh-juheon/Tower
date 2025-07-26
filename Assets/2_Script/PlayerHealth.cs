@@ -1,6 +1,6 @@
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,18 +8,22 @@ public class PlayerHealth : MonoBehaviour
     public int currentHP;
 
     public Image healthBarFill;
+    public CinemachineImpulseSource impulseSource;
+    private Animator animator;
 
     [Header("이펙트")]
-    public GameObject hitEffect;
-    public Transform effectSpawnPoint;
+    public ParticleSystem hitEffect;
 
-    [Header("카메라 흔들림")]
-    public CameraShake cameraShake;
 
     void Start()
     {
         currentHP = maxHP;
         UpdateHealthBar();
+        
+        animator = GetComponent<Animator>();
+        impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
+        if (hitEffect == null)
+            hitEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     public void TakeDamage(int damage)
@@ -28,16 +32,21 @@ public class PlayerHealth : MonoBehaviour
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHealthBar();
 
-        // 피격 이펙트
-        if (hitEffect != null && effectSpawnPoint != null)
+        // 카메라 흔들림 효과
+        if (impulseSource != null)
         {
-            Instantiate(hitEffect, effectSpawnPoint.position, Quaternion.identity);
+            impulseSource.GenerateImpulse();
         }
 
-        // 카메라 흔들림
-        if (cameraShake != null)
+        if (animator != null)
         {
-            cameraShake.Shake();
+            animator.SetTrigger("Hit");
+        }
+
+        // 피격 파티클 출력
+        if (hitEffect != null)
+        {
+            hitEffect.Play();
         }
 
         if (currentHP <= 0)
