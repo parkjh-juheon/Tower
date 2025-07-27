@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [Header("이동 설정")]
@@ -10,6 +9,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("구르기 설정")]
     [SerializeField] private float rollDuration = 0.5f;
+
+    [Header("공격 설정")]
+    [SerializeField] private float attackRange = 1f;
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private int attackDamage = 1;
+    [SerializeField] private LayerMask enemyLayer; // 공격할 대상
+
+    private float lastAttackTime = 0f;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -32,12 +39,12 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleJump();
         HandleRoll();
-        // 낙하 상태 판별
+        HandleAttack();
+
         if (isGrounded)
             animator.SetBool("isFalling", false);
         else if (rb.linearVelocity.y < -0.1f)
             animator.SetBool("isFalling", true);
-
     }
 
     private void HandleMovement()
@@ -45,11 +52,8 @@ public class PlayerController : MonoBehaviour
         if (isRolling) return;
 
         float inputX = Input.GetAxisRaw("Horizontal");
-
-        // 이동 처리
         rb.linearVelocity = new Vector2(inputX * moveSpeed, rb.linearVelocity.y);
 
-        // 방향 전환
         if (inputX > 0)
         {
             facingDirection = 1;
@@ -61,7 +65,6 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;
         }
 
-        // 애니메이션: 이동 속도
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
     }
 
@@ -71,9 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             isGrounded = false;
-
             animator?.SetTrigger("Jump");
-            Debug.Log("점프 시도");
         }
     }
 
@@ -94,16 +95,37 @@ public class PlayerController : MonoBehaviour
         {
             isRolling = true;
             rollTimer = 0f;
-
             rb.linearVelocity = new Vector2(facingDirection * rollForce, rb.linearVelocity.y);
-
             animator?.SetBool("Roll", true);
+        }
+    }
+
+    private void HandleAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && Time.time >= lastAttackTime + attackCooldown)
+        {
+            animator?.SetTrigger("Attack");  // 애니메이션 트리거
+
+            // 근접 공격 판정
+            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
+            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+
+            foreach (var hit in hits)
+            {
+                // 적 체력 컴포넌트가 있다면 데미지 적용
+                EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(attackDamage);
+                }
+            }
+
+            lastAttackTime = Time.time;
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 충돌한 오브젝트가 "Ground" 태그를 가졌고, 아래 방향에서 충돌한 경우에만 착지로 간주
         if (collision.collider.CompareTag("Ground") && collision.contacts[0].normal.y > 0.5f)
         {
             isGrounded = true;
@@ -112,11 +134,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        // "Ground" 태그를 가진 오브젝트에서 벗어났을 경우 착지 상태 해제
         if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = false;
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        // 공격 범위 시각화
+        Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPosition, attackRange);
+    }
 }
