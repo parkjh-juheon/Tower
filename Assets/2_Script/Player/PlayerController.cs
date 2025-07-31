@@ -4,7 +4,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("이동 설정")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float jumpForce = 7f;
     [SerializeField] private float rollForce = 6f;
 
     [Header("구르기 설정")]
@@ -15,6 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer; // 공격할 대상
+
+    [Header("점프 설정")]
+    [SerializeField] private float jumpForce = 7f;
+    [SerializeField] private int maxJumpCount = 2; // << 인스펙터에서 설정
+    private int currentJumpCount = 0;
+
 
     private float lastAttackTime = 0f;
 
@@ -70,13 +75,15 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isRolling)
+        if (Input.GetKeyDown(KeyCode.Space) && currentJumpCount < maxJumpCount && !isRolling)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            isGrounded = false;
+            currentJumpCount++;
+
             animator?.SetTrigger("Jump");
         }
     }
+
 
     private void HandleRoll()
     {
@@ -129,8 +136,10 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground") && collision.contacts[0].normal.y > 0.5f)
         {
             isGrounded = true;
+            currentJumpCount = 0; // 땅에 닿으면 점프 카운트 초기화
         }
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -139,6 +148,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
 
     private void OnDrawGizmosSelected()
     {
