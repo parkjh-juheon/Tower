@@ -7065,7 +7065,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 100
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -7766,6 +7766,7 @@ MonoBehaviour:
   rollForce: 13
   rollDuration: 0.5
   attackRange: 1.5
+  baseAttackCooldown: 0.5
   attackCooldown: 0.5
   attackDamage: 1
   enemyLayer:
