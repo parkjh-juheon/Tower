@@ -111,25 +111,25 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && Time.time >= lastAttackTime + attackCooldown)
         {
-            animator?.SetTrigger("Attack");  // 애니메이션 트리거
+            animator?.SetTrigger("Attack");
 
-            // 근접 공격 판정
             Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
 
             foreach (var hit in hits)
             {
-                // 적 체력 컴포넌트가 있다면 데미지 적용
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(attackDamage);
+                    // 플레이어 위치도 함께 넘겨줘야 넉백이 적용됨
+                    enemy.TakeDamage(attackDamage, transform.position);
                 }
             }
 
             lastAttackTime = Time.time;
         }
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
