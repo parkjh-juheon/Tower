@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("공격 설정")]
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float baseAttackCooldown = 0.5f; // 기준 쿨타임 추가
+    [SerializeField] private float attackCooldown = 0.5f; // 현재 쿨타임
     [SerializeField] private int attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer; // 공격할 대상
 
@@ -111,6 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && Time.time >= lastAttackTime + attackCooldown)
         {
+            // 애니메이션 속도 조절
+            float speedRatio = baseAttackCooldown / attackCooldown;
+            animator.speed = speedRatio;
+
             animator?.SetTrigger("Attack");
 
             Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
@@ -121,15 +127,22 @@ public class PlayerController : MonoBehaviour
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    // 플레이어 위치도 함께 넘겨줘야 넉백이 적용됨
                     enemy.TakeDamage(attackDamage, transform.position);
                 }
             }
 
             lastAttackTime = Time.time;
+
+            // 일정 시간 후 애니메이션 속도 초기화
+            StartCoroutine(ResetAnimatorSpeed());
         }
     }
 
+    private IEnumerator ResetAnimatorSpeed()
+    {
+        yield return new WaitForSeconds(0.1f); // 공격 애니메이션 클립이 실행되도록 약간의 시간 대기
+        animator.speed = 1f; // 다시 원래 속도로 복원
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
