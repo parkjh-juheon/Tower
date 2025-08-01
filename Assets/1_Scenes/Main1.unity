@@ -6136,7 +6136,7 @@ MonoBehaviour:
   healthBarUI: {fileID: 752838343}
   healthFillImage: {fileID: 1688043103}
   knockbackForce: 30
-  knockbackDuration: 1
+  knockbackDuration: 0.1
   sizeInfluence: 1
 --- !u!114 &903778430
 MonoBehaviour:
@@ -6436,7 +6436,7 @@ MonoBehaviour:
   healthBarUI: {fileID: 465153317}
   healthFillImage: {fileID: 169287980}
   knockbackForce: 30
-  knockbackDuration: 1
+  knockbackDuration: 0.1
   sizeInfluence: 1
 --- !u!114 &964464853
 MonoBehaviour:
@@ -7140,7 +7140,7 @@ MonoBehaviour:
   healthBarUI: {fileID: 740274671}
   healthFillImage: {fileID: 581307414}
   knockbackForce: 30
-  knockbackDuration: 0.2
+  knockbackDuration: 0.1
   sizeInfluence: 1
 --- !u!114 &1319194102
 MonoBehaviour:
@@ -7670,7 +7670,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8a2f58a0db4870c4b8cd87d79726765b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
