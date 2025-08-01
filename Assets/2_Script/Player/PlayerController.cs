@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Time.time >= lastAttackTime + attackCooldown)
+        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
         {
             // 애니메이션 속도 조절
             float speedRatio = baseAttackCooldown / attackCooldown;
