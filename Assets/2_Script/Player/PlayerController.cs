@@ -22,6 +22,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int maxJumpCount = 2; // << 인스펙터에서 설정
     private int currentJumpCount = 0;
 
+    [Header("Ground Check 설정")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+    [SerializeField] private LayerMask groundLayer;
+
 
     private float lastAttackTime = 0f;
 
@@ -48,11 +53,21 @@ public class PlayerController : MonoBehaviour
         HandleRoll();
         HandleAttack();
 
-        if (isGrounded)
-            animator.SetBool("isFalling", false);
-        else if (rb.linearVelocity.y < -0.1f)
-            animator.SetBool("isFalling", true);
+        CheckGrounded(); // ← 새로 추가
+
+        animator.SetBool("isFalling", !isGrounded && rb.linearVelocity.y < -0.1f);
     }
+
+    private void CheckGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        if (isGrounded)
+        {
+            currentJumpCount = 0;
+        }
+    }
+
+
 
     private void HandleMovement()
     {
@@ -86,7 +101,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void HandleRoll()
     {
         if (isRolling)
@@ -108,7 +122,6 @@ public class PlayerController : MonoBehaviour
             animator?.SetBool("Roll", true);
         }
     }
-
     private void HandleAttack()
     {
         if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
