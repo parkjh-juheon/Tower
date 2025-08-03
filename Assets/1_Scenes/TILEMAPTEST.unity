@@ -6037,7 +6037,7 @@ MonoBehaviour:
   currentHP: 0
   healthBarUI: {fileID: 270365499}
   healthFillImage: {fileID: 2108254807}
-  knockbackForce: 30
+  knockbackForce: 15
   knockbackDuration: 0.1
   sizeInfluence: 1
 --- !u!114 &1417362926
@@ -17053,6 +17053,8 @@ MonoBehaviour:
   healthBarFill: {fileID: 188665979}
   impulseSource: {fileID: 1848940049}
   hitEffect: {fileID: 738177010}
+  invincibleDuration: 0.5
+  isInvincible: 0
 --- !u!114 &1848940054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17082,6 +17084,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  canControl: 1
 --- !u!212 &1848940055
 SpriteRenderer:
   m_ObjectHideFlags: 0
