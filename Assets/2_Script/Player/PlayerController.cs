@@ -12,21 +12,20 @@ public class PlayerController : MonoBehaviour
 
     [Header("공격 설정")]
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float baseAttackCooldown = 0.5f; // 기준 쿨타임 추가
-    [SerializeField] private float attackCooldown = 0.5f; // 현재 쿨타임
+    [SerializeField] private float baseAttackCooldown = 0.5f;
+    [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private int attackDamage = 1;
-    [SerializeField] private LayerMask enemyLayer; // 공격할 대상
+    [SerializeField] private LayerMask enemyLayer;
 
     [Header("점프 설정")]
     [SerializeField] private float jumpForce = 7f;
-    [SerializeField] private int maxJumpCount = 2; // << 인스펙터에서 설정
+    [SerializeField] private int maxJumpCount = 2;
     private int currentJumpCount = 0;
 
     [Header("Ground Check 설정")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.1f;
     [SerializeField] private LayerMask groundLayer;
-
 
     private float lastAttackTime = 0f;
 
@@ -39,6 +38,8 @@ public class PlayerController : MonoBehaviour
     private float rollTimer = 0f;
     private int facingDirection = 1;
 
+    public bool canControl = true; //  제어 가능 여부
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -48,14 +49,13 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        CheckGrounded();
+        animator.SetBool("isFalling", !isGrounded && rb.linearVelocity.y < -0.1f);
+
         HandleMovement();
         HandleJump();
         HandleRoll();
         HandleAttack();
-
-        CheckGrounded(); // ← 새로 추가
-
-        animator.SetBool("isFalling", !isGrounded && rb.linearVelocity.y < -0.1f);
     }
 
     private void CheckGrounded()
@@ -67,11 +67,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-
     private void HandleMovement()
     {
-        if (isRolling) return;
+        if (!canControl || isRolling) return;
 
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * moveSpeed, rb.linearVelocity.y);
@@ -92,17 +90,20 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && currentJumpCount < maxJumpCount && !isRolling)
+        if (!canControl || isRolling) return;
+
+        if (Input.GetKeyDown(KeyCode.Space) && currentJumpCount < maxJumpCount)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             currentJumpCount++;
-
             animator?.SetTrigger("Jump");
         }
     }
 
     private void HandleRoll()
     {
+        if (!canControl) return;
+
         if (isRolling)
         {
             rollTimer += Time.deltaTime;
@@ -122,11 +123,13 @@ public class PlayerController : MonoBehaviour
             animator?.SetBool("Roll", true);
         }
     }
+
     private void HandleAttack()
     {
+        if (!canControl) return;
+
         if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
         {
-            // 애니메이션 속도 조절
             float speedRatio = baseAttackCooldown / attackCooldown;
             animator.speed = speedRatio;
 
@@ -145,16 +148,14 @@ public class PlayerController : MonoBehaviour
             }
 
             lastAttackTime = Time.time;
-
-            // 일정 시간 후 애니메이션 속도 초기화
             StartCoroutine(ResetAnimatorSpeed());
         }
     }
 
     private IEnumerator ResetAnimatorSpeed()
     {
-        yield return new WaitForSeconds(0.1f); // 공격 애니메이션 클립이 실행되도록 약간의 시간 대기
-        animator.speed = 1f; // 다시 원래 속도로 복원
+        yield return new WaitForSeconds(0.1f);
+        animator.speed = 1f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -162,10 +163,9 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Ground") && collision.contacts[0].normal.y > 0.5f)
         {
             isGrounded = true;
-            currentJumpCount = 0; // 땅에 닿으면 점프 카운트 초기화
+            currentJumpCount = 0;
         }
     }
-
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -175,10 +175,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void OnDrawGizmosSelected()
     {
-        // 공격 범위 시각화
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPosition, attackRange);

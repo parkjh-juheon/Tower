@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -14,45 +15,62 @@ public class PlayerHealth : MonoBehaviour
     [Header("이펙트")]
     public ParticleSystem hitEffect;
 
+    [Header("피격 후 무적 시간")]
+    public float invincibleDuration = 0.5f;
+    public bool isInvincible = false;
+
+    private PlayerController playerController;
 
     void Start()
     {
         currentHP = maxHP;
         UpdateHealthBar();
-        
+
         animator = GetComponent<Animator>();
-        impulseSource = GetComponent<Cinemachine.CinemachineImpulseSource>();
-        if (hitEffect == null)
-            hitEffect = GetComponentInChildren<ParticleSystem>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+        hitEffect ??= GetComponentInChildren<ParticleSystem>();
+
+        playerController = GetComponent<PlayerController>();
     }
 
     public void TakeDamage(int damage)
     {
+        if (isInvincible) return;
+
         currentHP -= damage;
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         UpdateHealthBar();
 
-        // 카메라 흔들림 효과
         if (impulseSource != null)
-        {
             impulseSource.GenerateImpulse();
-        }
 
         if (animator != null)
-        {
             animator.SetTrigger("Hit");
-        }
 
-        // 피격 파티클 출력
         if (hitEffect != null)
-        {
             hitEffect.Play();
-        }
 
         if (currentHP <= 0)
         {
             Die();
         }
+        else
+        {
+            StartCoroutine(InvincibleCoroutine());
+        }
+    }
+
+    IEnumerator InvincibleCoroutine()
+    {
+        isInvincible = true;
+        if (playerController != null)
+            playerController.canControl = false;
+
+        yield return new WaitForSeconds(invincibleDuration);
+
+        if (playerController != null)
+            playerController.canControl = true;
+        isInvincible = false;
     }
 
     void UpdateHealthBar()
