@@ -33,6 +33,14 @@ public class PlayerHealth : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
+    public void UpdateMaxHP(int newMaxHP)
+    {
+        maxHP = newMaxHP;
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        UpdateHealthBar();
+    }
+
+
     public void TakeDamage(int damage)
     {
         if (isInvincible) return;

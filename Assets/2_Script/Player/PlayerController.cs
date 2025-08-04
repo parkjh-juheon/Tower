@@ -4,21 +4,21 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     [Header("이동 설정")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rollForce = 6f;
 
     [Header("구르기 설정")]
     [SerializeField] private float rollDuration = 0.5f;
 
     [Header("공격 설정")]
-    [SerializeField] private float attackRange = 1f;
+    [SerializeField] public float attackRange = 1f;
     [SerializeField] private float baseAttackCooldown = 0.5f;
-    [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private int attackDamage = 1;
+    [SerializeField] public float attackCooldown = 0.5f;
+    [SerializeField] public float attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer;
 
     [Header("점프 설정")]
-    [SerializeField] private float jumpForce = 7f;
+    [SerializeField] public float jumpForce = 7f;
     [SerializeField] private int maxJumpCount = 2;
     private int currentJumpCount = 0;
 
@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(attackDamage, transform.position);
+                    enemy.TakeDamage((int)attackDamage, transform.position);
                 }
             }
 
@@ -156,23 +156,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         animator.speed = 1f;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Ground") && collision.contacts[0].normal.y > 0.5f)
-        {
-            isGrounded = true;
-            currentJumpCount = 0;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
     }
 
     private void OnDrawGizmosSelected()
