@@ -320,8 +320,8 @@ MonoBehaviour:
   attackCooldownBonus: 0
   attackRangeBonus: 0
   moveSpeedBonus: 5
-  jumpForceBonus: 0
-  maxHPBonus: 0
+  jumpForceBonus: 50
+  maxHPBonus: 200
 --- !u!212 &81531811
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17227,7 +17227,7 @@ Tilemap:
     m_Data: {r: 1.65e-43, g: 1.65e-43, b: 1.65e-43, a: 1.65e-43}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: -20, y: -10, z: 0}
   m_Size: {x: 41, y: 36, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
