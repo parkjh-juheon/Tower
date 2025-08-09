@@ -7,17 +7,33 @@ public class ForceTrap : MonoBehaviour
 
     [Header("힘 설정")]
     public float forceStrength = 10f;
-    public bool isPulling = true; // true = 끌어당김, false = 밀어냄
+    public bool isPulling = true;
 
     [Header("발동 시간 설정")]
-    public float forceDuration = 0.5f; // 힘 지속 시간
-    public float forceCooldown = 2f;   // 다음 발동까지 대기 시간
+    public float forceDuration = 0.5f;
+    public float forceCooldown = 2f;
+
+    [Header("이펙트 설정")]
+    public GameObject effectObject; // 이펙트 오브젝트
+    public bool useDifferentEffects = false;
+    public GameObject pullEffect; // 끌어당김 전용
+    public GameObject pushEffect; // 밀어내기 전용
 
     private Transform player;
     private Rigidbody2D playerRb;
     private bool isActive = false;
     private float forceTimer = 0f;
     private float cooldownTimer = 0f;
+
+    void Start()
+    {
+        if (effectObject != null) effectObject.SetActive(false);
+        if (useDifferentEffects)
+        {
+            if (pullEffect != null) pullEffect.SetActive(false);
+            if (pushEffect != null) pushEffect.SetActive(false);
+        }
+    }
 
     void Update()
     {
@@ -27,21 +43,18 @@ public class ForceTrap : MonoBehaviour
 
             float distance = Vector2.Distance(transform.position, player.position);
 
-            // 범위 안에 있고, 쿨다운이 끝난 상태에서만 발동
             if (!isActive && cooldownTimer >= forceCooldown && distance <= triggerRadius)
             {
                 StartForce();
             }
 
-            // 힘이 적용되는 중
             if (isActive)
             {
                 ApplyForce();
                 forceTimer += Time.deltaTime;
                 if (forceTimer >= forceDuration)
                 {
-                    isActive = false;
-                    cooldownTimer = 0f; // 쿨다운 시작
+                    StopForce();
                 }
             }
         }
@@ -51,6 +64,27 @@ public class ForceTrap : MonoBehaviour
     {
         isActive = true;
         forceTimer = 0f;
+        ShowEffect(true);
+    }
+
+    void StopForce()
+    {
+        isActive = false;
+        cooldownTimer = 0f;
+        ShowEffect(false);
+    }
+
+    void ShowEffect(bool state)
+    {
+        if (useDifferentEffects)
+        {
+            if (isPulling && pullEffect != null) pullEffect.SetActive(state);
+            if (!isPulling && pushEffect != null) pushEffect.SetActive(state);
+        }
+        else
+        {
+            if (effectObject != null) effectObject.SetActive(state);
+        }
     }
 
     void ApplyForce()
@@ -60,7 +94,7 @@ public class ForceTrap : MonoBehaviour
         Vector2 direction = (player.position - transform.position).normalized;
 
         if (!isPulling)
-            direction *= -1; // 밀어내기면 방향 반전
+            direction *= -1;
 
         playerRb.AddForce(direction * forceStrength, ForceMode2D.Force);
     }
@@ -80,7 +114,7 @@ public class ForceTrap : MonoBehaviour
         {
             player = null;
             playerRb = null;
-            isActive = false;
+            StopForce();
         }
     }
 
