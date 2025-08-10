@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float lifeTime = 3f;
+    public float lifeTime = 1f;
     public int damage = 10;
 
     void Start()
@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // 플레이어 체력 감소 처리
-            // other.GetComponent<PlayerHealth>().TakeDamage(damage);
+            other.GetComponent<PlayerHealth>().TakeDamage(damage);
             Destroy(gameObject);
         }
         else if (other.CompareTag("Ground"))

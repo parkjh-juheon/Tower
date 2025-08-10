@@ -25,14 +25,25 @@ public class TurretTrap : MonoBehaviour
 
             if (distance <= triggerRadius)
             {
-                // 포탑 회전 (선택)
-                Vector2 direction = (player.position - transform.position).normalized;
-                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, angle);
+                // 좌우 방향만 반전
+                if (player.position.x < transform.position.x)
+                {
+                    // 플레이어가 왼쪽
+                    transform.localScale = new Vector3(-1, 1, 1);
+                }
+                else
+                {
+                    // 플레이어가 오른쪽
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
 
                 // 발사 쿨다운 체크
                 if (fireTimer >= fireCooldown)
                 {
+                    Vector2 direction = (player.position - transform.position).normalized;
+                    direction.y = 0; // Y축 고정 (수평 방향)
+                    direction.Normalize();
+
                     Shoot(direction);
                     fireTimer = 0f;
                 }
