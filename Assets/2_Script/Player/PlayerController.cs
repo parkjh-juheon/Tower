@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer;
 
+    [Header("넉백 설정")]
+    [SerializeField] public float knockbackPower = 5f; // 플레이어 넉백 힘
+
     [Header("점프 설정")]
     [SerializeField] public float jumpForce = 7f;
     [SerializeField] private int maxJumpCount = 2;
@@ -143,7 +146,8 @@ public class PlayerController : MonoBehaviour
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    enemy.TakeDamage((int)attackDamage, transform.position);
+                    // 🆕 플레이어 넉백 힘 전달
+                    enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
                 }
             }
 

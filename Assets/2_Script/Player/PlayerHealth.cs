@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Cinemachine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHP = 100;
@@ -19,6 +20,11 @@ public class PlayerHealth : MonoBehaviour
     public float invincibleDuration = 0.5f;
     public bool isInvincible = false;
 
+    [Header("넉백 설정")]
+    public float knockbackDuration = 0.2f;  // 넉백 시간
+    private Rigidbody2D rb;
+    private bool isKnockback = false;
+
     private PlayerController playerController;
 
     void Start()
@@ -29,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
         animator = GetComponent<Animator>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
         hitEffect ??= GetComponentInChildren<ParticleSystem>();
+        rb = GetComponent<Rigidbody2D>();
 
         playerController = GetComponent<PlayerController>();
     }
@@ -40,8 +47,10 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-
-    public void TakeDamage(int damage)
+    /// <summary>
+    /// 적에게 공격받을 때 호출
+    /// </summary>
+    public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower)
     {
         if (isInvincible) return;
 
@@ -64,8 +73,29 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
+            ApplyKnockback(attackerPosition, attackerKnockbackPower);
             StartCoroutine(InvincibleCoroutine());
         }
+    }
+
+    void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
+    {
+        if (isKnockback) return;
+        isKnockback = true;
+
+        // 방향 계산 (적 → 플레이어 반대 방향)
+        Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
+
+        // 힘 적용
+        rb.AddForce(direction * knockbackPower, ForceMode2D.Impulse);
+
+        Invoke(nameof(EndKnockback), knockbackDuration);
+    }
+
+    void EndKnockback()
+    {
+        rb.linearVelocity = Vector2.zero;
+        isKnockback = false;
     }
 
     IEnumerator InvincibleCoroutine()

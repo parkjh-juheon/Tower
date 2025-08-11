@@ -116,6 +116,17 @@ public class ForceTrap : MonoBehaviour
             playerRb = null;
             StopForce();
         }
+
+        void StopForce()
+        {
+            isActive = false;
+            cooldownTimer = 0f;
+            ShowEffect(false);
+
+            // 밀기/당기기 끝난 뒤에만 참조 해제
+            player = null;
+            playerRb = null;
+        }
     }
 
     void OnDrawGizmosSelected()
