@@ -20,7 +20,7 @@ public class StatItem : MonoBehaviour
             if (controller != null)
             {
                 controller.attackDamage += (int)attackDamageBonus;
-                controller.attackCooldown = Mathf.Max(0.1f, controller.attackCooldown - attackCooldownBonus); // 최소값 제한
+                controller.attackCooldown = Mathf.Max(0.1f, controller.attackCooldown + attackCooldownBonus); // 양수=느려짐, 음수=빨라짐
                 controller.attackRange += attackRangeBonus;
                 controller.moveSpeed += moveSpeedBonus;
                 controller.jumpForce += jumpForceBonus;
@@ -31,8 +31,8 @@ public class StatItem : MonoBehaviour
                 health.UpdateMaxHP(health.maxHP + maxHPBonus);
             }
 
-            // 아이템 소멸
             Destroy(gameObject);
         }
     }
+
 }
