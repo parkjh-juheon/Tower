@@ -26,38 +26,37 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(int damage, Vector2 attackerPosition)
+public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower)
+{
+    currentHP -= damage;
+    if (currentHP < 0) currentHP = 0;
+
+    UpdateHealthBar();
+
+    if (currentHP <= 0)
     {
-        currentHP -= damage;
-        if (currentHP < 0) currentHP = 0;
-
-        UpdateHealthBar();
-
-        if (currentHP <= 0)
-        {
-            Die();
-        }
-        else
-        {
-            ApplyKnockback(attackerPosition);
-        }
+        Die();
     }
-
-    void ApplyKnockback(Vector2 attackerPosition)
+    else
     {
-        if (isKnockback) return;
-        isKnockback = true;
-
-        Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
-
-        // === 핵심 ===
-        float size = transform.localScale.magnitude; // 적의 전체 크기(벡터 크기)
-        float scaledForce = knockbackForce / (size * sizeInfluence); // 크기에 반비례
-
-        rb.AddForce(direction * scaledForce, ForceMode2D.Impulse);
-
-        Invoke(nameof(EndKnockback), knockbackDuration);
+        ApplyKnockback(attackerPosition, attackerKnockbackPower);
     }
+}
+
+void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
+{
+    if (isKnockback) return;
+    isKnockback = true;
+
+    Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
+
+    // 플레이어 넉백 파워 기반
+    float scaledForce = knockbackPower; // 필요 시 추가 조정 가능
+
+    rb.AddForce(direction * scaledForce, ForceMode2D.Impulse);
+
+    Invoke(nameof(EndKnockback), knockbackDuration);
+}
 
     void EndKnockback()
     {
