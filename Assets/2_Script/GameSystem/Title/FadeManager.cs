@@ -1,31 +1,28 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class FadeManager : MonoBehaviour
 {
-    public static FadeManager Instance; // 싱글톤
+    public static FadeManager Instance;
 
-    [Header("UI 컴포넌트")]
-    public Image fadeImage;       // 화면 덮는 검은색 이미지
-    public GameObject loadingUI;  // 로딩 화면 (회전 아이콘 같은 거)
-
-    [Header("설정값")]
-    public float fadeDuration = 1f; // 페이드 시간
+    [Header("UI")]
+    public Image fadePanel;            // 검은 화면
+    public GameObject loadingPanel;    // "Loading..." 패널
+    public TextMeshProUGUI loadingText;
+    [SerializeField] private float fadeDuration = 1f; // 인스펙터에서 조절 (기본 1초)
+    [SerializeField] private float blackScreenDuration = 0.5f; // 검정 화면 지속 시간 (기본 0.5초)
 
     private void Awake()
     {
-        // 싱글톤 설정
         if (Instance == null)
-        {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
         else
-        {
             Destroy(gameObject);
-        }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void LoadScene(string sceneName)
@@ -35,49 +32,69 @@ public class FadeManager : MonoBehaviour
 
     private IEnumerator LoadSceneRoutine(string sceneName)
     {
-        // 1. 페이드 아웃
-        yield return StartCoroutine(Fade(1));
+        // 페이드 아웃
+        yield return StartCoroutine(Fade(1f));
 
-        // 2. 로딩 UI 켜기
-        if (loadingUI != null) loadingUI.SetActive(true);
+        // 로딩 UI 활성화 (페이드 아웃 완료 직후)
+        loadingPanel.SetActive(true);
 
-        // 3. 씬 비동기 로드
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
-        op.allowSceneActivation = false; // 100% 찰 때까지 대기
+        // 검정 화면 지속
+        yield return new WaitForSeconds(blackScreenDuration);
 
-        while (op.progress < 0.9f)
+        // 점점점 효과 시작
+        StartCoroutine(LoadingTextEffect());
+
+        // 씬 비동기 로드
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
+        async.allowSceneActivation = false;
+
+        while (!async.isDone)
         {
-            yield return null; // 로딩중
+            // 로딩이 끝났을 때 씬 전환
+            if (async.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(0.5f); // 약간 기다렸다가
+                async.allowSceneActivation = true;
+            }
+            yield return null;
         }
 
-        // 로딩 끝 (잠깐 딜레이 가능)
-        yield return new WaitForSeconds(1f);
+        // 로딩 UI 숨기기
+        loadingPanel.SetActive(false);
 
-        op.allowSceneActivation = true; // 씬 전환 실행
-
-        // 4. 씬 로드 완료 후 로딩 UI 끄기
-        if (loadingUI != null) loadingUI.SetActive(false);
-
-        // 5. 페이드 인
-        yield return StartCoroutine(Fade(0));
+        // 페이드 인
+        yield return StartCoroutine(Fade(0f));
     }
 
     private IEnumerator Fade(float targetAlpha)
     {
-        Color color = fadeImage.color;
+        Color color = fadePanel.color;
         float startAlpha = color.a;
-        float time = 0;
+        float time = 0f;
 
         while (time < fadeDuration)
         {
             time += Time.deltaTime;
-            float t = time / fadeDuration;
+            float t = Mathf.Clamp01(time / fadeDuration);
             color.a = Mathf.Lerp(startAlpha, targetAlpha, t);
-            fadeImage.color = color;
+            fadePanel.color = color;
             yield return null;
         }
-
+        // 마지막 알파값 보정
         color.a = targetAlpha;
-        fadeImage.color = color;
+        fadePanel.color = color;
+    }
+
+    private IEnumerator LoadingTextEffect()
+    {
+        string baseText = "Loading";
+        int dotCount = 0;
+
+        while (loadingPanel.activeSelf)
+        {
+            loadingText.text = baseText + new string('.', dotCount);
+            dotCount = (dotCount + 1) % 4; // 0~3 반복
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
