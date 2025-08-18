@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamageBonus: 5
-  attackCooldownBonus: -0.4
+  attackCooldownBonus: -0.2
   attackRangeBonus: 0
   moveSpeedBonus: 5
   jumpForceBonus: 10
