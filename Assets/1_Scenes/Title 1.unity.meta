@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/1_Scenes/Title 1.unity.meta
 guid: 0ff8c0f85be85104292ee8b2a203c5d2
+========
+guid: 432664205021bfd43b52a13e0df7b2b1
+folderAsset: yes
+>>>>>>>> origin/hdh:Assets/2_Script/Item.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
