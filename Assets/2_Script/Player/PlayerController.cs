@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private int attackIndex = 0; // 현재 공격 모션 번호 (0,1,2)
+
     private void HandleAttack()
     {
         if (!canControl) return;
@@ -137,8 +139,11 @@ public class PlayerController : MonoBehaviour
             float speedRatio = baseAttackCooldown / attackCooldown;
             animator.speed = speedRatio;
 
-            animator?.SetTrigger("Attack");
+            // 공격 애니메이션 순차적으로 실행
+            attackIndex = (attackIndex + 1) % 3; // 0→1→2→0 반복
+            animator.SetTrigger($"Attack{attackIndex + 1}");
 
+            // 실제 공격 판정
             Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
             Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
 
@@ -147,7 +152,6 @@ public class PlayerController : MonoBehaviour
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    //  플레이어 넉백 힘 전달
                     enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
                 }
             }
@@ -156,6 +160,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(ResetAnimatorSpeed());
         }
     }
+
 
     private IEnumerator ResetAnimatorSpeed()
     {
