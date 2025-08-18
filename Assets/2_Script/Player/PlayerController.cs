@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -80,12 +81,12 @@ public class PlayerController : MonoBehaviour
         if (inputX > 0)
         {
             facingDirection = 1;
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
         else if (inputX < 0)
         {
             facingDirection = -1;
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
 
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
@@ -146,7 +147,7 @@ public class PlayerController : MonoBehaviour
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
                 {
-                    // 🆕 플레이어 넉백 힘 전달
+                    //  플레이어 넉백 힘 전달
                     enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
                 }
             }
