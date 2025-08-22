@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c327866eb56f17347a6914c7013172bf
+guid: 0eb9b0d18c06a914789948e2a03fbd49
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -137,6 +137,12 @@ TextureImporter:
   - first:
       213: 4104606405068377637
     second: Player-Sheet_44
+  - first:
+      213: 794970091359380848
+    second: Player-Sheet_45
+  - first:
+      213: 1055311230425530279
+    second: Player-Sheet_46
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -236,7 +242,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -258,7 +264,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -280,7 +286,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 960
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -302,7 +308,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1440
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -324,7 +330,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1920
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -346,7 +352,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 1440
+        y: 1920
         width: 480
         height: 480
       alignment: 7
@@ -367,7 +373,7 @@ TextureImporter:
       name: Player-Sheet_6
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 0
         y: 1440
         width: 480
         height: 480
@@ -389,7 +395,7 @@ TextureImporter:
       name: Player-Sheet_7
       rect:
         serializedVersion: 2
-        x: 3360
+        x: 480
         y: 1440
         width: 480
         height: 480
@@ -411,7 +417,7 @@ TextureImporter:
       name: Player-Sheet_8
       rect:
         serializedVersion: 2
-        x: 3840
+        x: 960
         y: 1440
         width: 480
         height: 480
@@ -433,7 +439,7 @@ TextureImporter:
       name: Player-Sheet_9
       rect:
         serializedVersion: 2
-        x: 4320
+        x: 1440
         y: 1440
         width: 480
         height: 480
@@ -455,7 +461,7 @@ TextureImporter:
       name: Player-Sheet_10
       rect:
         serializedVersion: 2
-        x: 4800
+        x: 1920
         y: 1440
         width: 480
         height: 480
@@ -477,8 +483,8 @@ TextureImporter:
       name: Player-Sheet_11
       rect:
         serializedVersion: 2
-        x: 0
-        y: 960
+        x: 2400
+        y: 1440
         width: 480
         height: 480
       alignment: 7
@@ -499,8 +505,8 @@ TextureImporter:
       name: Player-Sheet_12
       rect:
         serializedVersion: 2
-        x: 480
-        y: 960
+        x: 2880
+        y: 1440
         width: 480
         height: 480
       alignment: 7
@@ -521,8 +527,8 @@ TextureImporter:
       name: Player-Sheet_13
       rect:
         serializedVersion: 2
-        x: 960
-        y: 960
+        x: 3360
+        y: 1440
         width: 480
         height: 480
       alignment: 7
@@ -543,8 +549,8 @@ TextureImporter:
       name: Player-Sheet_14
       rect:
         serializedVersion: 2
-        x: 1440
-        y: 960
+        x: 3840
+        y: 1440
         width: 480
         height: 480
       alignment: 7
@@ -565,8 +571,8 @@ TextureImporter:
       name: Player-Sheet_15
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 960
+        x: 4320
+        y: 1440
         width: 480
         height: 480
       alignment: 7
@@ -587,7 +593,7 @@ TextureImporter:
       name: Player-Sheet_16
       rect:
         serializedVersion: 2
-        x: 2400
+        x: 0
         y: 960
         width: 480
         height: 480
@@ -609,7 +615,7 @@ TextureImporter:
       name: Player-Sheet_17
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 480
         y: 960
         width: 480
         height: 480
@@ -631,7 +637,7 @@ TextureImporter:
       name: Player-Sheet_18
       rect:
         serializedVersion: 2
-        x: 3360
+        x: 960
         y: 960
         width: 480
         height: 480
@@ -653,7 +659,7 @@ TextureImporter:
       name: Player-Sheet_19
       rect:
         serializedVersion: 2
-        x: 3840
+        x: 1440
         y: 960
         width: 480
         height: 480
@@ -675,7 +681,7 @@ TextureImporter:
       name: Player-Sheet_20
       rect:
         serializedVersion: 2
-        x: 4320
+        x: 1920
         y: 960
         width: 480
         height: 480
@@ -697,7 +703,7 @@ TextureImporter:
       name: Player-Sheet_21
       rect:
         serializedVersion: 2
-        x: 4800
+        x: 2400
         y: 960
         width: 480
         height: 480
@@ -719,7 +725,7 @@ TextureImporter:
       name: Player-Sheet_22
       rect:
         serializedVersion: 2
-        x: 5280
+        x: 2880
         y: 960
         width: 480
         height: 480
@@ -741,8 +747,8 @@ TextureImporter:
       name: Player-Sheet_23
       rect:
         serializedVersion: 2
-        x: 0
-        y: 480
+        x: 3360
+        y: 960
         width: 480
         height: 480
       alignment: 7
@@ -763,7 +769,7 @@ TextureImporter:
       name: Player-Sheet_24
       rect:
         serializedVersion: 2
-        x: 480
+        x: 0
         y: 480
         width: 480
         height: 480
@@ -785,7 +791,7 @@ TextureImporter:
       name: Player-Sheet_25
       rect:
         serializedVersion: 2
-        x: 960
+        x: 480
         y: 480
         width: 480
         height: 480
@@ -807,7 +813,7 @@ TextureImporter:
       name: Player-Sheet_26
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 960
         y: 480
         width: 480
         height: 480
@@ -829,7 +835,7 @@ TextureImporter:
       name: Player-Sheet_27
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 1440
         y: 480
         width: 480
         height: 480
@@ -851,7 +857,7 @@ TextureImporter:
       name: Player-Sheet_28
       rect:
         serializedVersion: 2
-        x: 2400
+        x: 1920
         y: 480
         width: 480
         height: 480
@@ -873,7 +879,7 @@ TextureImporter:
       name: Player-Sheet_29
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 2400
         y: 480
         width: 480
         height: 480
@@ -895,7 +901,7 @@ TextureImporter:
       name: Player-Sheet_30
       rect:
         serializedVersion: 2
-        x: 3360
+        x: 2880
         y: 480
         width: 480
         height: 480
@@ -983,8 +989,8 @@ TextureImporter:
       name: Player-Sheet_34
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 5280
+        y: 480
         width: 480
         height: 480
       alignment: 7
@@ -1005,7 +1011,7 @@ TextureImporter:
       name: Player-Sheet_35
       rect:
         serializedVersion: 2
-        x: 480
+        x: 0
         y: 0
         width: 480
         height: 480
@@ -1027,7 +1033,7 @@ TextureImporter:
       name: Player-Sheet_36
       rect:
         serializedVersion: 2
-        x: 960
+        x: 480
         y: 0
         width: 480
         height: 480
@@ -1049,7 +1055,7 @@ TextureImporter:
       name: Player-Sheet_37
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 960
         y: 0
         width: 480
         height: 480
@@ -1071,7 +1077,7 @@ TextureImporter:
       name: Player-Sheet_38
       rect:
         serializedVersion: 2
-        x: 1920
+        x: 1440
         y: 0
         width: 480
         height: 480
@@ -1093,7 +1099,7 @@ TextureImporter:
       name: Player-Sheet_39
       rect:
         serializedVersion: 2
-        x: 2400
+        x: 1920
         y: 0
         width: 480
         height: 480
@@ -1115,7 +1121,7 @@ TextureImporter:
       name: Player-Sheet_40
       rect:
         serializedVersion: 2
-        x: 2880
+        x: 2400
         y: 0
         width: 480
         height: 480
@@ -1137,7 +1143,7 @@ TextureImporter:
       name: Player-Sheet_41
       rect:
         serializedVersion: 2
-        x: 3360
+        x: 2880
         y: 0
         width: 480
         height: 480
@@ -1159,7 +1165,7 @@ TextureImporter:
       name: Player-Sheet_42
       rect:
         serializedVersion: 2
-        x: 3840
+        x: 3360
         y: 0
         width: 480
         height: 480
@@ -1181,7 +1187,7 @@ TextureImporter:
       name: Player-Sheet_43
       rect:
         serializedVersion: 2
-        x: 4320
+        x: 3840
         y: 0
         width: 480
         height: 480
@@ -1203,7 +1209,7 @@ TextureImporter:
       name: Player-Sheet_44
       rect:
         serializedVersion: 2
-        x: 4800
+        x: 4320
         y: 0
         width: 480
         height: 480
@@ -1221,11 +1227,55 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 480
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 075298e061d480b00800000000000000
+      internalID: 794970091359380848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 5280
+        y: 0
+        width: 480
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7af7ef809f735ae00800000000000000
+      internalID: 1055311230425530279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3f07b35c4bec1d149a8ccaf6d1f8bce1
+    spriteID: bce0665c9d0a71d47aecbfe9a3de2511
     internalID: 0
     vertices: []
     indices: 
@@ -1235,7 +1285,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":480.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":5.0},"gridSpriteSize":{"x":480.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player-Sheet_0: 4518225611054890064
       Player-Sheet_1: 1871674578834246284
@@ -1277,6 +1327,8 @@ TextureImporter:
       Player-Sheet_42: -7314879033136497074
       Player-Sheet_43: 5313475678968076629
       Player-Sheet_44: 4104606405068377637
+      Player-Sheet_45: 794970091359380848
+      Player-Sheet_46: 1055311230425530279
       Player-Sheet_5: 3090173003755996115
       Player-Sheet_6: 8403341588387058359
       Player-Sheet_7: 8222716190985997936

@@ -1,103 +1,163 @@
 fileFormatVersion: 2
-guid: 6a79c859482a44b49910db8f99aa40d0
+guid: af71a22128f7a6a4db8fdb5e0c2b8acd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3413962525100912613
-    second: Player_attack-Sheet_0
+      213: 7059690694040494521
+    second: Player-Sheet_attack_0
   - first:
-      213: 6724867590553001564
-    second: Player_attack-Sheet_1
+      213: -8025356897673734884
+    second: Player-Sheet_attack_1
   - first:
-      213: -2896764619560967236
-    second: Player_attack-Sheet_2
+      213: -3344797000257347069
+    second: Player-Sheet_attack_2
   - first:
-      213: 1921260855020661398
-    second: Player_attack-Sheet_3
+      213: -498346491361412695
+    second: Player-Sheet_attack_3
   - first:
-      213: -1925618937993496646
-    second: Player_attack-Sheet_4
+      213: 4028512053792849157
+    second: Player-Sheet_attack_4
   - first:
-      213: -4181098883803778257
-    second: Player_attack-Sheet_5
+      213: -1014554034144119168
+    second: Player-Sheet_attack_5
   - first:
-      213: -4048879995366622954
-    second: Player_attack-Sheet_6
+      213: 1400178263381647574
+    second: Player-Sheet_attack_6
   - first:
-      213: -320069618762493212
-    second: Player_attack-Sheet_7
+      213: 8699021364333513988
+    second: Player-Sheet_attack_7
   - first:
-      213: -5297585798410819041
-    second: Player_attack-Sheet_8
+      213: -5287666396334329965
+    second: Player-Sheet_attack_8
   - first:
-      213: 3025388034476420111
-    second: Player_attack-Sheet_9
+      213: -5976507427437465298
+    second: Player-Sheet_attack_9
   - first:
-      213: -4934898082083115139
-    second: Player_attack-Sheet_10
+      213: -3693771055292032667
+    second: Player-Sheet_attack_10
   - first:
-      213: -2060536882718942106
-    second: Player_attack-Sheet_11
+      213: -3964904238689489692
+    second: Player-Sheet_attack_11
   - first:
-      213: -4902342961019428401
-    second: Player_attack-Sheet_12
+      213: 5366540733358276085
+    second: Player-Sheet_attack_12
   - first:
-      213: 4383482391128618202
-    second: Player_attack-Sheet_13
+      213: 5281776012782365826
+    second: Player-Sheet_attack_13
   - first:
-      213: 1206759910377770047
-    second: Player_attack-Sheet_14
+      213: -5326025291656925321
+    second: Player-Sheet_attack_14
   - first:
-      213: -9019941281017923688
-    second: Player_attack-Sheet_15
+      213: -4347867491322196393
+    second: Player-Sheet_attack_15
   - first:
-      213: 7868619946347796841
-    second: Player_attack-Sheet_16
+      213: 1026989104527889627
+    second: Player-Sheet_attack_16
   - first:
-      213: 6790756568979724376
-    second: Player_attack-Sheet_17
+      213: -8720267008690970927
+    second: Player-Sheet_attack_17
   - first:
-      213: 2870864699528703477
-    second: Player_attack-Sheet_18
+      213: 4708349784477758151
+    second: Player-Sheet_attack_18
   - first:
-      213: 890414994029817463
-    second: Player_attack-Sheet_19
+      213: -6518975781888251691
+    second: Player-Sheet_attack_19
   - first:
-      213: -5379511119391255513
-    second: Player_attack-Sheet_20
+      213: -1016328419847658708
+    second: Player-Sheet_attack_20
   - first:
-      213: -2399870893360654450
-    second: Player_attack-Sheet_21
+      213: 840873101637266140
+    second: Player-Sheet_attack_21
   - first:
-      213: 6327686098527356224
-    second: Player_attack-Sheet_22
+      213: 3416472955813897312
+    second: Player-Sheet_attack_22
   - first:
-      213: -1866789001141790235
-    second: Player_attack-Sheet_23
+      213: -2718161864725144315
+    second: Player-Sheet_attack_23
   - first:
-      213: -5678417117150578900
-    second: Player_attack-Sheet_24
+      213: -5746759094739955793
+    second: Player-Sheet_attack_24
   - first:
-      213: -3436454397500497831
-    second: Player_attack-Sheet_25
+      213: 1579240188398664284
+    second: Player-Sheet_attack_25
   - first:
-      213: 8400380844182324606
-    second: Player_attack-Sheet_26
+      213: -1352687715688803151
+    second: Player-Sheet_attack_26
   - first:
-      213: -8727813432905201704
-    second: Player_attack-Sheet_27
+      213: 8038606580045034153
+    second: Player-Sheet_attack_27
   - first:
-      213: -389253260670313629
-    second: Player_attack-Sheet_28
+      213: -940555393469535630
+    second: Player-Sheet_attack_28
   - first:
-      213: -3064128295006337084
-    second: Player_attack-Sheet_29
+      213: -5264302070307187618
+    second: Player-Sheet_attack_29
   - first:
-      213: -5386598295462101786
-    second: Player_attack-Sheet_30
+      213: -424360385334924576
+    second: Player-Sheet_attack_30
   - first:
-      213: -1472167026378552789
-    second: Player_attack-Sheet_31
+      213: 4499128537925895834
+    second: Player-Sheet_attack_31
+  - first:
+      213: 6277120563867552003
+    second: Player-Sheet_attack_32
+  - first:
+      213: -3324365343649280971
+    second: Player-Sheet_attack_33
+  - first:
+      213: 6148558586788144372
+    second: Player-Sheet_attack_34
+  - first:
+      213: -5895665966818842641
+    second: Player-Sheet_attack_35
+  - first:
+      213: -8247820430707511239
+    second: Player-Sheet_attack_36
+  - first:
+      213: -6214529221328092143
+    second: Player-Sheet_attack_37
+  - first:
+      213: 7784078339387491554
+    second: Player-Sheet_attack_38
+  - first:
+      213: -7688720661569975333
+    second: Player-Sheet_attack_39
+  - first:
+      213: -3123988250109231579
+    second: Player-Sheet_attack_40
+  - first:
+      213: 5432511411421365432
+    second: Player-Sheet_attack_41
+  - first:
+      213: -8362661095998440405
+    second: Player-Sheet_attack_42
+  - first:
+      213: 301684165408901595
+    second: Player-Sheet_attack_43
+  - first:
+      213: -1464443324488432669
+    second: Player-Sheet_attack_44
+  - first:
+      213: 4032038152168166288
+    second: Player-Sheet_attack_45
+  - first:
+      213: 1419216369315570672
+    second: Player-Sheet_attack_46
+  - first:
+      213: -5404763749634901729
+    second: Player-Sheet_attack_47
+  - first:
+      213: 540324292560469958
+    second: Player-Sheet_attack_48
+  - first:
+      213: 8760892792339450802
+    second: Player-Sheet_attack_49
+  - first:
+      213: -1639050940187058948
+    second: Player-Sheet_attack_50
+  - first:
+      213: -3122579922327970616
+    second: Player-Sheet_attack_51
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -193,11 +253,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_attack-Sheet_0
+      name: Player-Sheet_attack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -208,18 +268,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5efa22124d4d06f20800000000000000
-      internalID: 3413962525100912613
+      spriteID: 9b12a6a484f09f160800000000000000
+      internalID: 7059690694040494521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_1
+      name: Player-Sheet_attack_1
       rect:
         serializedVersion: 2
         x: 800
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -230,18 +290,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c5ed2789177835d50800000000000000
-      internalID: 6724867590553001564
+      spriteID: c151d66fb6430a090800000000000000
+      internalID: -8025356897673734884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_2
+      name: Player-Sheet_attack_2
       rect:
         serializedVersion: 2
         x: 1600
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -252,18 +312,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cb3262d1def9cc7d0800000000000000
-      internalID: -2896764619560967236
+      spriteID: 3026ed989d4e491d0800000000000000
+      internalID: -3344797000257347069
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_3
+      name: Player-Sheet_attack_3
       rect:
         serializedVersion: 2
         x: 2400
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -274,18 +334,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 69aae508190b9aa10800000000000000
-      internalID: 1921260855020661398
+      spriteID: 9a93757a1848519f0800000000000000
+      internalID: -498346491361412695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_4
+      name: Player-Sheet_attack_4
       rect:
         serializedVersion: 2
         x: 3200
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -296,18 +356,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ab7f12c37c3d645e0800000000000000
-      internalID: -1925618937993496646
+      spriteID: 50db3b37e5628e730800000000000000
+      internalID: 4028512053792849157
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_5
+      name: Player-Sheet_attack_5
       rect:
         serializedVersion: 2
         x: 4000
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -318,18 +378,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f23f714b7b0c9f5c0800000000000000
-      internalID: -4181098883803778257
+      spriteID: 08676653b749be1f0800000000000000
+      internalID: -1014554034144119168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_6
+      name: Player-Sheet_attack_6
       rect:
         serializedVersion: 2
         x: 4800
-        y: 960
+        y: 1440
         width: 800
         height: 480
       alignment: 7
@@ -340,17 +400,39 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 619bcf9981d7fc7c0800000000000000
-      internalID: -4048879995366622954
+      spriteID: 6d0261b46be6e6310800000000000000
+      internalID: 1400178263381647574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_7
+      name: Player-Sheet_attack_7
       rect:
         serializedVersion: 2
         x: 5600
+        y: 1440
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40d02aa67d129b870800000000000000
+      internalID: 8699021364333513988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_8
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 960
         width: 800
         height: 480
@@ -362,14 +444,146 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4e25446a062ee8bf0800000000000000
-      internalID: -320069618762493212
+      spriteID: 39fe8b38d6f6e96b0800000000000000
+      internalID: -5287666396334329965
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_8
+      name: Player-Sheet_attack_9
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e213b1ed82e2f0da0800000000000000
+      internalID: -5976507427437465298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_10
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569d2bfabc61dbcc0800000000000000
+      internalID: -3693771055292032667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_11
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ece8741a94d9f8c0800000000000000
+      internalID: -3964904238689489692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_12
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fdfb742d58c97a40800000000000000
+      internalID: 5366540733358276085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_13
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28c6211bc43ac4940800000000000000
+      internalID: 5281776012782365826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_14
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 960
+        width: 800
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77fea0a37382616b0800000000000000
+      internalID: -5326025291656925321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player-Sheet_attack_15
       rect:
         serializedVersion: 2
         x: 0
@@ -384,14 +598,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f1aa19eb8c13b76b0800000000000000
-      internalID: -5297585798410819041
+      spriteID: 75e85497d8549a3c0800000000000000
+      internalID: -4347867491322196393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_9
+      name: Player-Sheet_attack_16
       rect:
         serializedVersion: 2
         x: 800
@@ -406,14 +620,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0c2fae53665cf920800000000000000
-      internalID: 3025388034476420111
+      spriteID: bd4d49b3629904e00800000000000000
+      internalID: 1026989104527889627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_10
+      name: Player-Sheet_attack_17
       rect:
         serializedVersion: 2
         x: 1600
@@ -428,14 +642,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d7fedae2758b38bb0800000000000000
-      internalID: -4934898082083115139
+      spriteID: 1de9a688b536bf680800000000000000
+      internalID: -8720267008690970927
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_11
+      name: Player-Sheet_attack_18
       rect:
         serializedVersion: 2
         x: 2400
@@ -450,14 +664,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 66c52f25f908763e0800000000000000
-      internalID: -2060536882718942106
+      spriteID: 7c2751ede2b675140800000000000000
+      internalID: 4708349784477758151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_12
+      name: Player-Sheet_attack_19
       rect:
         serializedVersion: 2
         x: 3200
@@ -472,14 +686,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fc1ec49fc0167fbb0800000000000000
-      internalID: -4902342961019428401
+      spriteID: 5d82d2db012f785a0800000000000000
+      internalID: -6518975781888251691
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_13
+      name: Player-Sheet_attack_20
       rect:
         serializedVersion: 2
         x: 4000
@@ -494,36 +708,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad4b662920245dc30800000000000000
-      internalID: 4383482391128618202
+      spriteID: c23a8d7dfa645e1f0800000000000000
+      internalID: -1016328419847658708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_14
-      rect:
-        serializedVersion: 2
-        x: 4800
-        y: 480
-        width: 800
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3ccf3baeb54fb010800000000000000
-      internalID: 1206759910377770047
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_attack-Sheet_15
+      name: Player-Sheet_attack_21
       rect:
         serializedVersion: 2
         x: 0
@@ -538,14 +730,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8977b02d13bb2d280800000000000000
-      internalID: -9019941281017923688
+      spriteID: cda254c71a16bab00800000000000000
+      internalID: 840873101637266140
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_16
+      name: Player-Sheet_attack_22
       rect:
         serializedVersion: 2
         x: 800
@@ -560,14 +752,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9691d96c624f23d60800000000000000
-      internalID: 7868619946347796841
+      spriteID: 06424045d00c96f20800000000000000
+      internalID: 3416472955813897312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_17
+      name: Player-Sheet_attack_23
       rect:
         serializedVersion: 2
         x: 1600
@@ -582,14 +774,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 858df2ade1d9d3e50800000000000000
-      internalID: 6790756568979724376
+      spriteID: 50d5b0b7f26274ad0800000000000000
+      internalID: -2718161864725144315
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_18
+      name: Player-Sheet_attack_24
       rect:
         serializedVersion: 2
         x: 2400
@@ -604,14 +796,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5fded95db3c57d720800000000000000
-      internalID: 2870864699528703477
+      spriteID: faf874c0d096f30b0800000000000000
+      internalID: -5746759094739955793
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_19
+      name: Player-Sheet_attack_25
       rect:
         serializedVersion: 2
         x: 3200
@@ -626,14 +818,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 77e24dd28b36b5c00800000000000000
-      internalID: 890414994029817463
+      spriteID: c5af58c85969ae510800000000000000
+      internalID: 1579240188398664284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_20
+      name: Player-Sheet_attack_26
       rect:
         serializedVersion: 2
         x: 4000
@@ -648,14 +840,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7249b6783232855b0800000000000000
-      internalID: -5379511119391255513
+      spriteID: 1b4955e70b94a3de0800000000000000
+      internalID: -1352687715688803151
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_21
+      name: Player-Sheet_attack_27
       rect:
         serializedVersion: 2
         x: 4800
@@ -670,14 +862,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e8750763322f1bed0800000000000000
-      internalID: -2399870893360654450
+      spriteID: 9a2b3bc181ede8f60800000000000000
+      internalID: 8038606580045034153
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player_attack-Sheet_22
+      name: Player-Sheet_attack_28
       rect:
         serializedVersion: 2
         x: 5600
@@ -692,8 +884,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 04586e82bf470d750800000000000000
-      internalID: 6327686098527356224
+      spriteID: 27aaba85ad972f2f0800000000000000
+      internalID: -940555393469535630
       vertices: []
       indices: 
       edges: []
@@ -702,7 +894,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 750f63a68b08eb74683ffec3ac7387f3
+    spriteID: 4d0217d937ac70d468a9f2e1f7eae287
     internalID: 0
     vertices: []
     indices: 
@@ -712,31 +904,37 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":3.0},"gridSpriteSize":{"x":800.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":8.0,"y":4.0},"gridSpriteSize":{"x":800.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Player_attack-Sheet_0: 3413962525100912613
-      Player_attack-Sheet_1: 6724867590553001564
-      Player_attack-Sheet_10: -4934898082083115139
-      Player_attack-Sheet_11: -2060536882718942106
-      Player_attack-Sheet_12: -4902342961019428401
-      Player_attack-Sheet_13: 4383482391128618202
-      Player_attack-Sheet_14: 1206759910377770047
-      Player_attack-Sheet_15: -9019941281017923688
-      Player_attack-Sheet_16: 7868619946347796841
-      Player_attack-Sheet_17: 6790756568979724376
-      Player_attack-Sheet_18: 2870864699528703477
-      Player_attack-Sheet_19: 890414994029817463
-      Player_attack-Sheet_2: -2896764619560967236
-      Player_attack-Sheet_20: -5379511119391255513
-      Player_attack-Sheet_21: -2399870893360654450
-      Player_attack-Sheet_22: 6327686098527356224
-      Player_attack-Sheet_3: 1921260855020661398
-      Player_attack-Sheet_4: -1925618937993496646
-      Player_attack-Sheet_5: -4181098883803778257
-      Player_attack-Sheet_6: -4048879995366622954
-      Player_attack-Sheet_7: -320069618762493212
-      Player_attack-Sheet_8: -5297585798410819041
-      Player_attack-Sheet_9: 3025388034476420111
+      Player-Sheet_attack_0: 7059690694040494521
+      Player-Sheet_attack_1: -8025356897673734884
+      Player-Sheet_attack_10: -3693771055292032667
+      Player-Sheet_attack_11: -3964904238689489692
+      Player-Sheet_attack_12: 5366540733358276085
+      Player-Sheet_attack_13: 5281776012782365826
+      Player-Sheet_attack_14: -5326025291656925321
+      Player-Sheet_attack_15: -4347867491322196393
+      Player-Sheet_attack_16: 1026989104527889627
+      Player-Sheet_attack_17: -8720267008690970927
+      Player-Sheet_attack_18: 4708349784477758151
+      Player-Sheet_attack_19: -6518975781888251691
+      Player-Sheet_attack_2: -3344797000257347069
+      Player-Sheet_attack_20: -1016328419847658708
+      Player-Sheet_attack_21: 840873101637266140
+      Player-Sheet_attack_22: 3416472955813897312
+      Player-Sheet_attack_23: -2718161864725144315
+      Player-Sheet_attack_24: -5746759094739955793
+      Player-Sheet_attack_25: 1579240188398664284
+      Player-Sheet_attack_26: -1352687715688803151
+      Player-Sheet_attack_27: 8038606580045034153
+      Player-Sheet_attack_28: -940555393469535630
+      Player-Sheet_attack_3: -498346491361412695
+      Player-Sheet_attack_4: 4028512053792849157
+      Player-Sheet_attack_5: -1014554034144119168
+      Player-Sheet_attack_6: 1400178263381647574
+      Player-Sheet_attack_7: 8699021364333513988
+      Player-Sheet_attack_8: -5287666396334329965
+      Player-Sheet_attack_9: -5976507427437465298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
