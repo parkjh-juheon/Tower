@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
 
     [Header("넉백 설정")]
-    [SerializeField] public float knockbackPower = 5f; // 플레이어 넉백 힘
+    [SerializeField] public float knockbackPower = 5f;
 
     [Header("점프 설정")]
     [SerializeField] public float jumpForce = 7f;
@@ -31,6 +30,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.1f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("공중 공격 설정")]
+    [SerializeField] private float airAttackFallSpeed = 20f; // 낙하 속도
+    private bool isAirAttacking = false;
+
     private float lastAttackTime = 0f;
 
     private Rigidbody2D rb;
@@ -38,11 +41,12 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool isGrounded = false;
+    private bool wasGrounded = false;  // 직전 프레임 땅 체크
     private bool isRolling = false;
     private float rollTimer = 0f;
     private int facingDirection = 1;
 
-    public bool canControl = true; //  제어 가능 여부
+    public bool canControl = true;
 
     private void Awake()
     {
@@ -60,15 +64,24 @@ public class PlayerController : MonoBehaviour
         HandleJump();
         HandleRoll();
         HandleAttack();
+
+        // 공중 공격 중 착지 처리
+        if (isGrounded && isAirAttacking)
+        {
+            EndAirAttack();
+        }
     }
 
     private void CheckGrounded()
     {
+        wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
         if (isGrounded)
         {
             currentJumpCount = 0;
         }
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     private void HandleMovement()
@@ -128,7 +141,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private int attackIndex = 0; // 현재 공격 모션 번호 (0,1,2)
+    private int currentAttackIndex = 0;
 
     private void HandleAttack()
     {
@@ -139,28 +152,69 @@ public class PlayerController : MonoBehaviour
             float speedRatio = baseAttackCooldown / attackCooldown;
             animator.speed = speedRatio;
 
-            // 공격 애니메이션 순차적으로 실행
-            attackIndex = (attackIndex + 1) % 3; // 0→1→2→0 반복
-            animator.SetTrigger($"Attack{attackIndex + 1}");
-
-            // 실제 공격 판정
-            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
-            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
-
-            foreach (var hit in hits)
+            if (!isGrounded) // 공중 공격 시작
             {
-                EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-                if (enemy != null)
+                StartAirAttack();
+            }
+            else // 지상 콤보 공격
+            {
+                currentAttackIndex = (currentAttackIndex % 3) + 1;
+                animator?.SetTrigger($"Attack{currentAttackIndex}");
+
+                Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
+                Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+
+                foreach (var hit in hits)
                 {
-                    enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
+                    EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+                    if (enemy != null)
+                    {
+                        enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
+                    }
                 }
             }
 
             lastAttackTime = Time.time;
             StartCoroutine(ResetAnimatorSpeed());
         }
+
+        // 공중 공격 중일 때 낙하 공격 판정
+        if (isAirAttacking)
+        {
+            PerformAirAttack();
+        }
     }
 
+    private void StartAirAttack()
+    {
+        isAirAttacking = true;
+        canControl = false;
+        animator?.SetTrigger("AirAttack");
+
+        // 빠른 낙하 시작
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
+    }
+
+    private void PerformAirAttack()
+    {
+        Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+
+        foreach (var hit in hits)
+        {
+            EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage((int)attackDamage * 2, transform.position, knockbackPower * 1.5f);
+            }
+        }
+    }
+
+    private void EndAirAttack()
+    {
+        isAirAttacking = false;
+        canControl = true;
+    }
 
     private IEnumerator ResetAnimatorSpeed()
     {
@@ -170,8 +224,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        // 지상 공격 범위
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPosition, attackRange);
+
+        // 공중 공격 범위
+        Gizmos.color = Color.blue;
+        Vector2 attackPos = transform.position + Vector3.down * 0.5f;
+        Gizmos.DrawWireCube(attackPos, new Vector2(1f, attackRange));
     }
 }

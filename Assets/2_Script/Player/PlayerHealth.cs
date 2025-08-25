@@ -25,6 +25,9 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rb;
     private bool isKnockback = false;
 
+    [Header("사망 처리")]
+    [SerializeField] private float deathDeactivateDelay = 1.5f; // 사망 후 비활성화까지 대기 시간(초, 인스펙터에서 조절)
+
     private PlayerController playerController;
 
     void Start()
@@ -122,6 +125,18 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("플레이어 사망");
-        // 죽는 처리
+        if (animator != null)
+            animator.SetTrigger("Die"); // "Die" 트리거 애니메이션 실행
+
+        if (playerController != null)
+            playerController.canControl = false; // 조작 불가
+
+        StartCoroutine(DeactivateAfterDelay());
+    }
+
+    private IEnumerator DeactivateAfterDelay()
+    {
+        yield return new WaitForSeconds(deathDeactivateDelay);
+        gameObject.SetActive(false);
     }
 }
