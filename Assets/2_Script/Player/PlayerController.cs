@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
 
     private void AirAttackHitCheck()
     {
-        // 플레이어가 바라보는 방향(facingDirection)에 맞춰 앞쪽 위치 계산
+        // 플레이어가 바라보는 방향
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, enemyLayer);

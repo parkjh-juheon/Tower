@@ -1431,6 +1431,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   airAttackFallSpeed: 20
+  airAttackBoxSize: {x: 1.5, y: 2}
+  airAttackOffsetX: 1
   canControl: 1
 --- !u!212 &478556252
 SpriteRenderer:
@@ -20224,6 +20226,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   airAttackFallSpeed: 20
+  airAttackBoxSize: {x: 1.5, y: 2}
+  airAttackOffsetX: 1
   canControl: 1
 --- !u!212 &1848940055
 SpriteRenderer:
