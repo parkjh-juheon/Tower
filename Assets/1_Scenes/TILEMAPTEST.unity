@@ -20396,7 +20396,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  airAttackFallSpeed: 20
+  airAttackFallSpeed: 100
   airAttackBoxSize: {x: 1.5, y: 2}
   airAttackOffsetX: 1
   canControl: 1
