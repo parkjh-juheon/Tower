@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("공중 공격 설정")]
     [SerializeField] private float airAttackFallSpeed = 20f; // 낙하 속도
+    [SerializeField] public Vector2 airAttackBoxSize = new Vector2(1.5f, 2f); // 앞쪽 공격 범위
+    [SerializeField] public float airAttackOffsetX = 1f; // 플레이어 앞쪽 거리
     private bool isAirAttacking = false;
 
     private float lastAttackTime = 0f;
@@ -69,6 +71,11 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && isAirAttacking)
         {
             EndAirAttack();
+        }
+
+        if (isAirAttacking)
+        {
+            AirAttackHitCheck();
         }
     }
 
@@ -210,6 +217,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void AirAttackHitCheck()
+    {
+        // 플레이어가 바라보는 방향(facingDirection)에 맞춰 앞쪽 위치 계산
+        Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, enemyLayer);
+
+        foreach (var hit in hits)
+        {
+            EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
+            }
+        }
+    }
+
+
     private void EndAirAttack()
     {
         isAirAttacking = false;
@@ -224,14 +249,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // 지상 공격 범위
+        // 지상 공격 범위 (빨간 원)
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPosition, attackRange);
 
-        // 공중 공격 범위
+        // 공중 공격 범위 (파란 박스)
+        Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
         Gizmos.color = Color.blue;
-        Vector2 attackPos = transform.position + Vector3.down * 0.5f;
-        Gizmos.DrawWireCube(attackPos, new Vector2(1f, attackRange));
+        Gizmos.DrawWireCube(center, airAttackBoxSize);
     }
+
 }
