@@ -261,6 +261,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2120834859}
+  - {fileID: 914301506}
   m_Father: {fileID: 1848940048}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12288,7 +12289,7 @@ GameObject:
   - component: {fileID: 914301506}
   - component: {fileID: 914301507}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: groundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12302,12 +12303,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 914301505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.17, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -918.514, y: -539.801, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1848940048}
+  m_Father: {fileID: 53077383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &914301507
 BoxCollider2D:
@@ -12343,7 +12344,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0682441, y: 0.0081015825}
+  m_Offset: {x: -0.04904127, y: -0.0072606504}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -12353,7 +12354,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.79071784, y: 0.2558596}
+  m_Size: {x: 0.8291235, y: 0.28658408}
   m_EdgeRadius: 0
 --- !u!1 &969501963
 GameObject:
@@ -14016,7 +14017,7 @@ GameObject:
   - component: {fileID: 1526938966}
   - component: {fileID: 1526938968}
   - component: {fileID: 1526938967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -20125,7 +20126,7 @@ CompositeCollider2D:
       - {x: -5.000029, y: 1}
       - {x: -7, y: 0.99997073}
       - {x: -6.9999704, y: 0}
-  m_VertexDistance: 0.0005
+  m_VertexDistance: 0.01
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 1709480072}
@@ -20194,7 +20195,6 @@ Transform:
   m_Children:
   - {fileID: 738177008}
   - {fileID: 53077383}
-  - {fileID: 914301506}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1848940049
@@ -20388,11 +20388,11 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
-  knockbackPower: 10
+  knockbackPower: 12
   jumpForce: 12
   maxJumpCount: 1
   groundCheck: {fileID: 914301506}
-  groundCheckRadius: 0.1
+  groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64

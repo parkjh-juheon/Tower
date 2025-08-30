@@ -105,7 +105,6 @@ public class PlayerHealth : MonoBehaviour
     {
         isInvincible = true;
         if (playerController != null)
-            playerController.canControl = false;
 
         yield return new WaitForSeconds(invincibleDuration);
 

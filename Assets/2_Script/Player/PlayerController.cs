@@ -47,6 +47,9 @@ public class PlayerController : MonoBehaviour
     private bool isRolling = false;
     private float rollTimer = 0f;
     private int facingDirection = 1;
+    private float coyoteTime = 0.1f; // 땅 떨어진 후 허용 시간
+    private float lastGroundedTime;
+
 
     public bool canControl = true;
 
@@ -77,6 +80,9 @@ public class PlayerController : MonoBehaviour
         {
             AirAttackHitCheck();
         }
+
+        // Ground 상태 체크 로그 출력
+        Debug.Log("Ground 상태: " + isGrounded);
     }
 
     private void CheckGrounded()
@@ -87,7 +93,9 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             currentJumpCount = 0;
+            lastGroundedTime = Time.time; // 땅에 닿은 시간 갱신
         }
+
         animator.SetBool("isGrounded", isGrounded);
     }
 
@@ -116,7 +124,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!canControl || isRolling) return;
 
-        if (Input.GetKeyDown(KeyCode.Space) && currentJumpCount < maxJumpCount)
+        bool canJump = (isGrounded || Time.time - lastGroundedTime <= coyoteTime || currentJumpCount < maxJumpCount);
+
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             currentJumpCount++;
@@ -252,7 +262,7 @@ public class PlayerController : MonoBehaviour
         // 지상 공격 범위 (빨간 원)
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPosition, attackRange);
+        Gizmos.DrawWireSphere(attackPosition, attackRange); 
 
         // 공중 공격 범위 (파란 박스)
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
