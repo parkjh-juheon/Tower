@@ -27,8 +27,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check 설정")]
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundCheckRadius = 0.1f;
+    [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
+
 
     [Header("공중 공격 설정")]
     [SerializeField] private float airAttackFallSpeed = 20f; // 낙하 속도
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    private bool isGrounded = false;
+    private bool isGrounded = true;
     private bool wasGrounded = false;  // 직전 프레임 땅 체크
     private bool isRolling = false;
     private float rollTimer = 0f;
@@ -88,7 +89,13 @@ public class PlayerController : MonoBehaviour
     private void CheckGrounded()
     {
         wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        isGrounded = Physics2D.OverlapBox(
+            groundCheck.position,   // 중심 좌표
+            groundCheckSize,        // 박스 크기 (가로, 세로)
+            0f,                     // 회전각 (0이면 정방향)
+            groundLayer
+        );
 
         if (isGrounded)
         {
@@ -98,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
         animator.SetBool("isGrounded", isGrounded);
     }
+
 
     private void HandleMovement()
     {
@@ -262,12 +270,18 @@ public class PlayerController : MonoBehaviour
         // 지상 공격 범위 (빨간 원)
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPosition, attackRange); 
+        Gizmos.DrawWireSphere(attackPosition, attackRange);
 
         // 공중 공격 범위 (파란 박스)
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(center, airAttackBoxSize);
-    }
 
+        //  Ground Check 범위 (노란 박스)
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(groundCheck.position, groundCheckSize);
+        }
+    }
 }
