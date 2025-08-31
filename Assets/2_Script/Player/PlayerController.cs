@@ -1,8 +1,11 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum AttackType { Melee, Ranged } // 공격 타입 정의
+    public AttackType attackType = AttackType.Melee; // 기본 공격 타입은 근접
+
     [Header("이동 설정")]
     [SerializeField] public float moveSpeed = 5f;
     [SerializeField] private float rollForce = 6f;
@@ -17,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer;
 
+    [Header("원거리 공격 설정")]
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+
     [Header("넉백 설정")]
     [SerializeField] public float knockbackPower = 5f;
 
@@ -30,11 +37,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
-
     [Header("공중 공격 설정")]
-    [SerializeField] private float airAttackFallSpeed = 20f; // 낙하 속도
-    [SerializeField] public Vector2 airAttackBoxSize = new Vector2(1.5f, 2f); // 앞쪽 공격 범위
-    [SerializeField] public float airAttackOffsetX = 1f; // 플레이어 앞쪽 거리
+    [SerializeField] private float airAttackFallSpeed = 20f;
+    [SerializeField] public Vector2 airAttackBoxSize = new Vector2(1.5f, 2f);
+    [SerializeField] public float airAttackOffsetX = 1f;
     private bool isAirAttacking = false;
 
     private float lastAttackTime = 0f;
@@ -44,13 +50,12 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private bool isGrounded = true;
-    private bool wasGrounded = false;  // 직전 프레임 땅 체크
+    private bool wasGrounded = false;
     private bool isRolling = false;
     private float rollTimer = 0f;
     private int facingDirection = 1;
-    private float coyoteTime = 0.1f; // 땅 떨어진 후 허용 시간
+    private float coyoteTime = 0.1f;
     private float lastGroundedTime;
-
 
     public bool canControl = true;
 
@@ -71,7 +76,6 @@ public class PlayerController : MonoBehaviour
         HandleRoll();
         HandleAttack();
 
-        // 공중 공격 중 착지 처리
         if (isGrounded && isAirAttacking)
         {
             EndAirAttack();
@@ -91,21 +95,88 @@ public class PlayerController : MonoBehaviour
         wasGrounded = isGrounded;
 
         isGrounded = Physics2D.OverlapBox(
-            groundCheck.position,   // 중심 좌표
-            groundCheckSize,        // 박스 크기 (가로, 세로)
-            0f,                     // 회전각 (0이면 정방향)
+            groundCheck.position,
+            groundCheckSize,
+            0f,
             groundLayer
         );
 
         if (isGrounded)
         {
             currentJumpCount = 0;
-            lastGroundedTime = Time.time; // 땅에 닿은 시간 갱신
+            lastGroundedTime = Time.time;
         }
 
         animator.SetBool("isGrounded", isGrounded);
     }
 
+    private void HandleAttack()
+    {
+        if (!canControl) return;
+
+        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
+        {
+            if (attackType == AttackType.Melee)
+            {
+                HandleMeleeAttack();
+            }
+            else if (attackType == AttackType.Ranged)
+            {
+                HandleRangedAttack();
+            }
+
+            lastAttackTime = Time.time;
+        }
+
+        if (attackType == AttackType.Melee && isAirAttacking)
+        {
+            PerformAirAttack();
+        }
+
+        if (isAirAttacking)
+        {
+            PerformAirAttack();
+        }
+    }
+
+    private int currentAttackIndex = 0;
+
+    private void HandleMeleeAttack()
+    {
+        float speedRatio = baseAttackCooldown / attackCooldown;
+        animator.speed = speedRatio;
+
+        if (!isGrounded) StartAirAttack();
+        else
+        {
+            currentAttackIndex = (currentAttackIndex % 3) + 1;
+            animator?.SetTrigger($"Attack{currentAttackIndex}");
+
+            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
+            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+
+            foreach (var hit in hits)
+            {
+                EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
+                }
+            }
+        }
+
+        StartCoroutine(ResetAnimatorSpeed());
+    }
+
+    private void HandleRangedAttack()
+    {
+        if (bulletPrefab != null && firePoint != null)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+            bulletRb.linearVelocity = new Vector2(facingDirection * 10f, 0f);
+        }
+    }
 
     private void HandleMovement()
     {
@@ -166,57 +237,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private int currentAttackIndex = 0;
-
-    private void HandleAttack()
-    {
-        if (!canControl) return;
-
-        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
-        {
-            float speedRatio = baseAttackCooldown / attackCooldown;
-            animator.speed = speedRatio;
-
-            if (!isGrounded) // 공중 공격 시작
-            {
-                StartAirAttack();
-            }
-            else // 지상 콤보 공격
-            {
-                currentAttackIndex = (currentAttackIndex % 3) + 1;
-                animator?.SetTrigger($"Attack{currentAttackIndex}");
-
-                Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
-                Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
-
-                foreach (var hit in hits)
-                {
-                    EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-                    if (enemy != null)
-                    {
-                        enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
-                    }
-                }
-            }
-
-            lastAttackTime = Time.time;
-            StartCoroutine(ResetAnimatorSpeed());
-        }
-
-        // 공중 공격 중일 때 낙하 공격 판정
-        if (isAirAttacking)
-        {
-            PerformAirAttack();
-        }
-    }
-
     private void StartAirAttack()
     {
         isAirAttacking = true;
         canControl = false;
         animator?.SetTrigger("AirAttack");
 
-        // 빠른 낙하 시작
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
     }
 
@@ -237,7 +263,6 @@ public class PlayerController : MonoBehaviour
 
     private void AirAttackHitCheck()
     {
-        // 플레이어가 바라보는 방향
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, enemyLayer);
@@ -251,7 +276,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     private void EndAirAttack()
     {
@@ -267,17 +291,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // 지상 공격 범위 (빨간 원)
         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPosition, attackRange);
 
-        // 공중 공격 범위 (파란 박스)
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(center, airAttackBoxSize);
 
-        //  Ground Check 범위 (노란 박스)
         if (groundCheck != null)
         {
             Gizmos.color = Color.yellow;
