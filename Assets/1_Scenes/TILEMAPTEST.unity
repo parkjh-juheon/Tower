@@ -20631,7 +20631,7 @@ MonoBehaviour:
   maxJumpCount: 1
   coyoteTime: 0.5
   groundCheck: {fileID: 914301506}
-  groundCheckSize: {x: 0.7, y: 0.3}
+  groundCheckSize: {x: 0.5, y: 0.3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
