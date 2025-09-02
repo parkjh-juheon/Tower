@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("점프 설정")]
     [SerializeField] public float jumpForce = 7f;
-    [SerializeField] private int maxJumpCount = 2;
+    [SerializeField] private int maxJumpCount = 1;
+    [SerializeField]private float coyoteTime = 0.5f;
     private int currentJumpCount = 0;
 
     [Header("Ground Check 설정")]
@@ -54,7 +55,6 @@ public class PlayerController : MonoBehaviour
     private bool isRolling = false;
     private float rollTimer = 0f;
     private int facingDirection = 1;
-    private float coyoteTime = 0.1f;
     private float lastGroundedTime;
 
     public bool canControl = true;
@@ -185,31 +185,57 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * moveSpeed, rb.linearVelocity.y);
 
-        if (inputX > 0)
+        if (inputX > 0 && facingDirection != 1)
         {
-            facingDirection = 1;
+            facingDirection = 1; 
             spriteRenderer.flipX = true;
+            FlipFirePoint();
         }
-        else if (inputX < 0)
+        else if (inputX < 0 && facingDirection != -1)
         {
-            facingDirection = -1;
-            spriteRenderer.flipX = false;
+            facingDirection = -1; 
+            spriteRenderer.flipX = false; 
+            FlipFirePoint();
         }
-
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
+    }
+
+    private void FlipFirePoint()
+    {
+        if (firePoint != null)
+        {
+            Vector3 localPos = firePoint.localPosition;
+
+            // facingDirection 값이 1(오른쪽), -1(왼쪽) 중 하나니까
+            // firePoint의 x 좌표를 방향에 맞게 고정
+            localPos.x = Mathf.Abs(localPos.x) * facingDirection;
+
+            firePoint.localPosition = localPos;
+        }
     }
 
     private void HandleJump()
     {
         if (!canControl || isRolling) return;
 
-        bool canJump = (isGrounded || Time.time - lastGroundedTime <= coyoteTime || currentJumpCount < maxJumpCount);
-
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-            currentJumpCount++;
-            animator?.SetTrigger("Jump");
+            // 땅에 있으면 첫 점프
+            if (isGrounded)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                currentJumpCount = 1;
+                animator?.SetTrigger("Jump");
+                Debug.Log("첫번째 점프");
+            }
+            // 공중 점프
+            else if (currentJumpCount < maxJumpCount)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                currentJumpCount++;
+                animator?.SetTrigger("Jump");
+                Debug.Log($"{currentJumpCount}번째 점프");
+            }
         }
     }
 

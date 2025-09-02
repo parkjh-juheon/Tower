@@ -1613,6 +1613,7 @@ MonoBehaviour:
   knockbackPower: 10
   jumpForce: 12
   maxJumpCount: 2
+  coyoteTime: 0.5
   groundCheck: {fileID: 1684349074}
   groundCheckSize: {x: 0.5, y: 0.1}
   groundLayer:
@@ -20625,15 +20626,16 @@ MonoBehaviour:
     m_Bits: 8
   bulletPrefab: {fileID: 8132407292400316963, guid: 9700a67d95425a94e96174ef57ddf4d7, type: 3}
   firePoint: {fileID: 1342177755}
-  knockbackPower: 12
+  knockbackPower: 13
   jumpForce: 12
   maxJumpCount: 1
+  coyoteTime: 0.5
   groundCheck: {fileID: 914301506}
   groundCheckSize: {x: 0.7, y: 0.3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  airAttackFallSpeed: 12
+  airAttackFallSpeed: 10
   airAttackBoxSize: {x: 1.5, y: 2}
   airAttackOffsetX: 1
   canControl: 1
