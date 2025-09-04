@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class P_Bullet : MonoBehaviour
 {
     public float lifeTime = 1f;
-    private int damage = 10;
+
+    private int damage;
+    private float speed;
+    private float size;
 
     void Start()
     {
@@ -25,5 +29,24 @@ public class P_Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Init(int damage, float speed, float size)
+    {
+        this.damage = damage;
+        this.speed = speed;
+        this.size = size;
+
+        // 총알 크기 조정
+        transform.localScale *= size;
+
+        // 총알 속도 적용
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = transform.right * speed;
+    }
+
+    internal void Init(float attackDamage, float bulletSpeed, float bulletSize)
+    {
+        throw new NotImplementedException();
     }
 }

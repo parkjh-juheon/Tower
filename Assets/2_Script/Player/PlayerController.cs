@@ -20,9 +20,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer;
 
+
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+    public float bulletSpeed = 10f;   // 기본 탄속
+    public float bulletSize = 1f;     // 기본 크기 (1이면 원래 크기)
 
     [Header("넉백 설정")]
     [SerializeField] public float knockbackPower = 5f;
@@ -172,11 +175,15 @@ public class PlayerController : MonoBehaviour
     {
         if (bulletPrefab != null && firePoint != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            bulletRb.linearVelocity = new Vector2(facingDirection * 10f, 0f);
+            GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            P_Bullet bullet = bulletObj.GetComponent<P_Bullet>();
+            if (bullet != null)
+            {
+                bullet.Init((int)attackDamage, bulletSpeed, bulletSize);
+            }
         }
     }
+
 
     private void HandleMovement()
     {
