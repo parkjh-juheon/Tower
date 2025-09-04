@@ -13250,7 +13250,7 @@ Transform:
   m_GameObject: {fileID: 1342177754}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 0.82, z: 0}
+  m_LocalPosition: {x: -0.44, y: 0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20624,7 +20624,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
-  bulletPrefab: {fileID: 8132407292400316963, guid: 9700a67d95425a94e96174ef57ddf4d7, type: 3}
+  bulletPrefab: {fileID: 4010983974561404889, guid: bfb572eee26fa7e43af08d57dde717ca, type: 3}
   firePoint: {fileID: 1342177755}
   knockbackPower: 13
   jumpForce: 12
@@ -20819,7 +20819,7 @@ GameObject:
   - component: {fileID: 1955900574}
   m_Layer: 3
   m_Name: Enemy (2)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

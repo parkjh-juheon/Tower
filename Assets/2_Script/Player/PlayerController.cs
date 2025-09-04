@@ -229,7 +229,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("첫번째 점프");
             }
             // 공중 점프
-            else if (currentJumpCount < maxJumpCount)
+            else if (currentJumpCount >= 0 && currentJumpCount < maxJumpCount)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                 currentJumpCount++;
