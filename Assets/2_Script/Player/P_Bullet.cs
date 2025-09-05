@@ -1,15 +1,23 @@
-using System;
 using UnityEngine;
 
 public class P_Bullet : MonoBehaviour
 {
-    public float lifeTime = 1f;
-
     private int damage;
     private float speed;
     private float size;
+    private float lifeTime;
 
-    void Start()
+    private Rigidbody2D rb;
+
+    [Header("이펙트 설정")]
+    public GameObject hitEffectPrefab; // 총알이 맞았을 때 나오는 이펙트
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
     {
         Destroy(gameObject, lifeTime);
     }
@@ -21,32 +29,36 @@ public class P_Bullet : MonoBehaviour
             EnemyHealth enemyHealth = other.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damage, transform.position, 3f); // 데미지 1, 넉백 파워 3f
+                enemyHealth.TakeDamage(damage, transform.position, 3f);
             }
+            SpawnHitEffect();
             Destroy(gameObject);
         }
         else if (other.CompareTag("Ground"))
         {
+            SpawnHitEffect();
             Destroy(gameObject);
         }
     }
 
-    public void Init(int damage, float speed, float size)
+    public void Init(int damage, float speed, float size, float lifeTime, int facingDirection)
     {
         this.damage = damage;
         this.speed = speed;
         this.size = size;
+        this.lifeTime = lifeTime;
 
-        // 총알 크기 조정
-        transform.localScale *= size;
-
-        // 총알 속도 적용
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity = transform.right * speed;
+        transform.localScale = Vector3.one * size;
+        rb.linearVelocity = new Vector2(speed * facingDirection, 0f);
+        Destroy(gameObject, lifeTime);
     }
 
-    internal void Init(float attackDamage, float bulletSpeed, float bulletSize)
+    private void SpawnHitEffect()
     {
-        throw new NotImplementedException();
+        if (hitEffectPrefab != null)
+        {
+            GameObject effect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+            Destroy(effect, 1f); // 1초 후 이펙트 삭제
+        }
     }
 }

@@ -25,7 +25,9 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 10f;   // 기본 탄속
-    public float bulletSize = 1f;     // 기본 크기 (1이면 원래 크기)
+    public float bulletSize = 1f;     // 기본 크기
+    public float bulletLifeTime = 1f; // 기본 수명
+
 
     [Header("넉백 설정")]
     [SerializeField] public float knockbackPower = 5f;
@@ -179,7 +181,7 @@ public class PlayerController : MonoBehaviour
             P_Bullet bullet = bulletObj.GetComponent<P_Bullet>();
             if (bullet != null)
             {
-                bullet.Init((int)attackDamage, bulletSpeed, bulletSize);
+                bullet.Init((int)attackDamage, bulletSpeed, bulletSize, bulletLifeTime, facingDirection);
             }
         }
     }
@@ -212,14 +214,16 @@ public class PlayerController : MonoBehaviour
         if (firePoint != null)
         {
             Vector3 localPos = firePoint.localPosition;
-
-            // facingDirection 값이 1(오른쪽), -1(왼쪽) 중 하나니까
-            // firePoint의 x 좌표를 방향에 맞게 고정
             localPos.x = Mathf.Abs(localPos.x) * facingDirection;
-
             firePoint.localPosition = localPos;
+
+            // firePoint 회전도 방향에 맞게 반전
+            firePoint.localRotation = (facingDirection == 1)
+                ? Quaternion.identity
+                : Quaternion.Euler(0, 180f, 0);
         }
     }
+
 
     private void HandleJump()
     {
