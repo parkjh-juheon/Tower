@@ -35,8 +35,9 @@ public class PlayerController : MonoBehaviour
     [Header("점프 설정")]
     [SerializeField] public float jumpForce = 7f;
     [SerializeField] private int maxJumpCount = 1;
-    [SerializeField]private float coyoteTime = 0.5f;
-    private int currentJumpCount = 0;
+    [SerializeField] private float coyoteTime = 0.5f;
+    private int currentJumpCount = 0;              // 현재 공중 점프 횟수
+    private int groundJumpCount = 0;               // 지상 점프 횟수 (추가)
 
     [Header("Ground Check 설정")]
     [SerializeField] private Transform groundCheck;
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             currentJumpCount = 0;
+            groundJumpCount = 0; // 지상에 닿으면 지상 점프 카운트도 초기화
             lastGroundedTime = Time.time;
         }
 
@@ -196,14 +198,14 @@ public class PlayerController : MonoBehaviour
 
         if (inputX > 0 && facingDirection != 1)
         {
-            facingDirection = 1; 
+            facingDirection = 1;
             spriteRenderer.flipX = true;
             FlipFirePoint();
         }
         else if (inputX < 0 && facingDirection != -1)
         {
-            facingDirection = -1; 
-            spriteRenderer.flipX = false; 
+            facingDirection = -1;
+            spriteRenderer.flipX = false;
             FlipFirePoint();
         }
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
@@ -224,31 +226,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void HandleJump()
     {
         if (!canControl || isRolling) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // 땅에 있으면 첫 점프
+            //  지상 점프
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                currentJumpCount = 1;
+
+                groundJumpCount++;     // 지상 점프 카운트 증가
+                currentJumpCount = 0;  // 공중 점프 카운트 초기화
+
                 animator?.SetTrigger("Jump");
-                Debug.Log("첫번째 점프");
+                Debug.Log($"지상 점프");
             }
+
             // 공중 점프
-            else if (currentJumpCount >= 0 && currentJumpCount < maxJumpCount)
+            else if (currentJumpCount < maxJumpCount)
             {
+                //  지상 점프 없이 공중 점프를 시작한 경우
+                if (groundJumpCount == 0 && currentJumpCount == 0)
+                {
+                    maxJumpCount += 2; // 보너스 점프권 추가
+                    Debug.Log("지상 점프 없이 공중 점프 시작 → 보너스 점프권 추가");
+                }
+
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
                 currentJumpCount++;
+
                 animator?.SetTrigger("Jump");
-                Debug.Log($"{currentJumpCount}번째 점프");
+                Debug.Log($"공중 점프 {currentJumpCount}/{maxJumpCount}");
+
+                //  공중 점프를 한 번 하고 나면, 보너스 점프권을 원래 값으로 복구
+                if (groundJumpCount == 0 && maxJumpCount == 2)
+                {
+                    maxJumpCount -= 2; // 보너스로 준 점프권 제거
+                    Debug.Log("보너스 점프권 소진 → maxJumpCount 복구");
+                    // groundJumpCount는 착지 시에만 0으로 초기화
+                }
             }
         }
     }
+
 
     private void HandleRoll()
     {
