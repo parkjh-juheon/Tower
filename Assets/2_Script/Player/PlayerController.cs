@@ -3,8 +3,48 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [System.Serializable]
+    public class PlayerStats
+    {
+        //  공통 스탯
+        public float maxHP = 100f;
+        public float attackDamage = 10f;
+        public float attackCooldown = 0.5f;
+        public float knockbackPower = 5f;
+
+        //  근접 전용 스탯
+        public float meleeAttackRange = 1f;
+        public float meleeActiveTime = 0.2f; // 판정 유지 시간 같은 용도
+
+        //  원거리 전용 스탯
+        public float bulletSpeed = 10f;
+        public float bulletSize = 1f;
+        public float bulletLifeTime = 1f;
+
+        public void ApplyAttackType(PlayerController.AttackType type)
+        {
+            if (type == PlayerController.AttackType.Melee)
+            {
+                // 원거리 → 근거리 전환 시
+                meleeAttackRange = bulletSize;        // 총알 크기 → 공격 범위
+                attackCooldown = Mathf.Max(0.1f, 1f / bulletSpeed); // 탄속 → 공격 속도
+                meleeActiveTime = bulletLifeTime;     // 총알 지속시간 → 판정 유지
+            }
+            else if (type == PlayerController.AttackType.Ranged)
+            {
+                // 근거리 → 원거리 전환 시 (역변환)
+                bulletSize = meleeAttackRange;
+                bulletSpeed = Mathf.Max(1f, 1f / attackCooldown);
+                bulletLifeTime = meleeActiveTime;
+            }
+        }
+
+    }
+
     public enum AttackType { Melee, Ranged } // 공격 타입 정의
     public AttackType attackType = AttackType.Melee; // 기본 공격 타입은 근접
+    public PlayerStats stats;
 
     [Header("이동 설정")]
     [SerializeField] public float moveSpeed = 5f;
@@ -75,7 +115,10 @@ public class PlayerController : MonoBehaviour
 
         baseMaxJumpCount = maxJumpCount; // 초기값 저장
     }
-
+    private void Start()
+    {
+        stats.ApplyAttackType(attackType); // 초기화
+    }
 
     private void Update()
     {
@@ -99,6 +142,13 @@ public class PlayerController : MonoBehaviour
 
         // Ground 상태 체크 로그 출력
         Debug.Log("Ground 상태: " + isGrounded);
+
+        if (Input.GetKeyDown(KeyCode.C)) // 예시: C키로 전환
+        {
+            attackType = (attackType == AttackType.Melee) ? AttackType.Ranged : AttackType.Melee;
+            stats.ApplyAttackType(attackType);
+            Debug.Log("공격 타입 변경: " + attackType);
+        }
     }
 
     private void CheckGrounded()
