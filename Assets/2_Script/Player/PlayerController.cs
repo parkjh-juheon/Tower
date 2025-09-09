@@ -3,8 +3,48 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [System.Serializable]
+    public class PlayerStats
+    {
+        //  공통 스탯
+        public float maxHP = 100f;
+        public float attackDamage = 10f;
+        public float attackCooldown = 0.5f;
+        public float knockbackPower = 5f;
+
+        //  근접 전용 스탯
+        public float meleeAttackRange = 1f;
+        public float meleeActiveTime = 0.2f; // 판정 유지 시간 같은 용도
+
+        //  원거리 전용 스탯
+        public float bulletSpeed = 10f;
+        public float bulletSize = 1f;
+        public float bulletLifeTime = 1f;
+
+        public void ApplyAttackType(PlayerController.AttackType type)
+        {
+            if (type == PlayerController.AttackType.Melee)
+            {
+                // 원거리 → 근거리 전환 시
+                meleeAttackRange = bulletSize;        // 총알 크기 → 공격 범위
+                attackCooldown = Mathf.Max(0.1f, 1f / bulletSpeed); // 탄속 → 공격 속도
+                meleeActiveTime = bulletLifeTime;     // 총알 지속시간 → 판정 유지
+            }
+            else if (type == PlayerController.AttackType.Ranged)
+            {
+                // 근거리 → 원거리 전환 시 (역변환)
+                bulletSize = meleeAttackRange;
+                bulletSpeed = Mathf.Max(1f, 1f / attackCooldown);
+                bulletLifeTime = meleeActiveTime;
+            }
+        }
+
+    }
+
     public enum AttackType { Melee, Ranged } // 공격 타입 정의
     public AttackType attackType = AttackType.Melee; // 기본 공격 타입은 근접
+    public PlayerStats stats;
 
     [Header("이동 설정")]
     [SerializeField] public float moveSpeed = 5f;
@@ -20,18 +60,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float attackDamage = 1;
     [SerializeField] private LayerMask enemyLayer;
 
+
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+    public float bulletSpeed = 10f;   // 기본 탄속
+    public float bulletSize = 1f;     // 기본 크기
+    public float bulletLifeTime = 1f; // 기본 수명
+
 
     [Header("넉백 설정")]
     [SerializeField] public float knockbackPower = 5f;
 
     [Header("점프 설정")]
     [SerializeField] public float jumpForce = 7f;
-    [SerializeField] private int maxJumpCount = 1;
-    [SerializeField]private float coyoteTime = 0.5f;
-    private int currentJumpCount = 0;
+    [SerializeField] private int maxJumpCount = 1; // 기본 공중 점프 가능 횟수
+    private int baseMaxJumpCount; // 원래 점프 횟수 저장용
+    [SerializeField] private float coyoteTime = 0.5f;
+    private int currentJumpCount = 0;   // 현재 공중 점프 횟수
+    private int groundJumpCount = 0;    // 지상 점프 횟수 (추가)
+
 
     [Header("Ground Check 설정")]
     [SerializeField] private Transform groundCheck;
@@ -64,6 +112,12 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        baseMaxJumpCount = maxJumpCount; // 초기값 저장
+    }
+    private void Start()
+    {
+        stats.ApplyAttackType(attackType); // 초기화
     }
 
     private void Update()
@@ -88,6 +142,13 @@ public class PlayerController : MonoBehaviour
 
         // Ground 상태 체크 로그 출력
         Debug.Log("Ground 상태: " + isGrounded);
+
+        if (Input.GetKeyDown(KeyCode.C)) // 예시: C키로 전환
+        {
+            attackType = (attackType == AttackType.Melee) ? AttackType.Ranged : AttackType.Melee;
+            stats.ApplyAttackType(attackType);
+            Debug.Log("공격 타입 변경: " + attackType);
+        }
     }
 
     private void CheckGrounded()
@@ -104,11 +165,14 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             currentJumpCount = 0;
+            groundJumpCount = 0;
+            maxJumpCount = baseMaxJumpCount; // 착지 시 원래 값으로 복구
             lastGroundedTime = Time.time;
         }
 
         animator.SetBool("isGrounded", isGrounded);
     }
+
 
     private void HandleAttack()
     {
@@ -172,11 +236,15 @@ public class PlayerController : MonoBehaviour
     {
         if (bulletPrefab != null && firePoint != null)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-            bulletRb.linearVelocity = new Vector2(facingDirection * 10f, 0f);
+            GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            P_Bullet bullet = bulletObj.GetComponent<P_Bullet>();
+            if (bullet != null)
+            {
+                bullet.Init((int)attackDamage, bulletSpeed, bulletSize, bulletLifeTime, facingDirection);
+            }
         }
     }
+
 
     private void HandleMovement()
     {
@@ -187,14 +255,14 @@ public class PlayerController : MonoBehaviour
 
         if (inputX > 0 && facingDirection != 1)
         {
-            facingDirection = 1; 
+            facingDirection = 1;
             spriteRenderer.flipX = true;
             FlipFirePoint();
         }
         else if (inputX < 0 && facingDirection != -1)
         {
-            facingDirection = -1; 
-            spriteRenderer.flipX = false; 
+            facingDirection = -1;
+            spriteRenderer.flipX = false;
             FlipFirePoint();
         }
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
@@ -205,12 +273,13 @@ public class PlayerController : MonoBehaviour
         if (firePoint != null)
         {
             Vector3 localPos = firePoint.localPosition;
-
-            // facingDirection 값이 1(오른쪽), -1(왼쪽) 중 하나니까
-            // firePoint의 x 좌표를 방향에 맞게 고정
             localPos.x = Mathf.Abs(localPos.x) * facingDirection;
-
             firePoint.localPosition = localPos;
+
+            // firePoint 회전도 방향에 맞게 반전
+            firePoint.localRotation = (facingDirection == 1)
+                ? Quaternion.identity
+                : Quaternion.Euler(0, 180f, 0);
         }
     }
 
@@ -220,21 +289,40 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // 땅에 있으면 첫 점프
+            // 지상 점프
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                currentJumpCount = 1;
+
+                groundJumpCount++;
+                currentJumpCount = 0;
+
                 animator?.SetTrigger("Jump");
-                Debug.Log("첫번째 점프");
+                Debug.Log("지상 점프");
             }
             // 공중 점프
             else if (currentJumpCount < maxJumpCount)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-                currentJumpCount++;
-                animator?.SetTrigger("Jump");
-                Debug.Log($"{currentJumpCount}번째 점프");
+                // 지상 점프 없이 공중에서 첫 점프 시작
+                if (groundJumpCount == 0 && currentJumpCount == 0)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    currentJumpCount = 1;
+
+                    // 임시로 점프권 +1 (지상에서 시작한 것과 동일하게 맞춰줌)
+                    maxJumpCount = baseMaxJumpCount + 1;
+
+                    animator?.SetTrigger("Jump");
+                    Debug.Log("공중에서 첫 점프 시작 → 보너스 점프권 추가");
+                }
+                else
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    currentJumpCount++;
+
+                    animator?.SetTrigger("Jump");
+                    Debug.Log($"공중 점프 {currentJumpCount}/{maxJumpCount}");
+                }
             }
         }
     }
