@@ -432,8 +432,10 @@ MonoBehaviour:
   jumpForceBonus: 10
   maxHPBonus: 200
   meleeAttackRangeBonus: 0
+  knockbackBonus: 0
   bulletSpeedBonus: 0
   bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
 --- !u!212 &81531811
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -814,8 +816,10 @@ MonoBehaviour:
   jumpForceBonus: 0
   maxHPBonus: 0
   meleeAttackRangeBonus: 0
+  knockbackBonus: 0
   bulletSpeedBonus: 0
   bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
 --- !u!212 &245218449
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7377,8 +7381,10 @@ MonoBehaviour:
   jumpForceBonus: 10
   maxHPBonus: 100
   meleeAttackRangeBonus: 0
+  knockbackBonus: 0
   bulletSpeedBonus: 0
   bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
 --- !u!212 &1173692559
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7864,8 +7870,10 @@ MonoBehaviour:
   jumpForceBonus: 0
   maxHPBonus: 0
   meleeAttackRangeBonus: 0
+  knockbackBonus: 0
   bulletSpeedBonus: 0
   bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
 --- !u!212 &1355911443
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8089,7 +8097,7 @@ GameObject:
   - component: {fileID: 1417362922}
   m_Layer: 3
   m_Name: Enemy (1)
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15031,27 +15039,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
-  moveSpeed: 10
-  rollForce: 13
-  rollDuration: 0.5
+  stats:
+    maxHP: 10
+    currentHP: 10
+    moveSpeed: 12
+    dashDistance: 12
+    jumpForce: 20
+    maxJumpCount: 1
+    attackDamage: 10
+    attackCooldown: 0.5
+    knockbackPower: 10
+    meleeRange: 1.5
+    bulletSize: 0.5
+    bulletLifeTime: 1
+    bulletSpeed: 15
   attackRange: 1
-  baseAttackCooldown: 0.4
-  attackCooldown: 0.4
+  baseAttackCooldown: 0.5
+  attackCooldown: 0.5
   attackDamage: 1
+  knockbackPower: 5
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 0
   bulletPrefab: {fileID: 4010983974561404889, guid: bfb572eee26fa7e43af08d57dde717ca, type: 3}
   firePoint: {fileID: 1342177755}
-  bulletSpeed: 10
-  bulletSize: 0.5
-  bulletLifeTime: 1
-  knockbackPower: 13
+  rollForce: 13
+  rollDuration: 0.5
   jumpForce: 12
   maxJumpCount: 1
-  coyoteTime: 0.5
   groundCheck: {fileID: 914301506}
-  groundCheckSize: {x: 0.5, y: 0.3}
+  groundCheckSize: {x: 0.4, y: 0.3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
