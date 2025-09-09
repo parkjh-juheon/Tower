@@ -10,11 +10,13 @@ public class StatItem : MonoBehaviour
     public int maxHPBonus = 0;                // 체력
 
     [Header("근접(Melee) 전용 스탯 변화량")]
-    public float meleeAttackRangeBonus = 0;
+    public float meleeAttackRangeBonus = 0;   // 근접 공격 범위
+    public float knockbackBonus = 0;          // 넉백
 
     [Header("원거리(Ranged) 전용 스탯 변화량")]
-    public float bulletSpeedBonus = 0;  // 탄속 증가
-    public float bulletSizeBonus = 0;   // 총알 크기 증가
+    public float bulletSpeedBonus = 0;        // 탄속 증가
+    public float bulletSizeBonus = 0;         // 총알 크기 증가
+    public float bulletLifeTimeBonus = 0;     // 지속 시간 증가
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -23,32 +25,42 @@ public class StatItem : MonoBehaviour
             PlayerController controller = other.GetComponent<PlayerController>();
             PlayerHealth health = other.GetComponent<PlayerHealth>();
 
-            if (controller != null)
+            if (controller != null && controller.stats != null)
             {
-                // 공통 스탯 적용
-                controller.attackDamage += (int)attackDamageBonus;
-                controller.attackCooldown = Mathf.Max(0.1f, controller.attackCooldown + attackCooldownBonus);
-                controller.moveSpeed += moveSpeedBonus;
-                controller.jumpForce += jumpForceBonus;
+                var stats = controller.stats;
 
-                if (health != null && maxHPBonus != 0)
+                // 공통 스탯 적용
+                stats.attackDamage += attackDamageBonus;
+                stats.attackCooldown = Mathf.Max(0.1f, stats.attackCooldown + attackCooldownBonus);
+                stats.moveSpeed += moveSpeedBonus;
+                stats.jumpForce += jumpForceBonus;
+
+                if (maxHPBonus != 0)
                 {
-                    health.UpdateMaxHP(health.maxHP + maxHPBonus);
+                    stats.maxHP += maxHPBonus;
+
+                    // PlayerHealth에도 반영
+                    if (health != null)
+                    {
+                        health.UpdateMaxHP(health.maxHP + maxHPBonus);
+                    }
                 }
 
                 // 공격 타입별 적용
                 if (controller.attackType == PlayerController.AttackType.Melee)
                 {
-                    controller.attackRange += meleeAttackRangeBonus;
+                    stats.meleeRange += meleeAttackRangeBonus;
+                    stats.knockbackPower += knockbackBonus;
                 }
                 else if (controller.attackType == PlayerController.AttackType.Ranged)
                 {
-                    controller.bulletSpeed += bulletSpeedBonus;
-                    controller.bulletSize += bulletSizeBonus;
+                    stats.bulletSpeed += bulletSpeedBonus;
+                    stats.bulletSize += bulletSizeBonus;
+                    stats.bulletLifeTime += bulletLifeTimeBonus;
                 }
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject); // 아이템 획득 후 제거
         }
     }
 }
