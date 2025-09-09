@@ -217,7 +217,7 @@ Animator:
   m_GameObject: {fileID: 27505582}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7d09a4999a3e4b744b25cebd6b977a0a, type: 2}
+  m_Controller: {fileID: 9100000, guid: e946e6ad544294e4b975adb97a35f912, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -15031,6 +15031,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: 0
+  stats:
+    maxHP: 100
+    attackDamage: 10
+    attackCooldown: 0.5
+    knockbackPower: 5
+    meleeAttackRange: 1
+    meleeActiveTime: 0.2
+    bulletSpeed: 10
+    bulletSize: 1
+    bulletLifeTime: 1
   moveSpeed: 10
   rollForce: 13
   rollDuration: 0.5
