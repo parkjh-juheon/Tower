@@ -456,7 +456,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -476,9 +476,9 @@ TextureImporter:
       name: Player_Sheet_Attack_1
       rect:
         serializedVersion: 2
-        x: 733
+        x: 800
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -498,9 +498,9 @@ TextureImporter:
       name: Player_Sheet_Attack_2
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 1600
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -520,9 +520,9 @@ TextureImporter:
       name: Player_Sheet_Attack_3
       rect:
         serializedVersion: 2
-        x: 2199
+        x: 2400
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -542,9 +542,9 @@ TextureImporter:
       name: Player_Sheet_Attack_4
       rect:
         serializedVersion: 2
-        x: 2932
+        x: 3200
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -564,9 +564,9 @@ TextureImporter:
       name: Player_Sheet_Attack_5
       rect:
         serializedVersion: 2
-        x: 3665
+        x: 4000
         y: 3360
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -586,9 +586,9 @@ TextureImporter:
       name: Player_Sheet_Attack_6
       rect:
         serializedVersion: 2
-        x: 4398
-        y: 3360
-        width: 733
+        x: 0
+        y: 2880
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -608,9 +608,9 @@ TextureImporter:
       name: Player_Sheet_Attack_7
       rect:
         serializedVersion: 2
-        x: 0
+        x: 800
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -630,9 +630,9 @@ TextureImporter:
       name: Player_Sheet_Attack_8
       rect:
         serializedVersion: 2
-        x: 733
+        x: 1600
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -652,9 +652,9 @@ TextureImporter:
       name: Player_Sheet_Attack_9
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 2400
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -674,9 +674,9 @@ TextureImporter:
       name: Player_Sheet_Attack_10
       rect:
         serializedVersion: 2
-        x: 2199
+        x: 3200
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -696,9 +696,9 @@ TextureImporter:
       name: Player_Sheet_Attack_11
       rect:
         serializedVersion: 2
-        x: 2932
+        x: 4000
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -718,9 +718,9 @@ TextureImporter:
       name: Player_Sheet_Attack_12
       rect:
         serializedVersion: 2
-        x: 3665
+        x: 4800
         y: 2880
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -740,9 +740,9 @@ TextureImporter:
       name: Player_Sheet_Attack_13
       rect:
         serializedVersion: 2
-        x: 4398
-        y: 2880
-        width: 733
+        x: 0
+        y: 2400
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -762,9 +762,9 @@ TextureImporter:
       name: Player_Sheet_Attack_14
       rect:
         serializedVersion: 2
-        x: 5131
-        y: 2880
-        width: 733
+        x: 800
+        y: 2400
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -784,9 +784,9 @@ TextureImporter:
       name: Player_Sheet_Attack_15
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1600
         y: 2400
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -806,9 +806,9 @@ TextureImporter:
       name: Player_Sheet_Attack_16
       rect:
         serializedVersion: 2
-        x: 733
+        x: 2400
         y: 2400
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -828,9 +828,9 @@ TextureImporter:
       name: Player_Sheet_Attack_17
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 3200
         y: 2400
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -850,9 +850,9 @@ TextureImporter:
       name: Player_Sheet_Attack_18
       rect:
         serializedVersion: 2
-        x: 2199
-        y: 2400
-        width: 733
+        x: 0
+        y: 1920
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -872,9 +872,9 @@ TextureImporter:
       name: Player_Sheet_Attack_19
       rect:
         serializedVersion: 2
-        x: 2932
-        y: 2400
-        width: 733
+        x: 800
+        y: 1920
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -894,9 +894,9 @@ TextureImporter:
       name: Player_Sheet_Attack_20
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1600
         y: 1920
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -916,9 +916,9 @@ TextureImporter:
       name: Player_Sheet_Attack_21
       rect:
         serializedVersion: 2
-        x: 733
+        x: 2400
         y: 1920
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -938,9 +938,9 @@ TextureImporter:
       name: Player_Sheet_Attack_22
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 3200
         y: 1920
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -960,9 +960,9 @@ TextureImporter:
       name: Player_Sheet_Attack_23
       rect:
         serializedVersion: 2
-        x: 2199
+        x: 4000
         y: 1920
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -982,9 +982,9 @@ TextureImporter:
       name: Player_Sheet_Attack_24
       rect:
         serializedVersion: 2
-        x: 2932
-        y: 1920
-        width: 733
+        x: 0
+        y: 1440
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1004,9 +1004,9 @@ TextureImporter:
       name: Player_Sheet_Attack_25
       rect:
         serializedVersion: 2
-        x: 3665
-        y: 1920
-        width: 733
+        x: 800
+        y: 1440
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1026,9 +1026,9 @@ TextureImporter:
       name: Player_Sheet_Attack_26
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1600
         y: 1440
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1048,9 +1048,9 @@ TextureImporter:
       name: Player_Sheet_Attack_27
       rect:
         serializedVersion: 2
-        x: 733
+        x: 2400
         y: 1440
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1070,9 +1070,9 @@ TextureImporter:
       name: Player_Sheet_Attack_28
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 3200
         y: 1440
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1092,9 +1092,9 @@ TextureImporter:
       name: Player_Sheet_Attack_29
       rect:
         serializedVersion: 2
-        x: 2199
-        y: 1440
-        width: 733
+        x: 0
+        y: 960
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1114,9 +1114,9 @@ TextureImporter:
       name: Player_Sheet_Attack_30
       rect:
         serializedVersion: 2
-        x: 2932
-        y: 1440
-        width: 733
+        x: 800
+        y: 960
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1136,9 +1136,9 @@ TextureImporter:
       name: Player_Sheet_Attack_31
       rect:
         serializedVersion: 2
-        x: 3665
-        y: 1440
-        width: 733
+        x: 1600
+        y: 960
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1158,9 +1158,9 @@ TextureImporter:
       name: Player_Sheet_Attack_32
       rect:
         serializedVersion: 2
-        x: 0
+        x: 2400
         y: 960
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1180,9 +1180,9 @@ TextureImporter:
       name: Player_Sheet_Attack_33
       rect:
         serializedVersion: 2
-        x: 733
+        x: 3200
         y: 960
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1202,9 +1202,9 @@ TextureImporter:
       name: Player_Sheet_Attack_34
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 4000
         y: 960
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1224,9 +1224,9 @@ TextureImporter:
       name: Player_Sheet_Attack_35
       rect:
         serializedVersion: 2
-        x: 2199
-        y: 960
-        width: 733
+        x: 0
+        y: 480
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1246,9 +1246,9 @@ TextureImporter:
       name: Player_Sheet_Attack_36
       rect:
         serializedVersion: 2
-        x: 2932
-        y: 960
-        width: 733
+        x: 800
+        y: 480
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1268,9 +1268,9 @@ TextureImporter:
       name: Player_Sheet_Attack_37
       rect:
         serializedVersion: 2
-        x: 3665
-        y: 960
-        width: 733
+        x: 1600
+        y: 480
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1290,9 +1290,9 @@ TextureImporter:
       name: Player_Sheet_Attack_38
       rect:
         serializedVersion: 2
-        x: 4398
-        y: 960
-        width: 733
+        x: 2400
+        y: 480
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1312,9 +1312,9 @@ TextureImporter:
       name: Player_Sheet_Attack_39
       rect:
         serializedVersion: 2
-        x: 0
+        x: 3200
         y: 480
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1334,9 +1334,9 @@ TextureImporter:
       name: Player_Sheet_Attack_40
       rect:
         serializedVersion: 2
-        x: 733
+        x: 4000
         y: 480
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1356,9 +1356,9 @@ TextureImporter:
       name: Player_Sheet_Attack_41
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 4800
         y: 480
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1378,9 +1378,9 @@ TextureImporter:
       name: Player_Sheet_Attack_42
       rect:
         serializedVersion: 2
-        x: 2199
-        y: 480
-        width: 733
+        x: 0
+        y: 0
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1400,9 +1400,9 @@ TextureImporter:
       name: Player_Sheet_Attack_43
       rect:
         serializedVersion: 2
-        x: 2932
-        y: 480
-        width: 733
+        x: 800
+        y: 0
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1422,9 +1422,9 @@ TextureImporter:
       name: Player_Sheet_Attack_44
       rect:
         serializedVersion: 2
-        x: 3665
-        y: 480
-        width: 733
+        x: 1600
+        y: 0
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1444,9 +1444,9 @@ TextureImporter:
       name: Player_Sheet_Attack_45
       rect:
         serializedVersion: 2
-        x: 4398
-        y: 480
-        width: 733
+        x: 2400
+        y: 0
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1466,9 +1466,9 @@ TextureImporter:
       name: Player_Sheet_Attack_46
       rect:
         serializedVersion: 2
-        x: 5131
-        y: 480
-        width: 733
+        x: 3200
+        y: 0
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1488,9 +1488,9 @@ TextureImporter:
       name: Player_Sheet_Attack_47
       rect:
         serializedVersion: 2
-        x: 0
+        x: 4000
         y: 0
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1510,9 +1510,9 @@ TextureImporter:
       name: Player_Sheet_Attack_48
       rect:
         serializedVersion: 2
-        x: 733
+        x: 4800
         y: 0
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1532,9 +1532,9 @@ TextureImporter:
       name: Player_Sheet_Attack_49
       rect:
         serializedVersion: 2
-        x: 1466
+        x: 5600
         y: 0
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1554,9 +1554,9 @@ TextureImporter:
       name: Player_Sheet_Attack_50
       rect:
         serializedVersion: 2
-        x: 2199
+        x: 6400
         y: 0
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1576,9 +1576,9 @@ TextureImporter:
       name: Player_Sheet_Attack_51
       rect:
         serializedVersion: 2
-        x: 2932
+        x: 7200
         y: 0
-        width: 733
+        width: 800
         height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -1590,138 +1590,6 @@ TextureImporter:
       bones: []
       spriteID: 8d299328063216660800000000000000
       internalID: 7377216562018226904
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_52
-      rect:
-        serializedVersion: 2
-        x: 3665
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3a1853fda5629fa90800000000000000
-      internalID: -7279745150933958237
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_53
-      rect:
-        serializedVersion: 2
-        x: 4398
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c3fbcb1913060f2f0800000000000000
-      internalID: -941146556105703620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_54
-      rect:
-        serializedVersion: 2
-        x: 5131
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2831a9fef44d10660800000000000000
-      internalID: 7350389506632717186
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_55
-      rect:
-        serializedVersion: 2
-        x: 5864
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fb3b3df9a2eef0d40800000000000000
-      internalID: 5552918732408599487
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_56
-      rect:
-        serializedVersion: 2
-        x: 6597
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: bb750e05d1f54d7d0800000000000000
-      internalID: -2894584080976816197
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Sheet_Attack_57
-      rect:
-        serializedVersion: 2
-        x: 7330
-        y: 0
-        width: 733
-        height: 480
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cd1f75c73632a0090800000000000000
-      internalID: -8067596872285949476
       vertices: []
       indices: 
       edges: []
@@ -1740,7 +1608,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":8.0},"gridSpriteSize":{"x":733.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":11.0,"y":8.0},"gridSpriteSize":{"x":800.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Player_Sheet_Attack_0: 22349921119215788
       Player_Sheet_Attack_1: -1593779185697113618
@@ -1790,12 +1658,6 @@ TextureImporter:
       Player_Sheet_Attack_5: -5796767309385641672
       Player_Sheet_Attack_50: 660920216701966775
       Player_Sheet_Attack_51: 7377216562018226904
-      Player_Sheet_Attack_52: -7279745150933958237
-      Player_Sheet_Attack_53: -941146556105703620
-      Player_Sheet_Attack_54: 7350389506632717186
-      Player_Sheet_Attack_55: 5552918732408599487
-      Player_Sheet_Attack_56: -2894584080976816197
-      Player_Sheet_Attack_57: -8067596872285949476
       Player_Sheet_Attack_6: 9080345815379929128
       Player_Sheet_Attack_7: 1871261718485902440
       Player_Sheet_Attack_8: -3540346555269222565
