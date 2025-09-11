@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     {
         // 공통 스탯
         public int maxHP;
-        public int currentHP;
         public float moveSpeed;
         public float dashDistance;
         public float jumpForce;
@@ -18,26 +17,24 @@ public class PlayerController : MonoBehaviour
 
         // 근접 전용
         public float knockbackPower;   // 넉백
-        public float meleeRange;       // 공격 범위 (원거리 스탯과 공유됨)
+        public float meleeRange;       // 공격 범위
 
         // 원거리 전용
-        public float bulletSize;       // 총알 크기 (근접 넉백과 공유됨)
-        public float bulletLifeTime;   // 지속 시간 (근접 범위와 공유됨)
-        public float bulletSpeed;      // 탄속 (근접 범위와 공유됨)
+        public float bulletSize;       // 총알 크기
+        public float bulletLifeTime;   // 지속 시간
+        public float bulletSpeed;      // 탄속
 
-        // 스탯 변환 메서드
+        // 스탯 변환 메서드 ( 현재는 누적 문제 있음)
         public void ApplyAttackType(PlayerController.AttackType type)
         {
             if (type == PlayerController.AttackType.Melee)
             {
-                // 원거리 → 근접 전환
                 meleeRange += bulletLifeTime;
                 meleeRange += bulletSpeed;
                 knockbackPower += bulletSize;
             }
             else if (type == PlayerController.AttackType.Ranged)
             {
-                // 근접 → 원거리 전환
                 bulletLifeTime += meleeRange;
                 bulletSpeed += meleeRange;
                 bulletSize += knockbackPower;
@@ -45,18 +42,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     public enum AttackType { Melee, Ranged }
     public AttackType attackType = AttackType.Melee;
     public CharacterStats stats;
 
-    [Header("공격 설정")][SerializeField]
-    public float attackRange = 1f; 
-    [SerializeField] private float baseAttackCooldown = 0.5f; 
-    [SerializeField] public float attackCooldown = 0.5f;
-    [SerializeField] public float attackDamage = 1;
-    [SerializeField] public float knockbackPower = 5f;
+    [Header("공격 설정")]
     [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private float baseAttackCooldown = 0.5f; // 애니메이터 속도 보정용
 
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
@@ -67,11 +59,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rollDuration = 0.5f;
 
     [Header("점프 설정")]
-    [SerializeField] public float jumpForce = 7f; 
     [SerializeField] private int maxJumpCount = 1; // 기본 공중 점프 가능 횟수
-    private int baseMaxJumpCount; // 원래 점프 횟수 저장용
-    private int currentJumpCount = 0; // 현재 공중 점프 횟수
-    private int groundJumpCount = 0; // 지상 점프 횟수 (추가)
+    private int baseMaxJumpCount;
+    private int currentJumpCount = 0;
+    private int groundJumpCount = 0;
 
     [Header("Ground Check 설정")]
     [SerializeField] private Transform groundCheck;
@@ -118,7 +109,6 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && isAirAttacking) EndAirAttack();
         if (isAirAttacking) AirAttackHitCheck();
 
-        // 타입 전환 (예시: C 키)
         if (Input.GetKeyDown(KeyCode.C))
         {
             attackType = (attackType == AttackType.Melee) ? AttackType.Ranged : AttackType.Melee;
@@ -142,82 +132,29 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
     }
 
-    // ==============================
-    // 기존 HandleAttack(), HandleMeleeAttack() 주석 처리
-    // ==============================
-
-    // private void HandleAttack()
-    // {
-    //     if (!canControl) return;
-    //
-    //     if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + stats.attackCooldown)
-    //     {
-    //         if (attackType == AttackType.Melee) HandleMeleeAttack();
-    //         else if (attackType == AttackType.Ranged) HandleRangedAttack();
-    //         lastAttackTime = Time.time;
-    //     }
-    //
-    //     if (attackType == AttackType.Melee && isAirAttacking) PerformAirAttack();
-    //     if (isAirAttacking) PerformAirAttack();
-    // }
-    //
-    // private void HandleMeleeAttack()
-    // {
-    //     animator.speed = 1f / stats.attackCooldown;
-    //     if (!isGrounded) StartAirAttack();
-    //     else
-    //     {
-    //         currentAttackIndex = (currentAttackIndex % 3) + 1;
-    //         animator?.SetTrigger($"Attack{currentAttackIndex}");
-    //
-    //         Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * stats.meleeRange * 0.5f;
-    //         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, stats.meleeRange, LayerMask.GetMask("Enemy"));
-    //
-    //         foreach (var hit in hits)
-    //         {
-    //             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-    //             if (enemy != null) enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
-    //         }
-    //     }
-    //     StartCoroutine(ResetAnimatorSpeed());
-    // }
-
-
-    // ==============================
-    // 예전 코드 (대체용)
-    // ==============================
     private void HandleAttack()
     {
         if (!canControl) return;
 
-        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + attackCooldown)
+        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + stats.attackCooldown)
         {
             if (attackType == AttackType.Melee)
-            {
                 HandleMeleeAttack();
-            }
             else if (attackType == AttackType.Ranged)
-            {
                 HandleRangedAttack();
-            }
+
             lastAttackTime = Time.time;
         }
 
-        if (attackType == AttackType.Melee && isAirAttacking)
-        {
-            PerformAirAttack();
-        }
-        if (isAirAttacking)
-        {
-            PerformAirAttack();
-        }
+        if (attackType == AttackType.Melee && isAirAttacking) PerformAirAttack();
+        if (isAirAttacking) PerformAirAttack();
     }
 
     private int currentAttackIndex = 0;
 
     private void HandleMeleeAttack()
     {
-        float speedRatio = baseAttackCooldown / attackCooldown;
+        float speedRatio = baseAttackCooldown / stats.attackCooldown;
         animator.speed = speedRatio;
 
         if (!isGrounded) StartAirAttack();
@@ -226,21 +163,18 @@ public class PlayerController : MonoBehaviour
             currentAttackIndex = (currentAttackIndex % 3) + 1;
             animator?.SetTrigger($"Attack{currentAttackIndex}");
 
-            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * attackRange * 0.5f;
-            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * stats.meleeRange * 0.5f;
+            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, stats.meleeRange, enemyLayer);
 
             foreach (var hit in hits)
             {
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
-                {
-                    enemy.TakeDamage((int)attackDamage, transform.position, knockbackPower);
-                }
+                    enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
             }
         }
         StartCoroutine(ResetAnimatorSpeed());
     }
-
 
     private void HandleRangedAttack()
     {
@@ -289,10 +223,9 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            //  지상 점프
             if (isGrounded)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
 
                 groundJumpCount++;
                 currentJumpCount = 0;
@@ -300,25 +233,19 @@ public class PlayerController : MonoBehaviour
                 animator?.SetTrigger("Jump");
                 Debug.Log("지상 점프");
             }
-            //  공중 점프
             else if (currentJumpCount < maxJumpCount)
             {
-                // 땅을 밟지 않고 공중에서 첫 점프 시작한 경우
                 if (groundJumpCount == 0 && currentJumpCount == 0)
                 {
-                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount = 1;
-
-                    // 보정: "지상에서 시작한 것처럼" 추가 점프권 1개 부여
                     maxJumpCount = baseMaxJumpCount + 1;
 
                     animator?.SetTrigger("Jump");
-                    Debug.Log("공중에서 첫 점프 시작 → 보너스 점프권 추가");
                 }
-                // 일반 공중 점프
                 else
                 {
-                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount++;
 
                     animator?.SetTrigger("Jump");
@@ -327,8 +254,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-
 
     private void HandleRoll()
     {
