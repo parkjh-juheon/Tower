@@ -3,20 +3,22 @@ using UnityEngine;
 public class StatItem : MonoBehaviour
 {
     [Header("공통 스탯 변화량")]
-    public float attackDamageBonus = 0;       // 공격력 (공통)
-    public float attackCooldownBonus = 0;     // 공격 쿨타임 (공통)
-    public float moveSpeedBonus = 0;          // 이동속도
-    public float jumpForceBonus = 0;          // 점프력
-    public int maxHPBonus = 0;                // 체력
+    public float attackDamageBonus = 0;
+    public float attackCooldownBonus = 0;
+    public float moveSpeedBonus = 0;
+    public float jumpForceBonus = 0;
+    public int maxHPBonus = 0;
+    public int healAmount = 0;                
+    public int maxJumpCountBonus = 0;         
 
     [Header("근접(Melee) 전용 스탯 변화량")]
-    public float meleeAttackRangeBonus = 0;   // 근접 공격 범위
-    public float knockbackBonus = 0;          // 넉백
+    public float meleeAttackRangeBonus = 0;
+    public float knockbackBonus = 0;
 
     [Header("원거리(Ranged) 전용 스탯 변화량")]
-    public float bulletSpeedBonus = 0;        // 탄속 증가
-    public float bulletSizeBonus = 0;         // 총알 크기 증가
-    public float bulletLifeTimeBonus = 0;     // 지속 시간 증가
+    public float bulletSpeedBonus = 0;
+    public float bulletSizeBonus = 0;
+    public float bulletLifeTimeBonus = 0;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,15 +37,26 @@ public class StatItem : MonoBehaviour
                 stats.moveSpeed += moveSpeedBonus;
                 stats.jumpForce += jumpForceBonus;
 
+                //  점프 횟수 증가
+                if (maxJumpCountBonus != 0)
+                {
+                    stats.maxJumpCount += maxJumpCountBonus;
+                }
+
+                // 최대 체력 증가
                 if (maxHPBonus != 0)
                 {
                     stats.maxHP += maxHPBonus;
 
-                    // PlayerHealth에도 반영
                     if (health != null)
-                    {
                         health.UpdateMaxHP(health.maxHP + maxHPBonus);
-                    }
+                }
+
+                //  체력 회복
+                if (healAmount > 0 && health != null)
+                {
+                    health.currentHP = Mathf.Min(health.currentHP + healAmount, health.maxHP);
+                    health.UpdateHealthBar();
                 }
 
                 // 공격 타입별 적용
@@ -60,7 +73,7 @@ public class StatItem : MonoBehaviour
                 }
             }
 
-            Destroy(gameObject); // 아이템 획득 후 제거
+            Destroy(gameObject);
         }
     }
 }

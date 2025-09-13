@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -46,6 +47,10 @@ public class PlayerController : MonoBehaviour
     public AttackType attackType = AttackType.Melee;
     public CharacterStats stats;
 
+    [Header("공격 타입별 애니메이터")]
+    public RuntimeAnimatorController meleeAnimator;   //  근접 전용 애니메이터
+    public RuntimeAnimatorController rangedAnimator;  //  원거리 전용 애니메이터
+
     [Header("공격 설정")]
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private float baseAttackCooldown = 0.5f; // 애니메이터 속도 보정용
@@ -53,6 +58,15 @@ public class PlayerController : MonoBehaviour
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
     public Transform firePoint;
+
+    [Header("탄약 시스템")]
+    public int maxAmmo = 6;
+    private int currentAmmo;
+    public float reloadTime = 2f;
+    private bool isReloading = false;
+
+    [Header("UI")]
+    public TextMeshProUGUI ammoText; //  탄약 표시 UI
 
     [Header("구르기 설정")]
     [SerializeField] private float rollForce = 6f;
@@ -86,6 +100,7 @@ public class PlayerController : MonoBehaviour
     private float rollTimer = 0f;
     private int facingDirection = 1;
 
+
     public bool canControl = true;
 
     private void Awake()
@@ -94,6 +109,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         baseMaxJumpCount = stats.maxJumpCount;
+        currentAmmo = maxAmmo;
+        UpdateAmmoUI();
     }
 
     private void Update()
@@ -109,12 +126,25 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && isAirAttacking) EndAirAttack();
         if (isAirAttacking) AirAttackHitCheck();
 
-        if (Input.GetKeyDown(KeyCode.C))
+        //  공격 타입 전환
+        UpdateAnimatorByType();
+        UpdateAmmoUI(); // ⭐ 전환 직후 UI 즉시 갱신
+    }
+
+    private void UpdateAnimatorByType() //  새 함수
+    {
+        if (animator == null) return;
+
+        if (attackType == AttackType.Melee && meleeAnimator != null)
         {
-            attackType = (attackType == AttackType.Melee) ? AttackType.Ranged : AttackType.Melee;
-            Debug.Log("공격 타입 변경: " + attackType);
+            animator.runtimeAnimatorController = meleeAnimator;
+        }
+        else if (attackType == AttackType.Ranged && rangedAnimator != null)
+        {
+            animator.runtimeAnimatorController = rangedAnimator;
         }
     }
+
 
     private void CheckGrounded()
     {
@@ -134,20 +164,57 @@ public class PlayerController : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (!canControl) return;
+        if (!canControl || isReloading) return;
 
         if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + stats.attackCooldown)
         {
             if (attackType == AttackType.Melee)
+            {
                 HandleMeleeAttack();
+            }
             else if (attackType == AttackType.Ranged)
-                HandleRangedAttack();
+            {
+                if (currentAmmo > 0)
+                {
+                    HandleRangedAttack();
+                    currentAmmo--;
+                    UpdateAmmoUI(); //  공격할 때 UI 갱신
+
+                    if (currentAmmo <= 0)
+                        StartCoroutine(Reload());
+                }
+                else
+                {
+                    Debug.Log("탄약이 없습니다! 재장전 필요");
+                }
+            }
 
             lastAttackTime = Time.time;
         }
+    }
 
-        if (attackType == AttackType.Melee && isAirAttacking) PerformAirAttack();
-        if (isAirAttacking) PerformAirAttack();
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("재장전 중...");
+        yield return new WaitForSeconds(reloadTime);
+        currentAmmo = maxAmmo;
+        isReloading = false;
+        Debug.Log("재장전 완료!");
+        UpdateAmmoUI(); //  재장전 후 UI 갱신
+    }
+
+    private void UpdateAmmoUI()
+    {
+        if (ammoText == null) return;
+
+        //  Ranged 상태일 때만 보이기
+        ammoText.gameObject.SetActive(attackType == AttackType.Ranged);
+
+        if (attackType == AttackType.Ranged)
+        {
+            ammoText.text = $"({currentAmmo} / {maxAmmo})";
+        }
     }
 
     private int currentAttackIndex = 0;
