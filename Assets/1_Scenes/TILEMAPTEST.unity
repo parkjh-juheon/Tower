@@ -814,7 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamageBonus: 0
-  attackCooldownBonus: 0
+  attackCooldownBonus: -0.49
   moveSpeedBonus: 0
   jumpForceBonus: 0
   maxHPBonus: 0
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newAttackType: 1
-  giveAmmo: 6
+  giveAmmo: 100
 --- !u!1 &270365499
 GameObject:
   m_ObjectHideFlags: 0
@@ -7996,7 +7996,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newAttackType: 0
-  giveAmmo: 6
+  giveAmmo: 10000
 --- !u!114 &1355911442
 MonoBehaviour:
   m_ObjectHideFlags: 0

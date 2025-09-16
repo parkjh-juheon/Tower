@@ -166,19 +166,23 @@ public class PlayerController : MonoBehaviour
     {
         if (!canControl || isReloading) return;
 
-        if (Input.GetKeyDown(KeyCode.X) && Time.time >= lastAttackTime + stats.attackCooldown)
+        if (attackType == AttackType.Melee
+            && Input.GetKeyDown(KeyCode.X)
+            && Time.time >= lastAttackTime + stats.attackCooldown)
         {
-            if (attackType == AttackType.Melee)
-            {
-                HandleMeleeAttack();
-            }
-            else if (attackType == AttackType.Ranged)
+            HandleMeleeAttack();
+            lastAttackTime = Time.time;
+        }
+        else if (attackType == AttackType.Ranged
+            && Input.GetKey(KeyCode.X)
+            && Time.time >= lastAttackTime + stats.attackCooldown)
+        if (attackType == AttackType.Ranged)
             {
                 if (currentAmmo > 0)
                 {
                     HandleRangedAttack();
                     currentAmmo--;
-                    UpdateAmmoUI(); //  공격할 때 UI 갱신
+                    UpdateAmmoUI(); // 공격할 때 UI 갱신
 
                     if (currentAmmo <= 0)
                         StartCoroutine(Reload());
@@ -187,11 +191,10 @@ public class PlayerController : MonoBehaviour
                 {
                     Debug.Log("탄약이 없습니다! 재장전 필요");
                 }
-            }
-
             lastAttackTime = Time.time;
-        }
+            }
     }
+
 
     private IEnumerator Reload()
     {
