@@ -1,7 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [System.Serializable]
@@ -66,7 +66,8 @@ public class PlayerController : MonoBehaviour
     private bool isReloading = false;
 
     [Header("UI")]
-    public TextMeshProUGUI ammoText; //  탄약 표시 UI
+    public TextMeshProUGUI ammoText;
+    public Image ammoReloadFill;   //  도넛 모양 재장전 표시
 
     [Header("구르기 설정")]
     [SerializeField] private float rollForce = 6f;
@@ -200,14 +201,29 @@ public class PlayerController : MonoBehaviour
     {
         isReloading = true;
         Debug.Log("재장전 중...");
-        yield return new WaitForSeconds(reloadTime);
+
+        float elapsed = 0f;
+        ammoReloadFill.gameObject.SetActive(true); //  표시 활성화
+
+        while (elapsed < reloadTime)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / reloadTime);
+            ammoReloadFill.fillAmount = progress; //  회전 채우기
+            yield return null;
+        }
+
         currentAmmo = maxAmmo;
         isReloading = false;
+
+        ammoReloadFill.fillAmount = 0f;                // 초기화
+        ammoReloadFill.gameObject.SetActive(false);    //  숨기기
         Debug.Log("재장전 완료!");
-        UpdateAmmoUI(); //  재장전 후 UI 갱신
+        UpdateAmmoUI();
     }
 
-    private void UpdateAmmoUI()
+
+private void UpdateAmmoUI()
     {
         if (ammoText == null) return;
 
