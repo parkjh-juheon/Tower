@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         if (!canControl || isReloading) return;
 
         if (attackType == AttackType.Melee
-            && Input.GetKeyDown(KeyCode.X)
+            && Input.GetKey(KeyCode.X)
             && Time.time >= lastAttackTime + stats.attackCooldown)
         {
             HandleMeleeAttack();
