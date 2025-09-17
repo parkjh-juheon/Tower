@@ -40,7 +40,6 @@ public class P_Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     public void Init(int damage, float speed, float size, float lifeTime, int facingDirection)
     {
         this.damage = damage;
@@ -49,7 +48,20 @@ public class P_Bullet : MonoBehaviour
         this.lifeTime = lifeTime;
 
         transform.localScale = Vector3.one * size;
-        rb.linearVelocity = new Vector2(speed * facingDirection, 0f);
+
+        //  발사 각도에 약간의 무작위 편차 추가 (예: -5° ~ +5°)
+        float spreadAngle = Random.Range(-10f, 10f);
+        float radians = spreadAngle * Mathf.Deg2Rad;
+
+        // 기본 방향은 오른쪽(1,0) 또는 왼쪽(-1,0)
+        Vector2 baseDir = new Vector2(facingDirection, 0f);
+        Vector2 dir = new Vector2(
+            baseDir.x * Mathf.Cos(radians) - baseDir.y * Mathf.Sin(radians),
+            baseDir.x * Mathf.Sin(radians) + baseDir.y * Mathf.Cos(radians)
+        );
+
+        rb.linearVelocity = dir * speed;
+
         Destroy(gameObject, lifeTime);
     }
 

@@ -113,7 +113,7 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
     }
 
-    void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         if (healthBarFill != null)
         {
