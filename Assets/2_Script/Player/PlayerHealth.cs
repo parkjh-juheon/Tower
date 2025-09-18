@@ -13,20 +13,20 @@ public class PlayerHealth : MonoBehaviour
     public CinemachineImpulseSource impulseSource;
     private Animator animator;
 
-    [Header("ÀÌÆåÆ®")]
+    [Header("ì´í™íŠ¸")]
     public ParticleSystem hitEffect;
 
-    [Header("ÇÇ°İ ÈÄ ¹«Àû ½Ã°£")]
+    [Header("í”¼ê²© í›„ ë¬´ì  ì‹œê°„")]
     public float invincibleDuration = 0.5f;
     public bool isInvincible = false;
 
-    [Header("³Ë¹é ¼³Á¤")]
-    public float knockbackDuration = 0.2f;  // ³Ë¹é ½Ã°£
+    [Header("ë„‰ë°± ì„¤ì •")]
+    public float knockbackDuration = 0.2f;  // ë„‰ë°± ì‹œê°„
     private Rigidbody2D rb;
     private bool isKnockback = false;
 
-    [Header("»ç¸Á Ã³¸®")]
-    [SerializeField] private float deathDeactivateDelay = 1.5f; // »ç¸Á ÈÄ ºñÈ°¼ºÈ­±îÁö ´ë±â ½Ã°£(ÃÊ, ÀÎ½ºÆåÅÍ¿¡¼­ Á¶Àı)
+    [Header("ì‚¬ë§ ì²˜ë¦¬")]
+    [SerializeField] private float deathDeactivateDelay = 1.5f; // ì‚¬ë§ í›„ ë¹„í™œì„±í™”ê¹Œì§€ ëŒ€ê¸° ì‹œê°„(ì´ˆ, ì¸ìŠ¤í™í„°ì—ì„œ ì¡°ì ˆ)
 
     private PlayerController playerController;
 
@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     /// <summary>
-    /// Àû¿¡°Ô °ø°İ¹ŞÀ» ¶§ È£Ãâ
+    /// ì ì—ê²Œ ê³µê²©ë°›ì„ ë•Œ í˜¸ì¶œ
     /// </summary>
     public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower)
     {
@@ -83,23 +83,23 @@ public class PlayerHealth : MonoBehaviour
 
     void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
     {
-        if (isKnockback) return;
-        isKnockback = true;
-
-        // ¹æÇâ °è»ê (Àû ¡æ ÇÃ·¹ÀÌ¾î ¹İ´ë ¹æÇâ)
+        // ê³µê²©ì â†’ í”Œë ˆì´ì–´ ë°˜ëŒ€ ë°©í–¥ ê³„ì‚°
         Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
 
-        // Èû Àû¿ë
-        rb.AddForce(direction * knockbackPower, ForceMode2D.Impulse);
+        // Yì¶•ì€ ë¬´ì‹œí•˜ê³  ìˆ˜í‰ìœ¼ë¡œë§Œ ë°€ë¦¬ê²Œ
+        direction.y = 0;
+        direction.Normalize();
 
-        Invoke(nameof(EndKnockback), knockbackDuration);
+        // ì†ë„ë¥¼ ì§ì ‘ ì§€ì • â†’ í™•ì‹¤í•˜ê²Œ íŠ•ê²¨ë‚˜ê°
+        rb.linearVelocity = direction * knockbackPower;
     }
 
     void EndKnockback()
     {
-        rb.linearVelocity = Vector2.zero;
+        // êµ³ì´ ì†ë„ë¥¼ 0ìœ¼ë¡œ êº¼ë²„ë¦´ í•„ìš” ì—†ìŒ
         isKnockback = false;
     }
+
 
     IEnumerator InvincibleCoroutine()
     {
@@ -123,12 +123,12 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+        Debug.Log("í”Œë ˆì´ì–´ ì‚¬ë§");
         if (animator != null)
-            animator.SetTrigger("Die"); // "Die" Æ®¸®°Å ¾Ö´Ï¸ŞÀÌ¼Ç ½ÇÇà
+            animator.SetTrigger("Die"); // "Die" íŠ¸ë¦¬ê±° ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
 
         if (playerController != null)
-            playerController.canControl = false; // Á¶ÀÛ ºÒ°¡
+            playerController.canControl = false; // ì¡°ì‘ ë¶ˆê°€
 
         StartCoroutine(DeactivateAfterDelay());
     }
