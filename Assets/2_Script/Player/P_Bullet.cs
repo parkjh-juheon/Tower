@@ -50,7 +50,7 @@ public class P_Bullet : MonoBehaviour
         transform.localScale = Vector3.one * size;
 
         //  발사 각도에 약간의 무작위 편차 추가 (예: -5° ~ +5°)
-        float spreadAngle = Random.Range(-10f, 10f);
+        float spreadAngle = Random.Range(-5f, 5f);
         float radians = spreadAngle * Mathf.Deg2Rad;
 
         // 기본 방향은 오른쪽(1,0) 또는 왼쪽(-1,0)
