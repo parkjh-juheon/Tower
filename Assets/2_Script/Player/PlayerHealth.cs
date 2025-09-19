@@ -22,11 +22,12 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("넉백 설정")]
     public float knockbackDuration = 0.2f;  // 넉백 시간
+    public float knockbackPower = 10f;      // 기본 넉백 세기
     private Rigidbody2D rb;
     private bool isKnockback = false;
 
     [Header("사망 처리")]
-    [SerializeField] private float deathDeactivateDelay = 1.5f; // 사망 후 비활성화까지 대기 시간(초, 인스펙터에서 조절)
+    [SerializeField] private float deathDeactivateDelay = 1.5f;
 
     private PlayerController playerController;
 
@@ -50,9 +51,6 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    /// <summary>
-    /// 적에게 공격받을 때 호출
-    /// </summary>
     public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower)
     {
         if (isInvincible) return;
@@ -81,35 +79,43 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
+    void ApplyKnockback(Vector2 attackerPosition, float power)
     {
-        // 공격자 → 플레이어 반대 방향 계산
+        if (isKnockback) return;
+
+        // 방향 계산
         Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
 
-        // Y축은 무시하고 수평으로만 밀리게
-        direction.y = 0;
+        // 너무 가까워서 (0,0) 되는 것 방지
+        if (direction == Vector2.zero)
+            direction = Vector2.left;
+
+        direction.y = 0.3f;        // 살짝 위로 튕기게
         direction.Normalize();
 
-        // 속도를 직접 지정 → 확실하게 튕겨나감
-        rb.linearVelocity = direction * knockbackPower;
+        isKnockback = true;
+        if (playerController != null)
+            playerController.canControl = false;
+
+        rb.linearVelocity = Vector2.zero; // 기존 속도 초기화
+        rb.AddForce(direction * power, ForceMode2D.Impulse);
+
+        StartCoroutine(EndKnockback());
     }
 
-    void EndKnockback()
+    IEnumerator EndKnockback()
     {
-        // 굳이 속도를 0으로 꺼버릴 필요 없음
-        isKnockback = false;
-    }
+        yield return new WaitForSeconds(knockbackDuration);
 
+        isKnockback = false;
+        if (playerController != null)
+            playerController.canControl = true;
+    }
 
     IEnumerator InvincibleCoroutine()
     {
         isInvincible = true;
-        if (playerController != null)
-
-            yield return new WaitForSeconds(invincibleDuration);
-
-        if (playerController != null)
-            playerController.canControl = true;
+        yield return new WaitForSeconds(invincibleDuration);
         isInvincible = false;
     }
 
@@ -125,10 +131,10 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("플레이어 사망");
         if (animator != null)
-            animator.SetTrigger("Die"); // "Die" 트리거 애니메이션 실행
+            animator.SetTrigger("Die");
 
         if (playerController != null)
-            playerController.canControl = false; // 조작 불가
+            playerController.canControl = false;
 
         StartCoroutine(DeactivateAfterDelay());
     }
