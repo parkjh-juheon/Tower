@@ -15254,7 +15254,7 @@ MonoBehaviour:
     bulletLifeTime: 1
     bulletSpeed: 15
   meleeAnimator: {fileID: 9100000, guid: 31dfe57c908dcff48b7b8b852adec891, type: 2}
-  rangedAnimator: {fileID: 9100000, guid: 3c2a5b7097b0fe44394328c0bdb9252e, type: 2}
+  rangedAnimator: {fileID: 9100000, guid: e71519ea05a1b034395e3421fff989c7, type: 2}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
