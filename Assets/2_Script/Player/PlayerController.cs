@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
         if (!canControl || isReloading) return;
 
         if (attackType == AttackType.Melee
-            && Input.GetKey(KeyCode.X)
+            && Input.GetKeyDown(KeyCode.X)
             && Time.time >= lastAttackTime + stats.attackCooldown)
         {
             HandleMeleeAttack();
@@ -264,16 +264,24 @@ private void UpdateAmmoUI()
 
     private void HandleRangedAttack()
     {
-        if (bulletPrefab != null && firePoint != null)
+        if (bulletPrefab == null || firePoint == null)
+            return;
+        animator?.SetTrigger("Shoot");
+
+        // 총알 생성
+        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (bulletObj.TryGetComponent(out P_Bullet bullet))
         {
-            GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            P_Bullet bullet = bulletObj.GetComponent<P_Bullet>();
-            if (bullet != null)
-            {
-                bullet.Init((int)stats.attackDamage, stats.bulletSpeed, stats.bulletSize, stats.bulletLifeTime, facingDirection);
-            }
+            bullet.Init(
+                (int)stats.attackDamage,
+                stats.bulletSpeed,
+                stats.bulletSize,
+                stats.bulletLifeTime,
+                facingDirection
+            );
         }
     }
+
 
     private void HandleMovement()
     {
