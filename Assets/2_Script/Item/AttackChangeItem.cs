@@ -4,7 +4,7 @@ using static PlayerController;
 public class AttackChangeItem : MonoBehaviour
 {
     public AttackType newAttackType = AttackType.Ranged;
-    public int giveAmmo = 6;  //  전환 시 지급할 탄약 수
+    public int giveAmmo = 6;  // Ranged 전환 시 지급할 탄약 (RapidFire는 무시)
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -13,11 +13,13 @@ public class AttackChangeItem : MonoBehaviour
             PlayerController controller = other.GetComponent<PlayerController>();
             if (controller != null)
             {
-                controller.attackType = newAttackType;
+                // PlayerController에서 공격 타입 전환 로직 실행
+                controller.SetAttackType(newAttackType);
 
+                // Ranged 타입일 경우만 탄약 개별 조정
                 if (newAttackType == AttackType.Ranged)
                 {
-                    controller.maxAmmo = giveAmmo;      // 최대 탄약 지정
+                    controller.maxAmmo = giveAmmo;
                     controller.SendMessage("Reload");  // 초기 탄약 채우기
                 }
 

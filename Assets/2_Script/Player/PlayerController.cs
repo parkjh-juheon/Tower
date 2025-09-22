@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class PlayerController : MonoBehaviour
 {
     [System.Serializable]
@@ -24,32 +25,16 @@ public class PlayerController : MonoBehaviour
         public float bulletSize;       // 총알 크기
         public float bulletLifeTime;   // 지속 시간
         public float bulletSpeed;      // 탄속
-
-        // 스탯 변환 메서드 ( 현재는 누적 문제 있음)
-        public void ApplyAttackType(PlayerController.AttackType type)
-        {
-            if (type == PlayerController.AttackType.Melee)
-            {
-                meleeRange += bulletLifeTime;
-                meleeRange += bulletSpeed;
-                knockbackPower += bulletSize;
-            }
-            else if (type == PlayerController.AttackType.Ranged)
-            {
-                bulletLifeTime += meleeRange;
-                bulletSpeed += meleeRange;
-                bulletSize += knockbackPower;
-            }
-        }
     }
 
-    public enum AttackType { Melee, Ranged }
+    public enum AttackType { Melee, Ranged, RapidFire }
     public AttackType attackType = AttackType.Melee;
     public CharacterStats stats;
 
     [Header("공격 타입별 애니메이터")]
-    public RuntimeAnimatorController meleeAnimator;   //  근접 전용 애니메이터
-    public RuntimeAnimatorController rangedAnimator;  //  원거리 전용 애니메이터
+    public RuntimeAnimatorController meleeAnimator;
+    public RuntimeAnimatorController rangedAnimator;
+    public RuntimeAnimatorController rapidFireAnimator;
 
     [Header("공격 설정")]
     [SerializeField] private LayerMask enemyLayer;
@@ -57,6 +42,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
+    public GameObject rapidFireBulletPrefab;
     public Transform firePoint;
 
     [Header("탄약 시스템")]
@@ -74,7 +60,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rollDuration = 0.5f;
 
     [Header("점프 설정")]
-    [SerializeField] private int maxJumpCount = 1; // 기본 공중 점프 가능 횟수
+    [SerializeField] private int maxJumpCount = 1;
     private int baseMaxJumpCount;
     private int currentJumpCount = 0;
     private int groundJumpCount = 0;
@@ -101,7 +87,6 @@ public class PlayerController : MonoBehaviour
     private float rollTimer = 0f;
     private int facingDirection = 1;
 
-
     public bool canControl = true;
 
     private void Awake()
@@ -113,6 +98,12 @@ public class PlayerController : MonoBehaviour
         currentAmmo = maxAmmo;
         UpdateAmmoUI();
     }
+
+    private void Start()
+    {
+        SetAttackType(attackType);
+    }
+
 
     private void Update()
     {
@@ -127,30 +118,41 @@ public class PlayerController : MonoBehaviour
         if (isGrounded && isAirAttacking) EndAirAttack();
         if (isAirAttacking) AirAttackHitCheck();
 
-        //  공격 타입 전환
-        UpdateAnimatorByType();
-        UpdateAmmoUI(); // ⭐ 전환 직후 UI 즉시 갱신
+        UpdateAmmoUI();
     }
 
-    private void UpdateAnimatorByType() //  새 함수
+    public void SetAttackType(AttackType newType)
     {
-        if (animator == null) return;
+        attackType = newType;
 
-        if (attackType == AttackType.Melee && meleeAnimator != null)
+        switch (attackType)
         {
-            animator.runtimeAnimatorController = meleeAnimator;
+            case AttackType.Melee:
+                animator.runtimeAnimatorController = meleeAnimator;
+                break;
+
+            case AttackType.Ranged:
+                animator.runtimeAnimatorController = rangedAnimator;
+                maxAmmo = 6;
+                currentAmmo = maxAmmo;
+                stats.attackCooldown = 0.5f;
+                break;
+
+            case AttackType.RapidFire:
+                animator.runtimeAnimatorController = rapidFireAnimator;
+                maxAmmo = 100;
+                currentAmmo = maxAmmo;
+                stats.bulletLifeTime = 0.5f;
+                stats.attackCooldown = 0.01f;
+                break;
         }
-        else if (attackType == AttackType.Ranged && rangedAnimator != null)
-        {
-            animator.runtimeAnimatorController = rangedAnimator;
-        }
+
+        UpdateAmmoUI();
     }
-
 
     private void CheckGrounded()
     {
         wasGrounded = isGrounded;
-
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
 
         if (!wasGrounded && isGrounded)
@@ -174,66 +176,55 @@ public class PlayerController : MonoBehaviour
             HandleMeleeAttack();
             lastAttackTime = Time.time;
         }
-        else if (attackType == AttackType.Ranged
+        else if ((attackType == AttackType.Ranged || attackType == AttackType.RapidFire)
             && Input.GetKey(KeyCode.X)
             && Time.time >= lastAttackTime + stats.attackCooldown)
-        if (attackType == AttackType.Ranged)
+        {
+            if (currentAmmo > 0)
             {
-                if (currentAmmo > 0)
-                {
-                    HandleRangedAttack();
-                    currentAmmo--;
-                    UpdateAmmoUI(); // 공격할 때 UI 갱신
+                HandleRangedAttack();
+                currentAmmo--;
+                UpdateAmmoUI();
 
-                    if (currentAmmo <= 0)
-                        StartCoroutine(Reload());
-                }
-                else
-                {
-                    Debug.Log("탄약이 없습니다! 재장전 필요");
-                }
-            lastAttackTime = Time.time;
+                if (currentAmmo <= 0)
+                    StartCoroutine(Reload());
             }
+            else
+            {
+                Debug.Log("탄약이 없습니다! 재장전 필요");
+            }
+            lastAttackTime = Time.time;
+        }
     }
-
 
     private IEnumerator Reload()
     {
         isReloading = true;
-        Debug.Log("재장전 중...");
-
         float elapsed = 0f;
-        ammoReloadFill.gameObject.SetActive(true); //  표시 활성화
+        ammoReloadFill.gameObject.SetActive(true);
 
         while (elapsed < reloadTime)
         {
             elapsed += Time.deltaTime;
             float progress = Mathf.Clamp01(elapsed / reloadTime);
-            ammoReloadFill.fillAmount = progress; //  회전 채우기
+            ammoReloadFill.fillAmount = progress;
             yield return null;
         }
 
         currentAmmo = maxAmmo;
         isReloading = false;
-
-        ammoReloadFill.fillAmount = 0f;                // 초기화
-        ammoReloadFill.gameObject.SetActive(false);    //  숨기기
-        Debug.Log("재장전 완료!");
+        ammoReloadFill.fillAmount = 0f;
+        ammoReloadFill.gameObject.SetActive(false);
         UpdateAmmoUI();
     }
 
-
-private void UpdateAmmoUI()
+    private void UpdateAmmoUI()
     {
         if (ammoText == null) return;
+        ammoText.gameObject.SetActive(attackType == AttackType.Ranged || attackType == AttackType.RapidFire);
 
-        //  Ranged 상태일 때만 보이기
-        ammoText.gameObject.SetActive(attackType == AttackType.Ranged);
-
-        if (attackType == AttackType.Ranged)
-        {
+        if (attackType == AttackType.Ranged || attackType == AttackType.RapidFire)
             ammoText.text = $"({currentAmmo} / {maxAmmo})";
-        }
     }
 
     private int currentAttackIndex = 0;
@@ -264,12 +255,15 @@ private void UpdateAmmoUI()
 
     private void HandleRangedAttack()
     {
-        if (bulletPrefab == null || firePoint == null)
-            return;
+        GameObject prefab = (attackType == AttackType.RapidFire && rapidFireBulletPrefab != null)
+            ? rapidFireBulletPrefab
+            : bulletPrefab;
+
+        if (prefab == null || firePoint == null) return;
+
         animator?.SetTrigger("Shoot");
 
-        // 총알 생성
-        GameObject bulletObj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        GameObject bulletObj = Instantiate(prefab, firePoint.position, firePoint.rotation);
         if (bulletObj.TryGetComponent(out P_Bullet bullet))
         {
             bullet.Init(
@@ -281,7 +275,6 @@ private void UpdateAmmoUI()
             );
         }
     }
-
 
     private void HandleMovement()
     {
@@ -320,12 +313,9 @@ private void UpdateAmmoUI()
             if (isGrounded)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
-
                 groundJumpCount++;
                 currentJumpCount = 0;
-
                 animator?.SetTrigger("Jump");
-                Debug.Log("지상 점프");
             }
             else if (currentJumpCount < maxJumpCount)
             {
@@ -334,16 +324,13 @@ private void UpdateAmmoUI()
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount = 1;
                     maxJumpCount = baseMaxJumpCount + 1;
-
                     animator?.SetTrigger("Jump");
                 }
                 else
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount++;
-
                     animator?.SetTrigger("Jump");
-                    Debug.Log($"공중 점프 {currentJumpCount}/{maxJumpCount}");
                 }
             }
         }
