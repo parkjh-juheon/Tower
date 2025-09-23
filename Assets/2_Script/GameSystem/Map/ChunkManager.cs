@@ -21,11 +21,14 @@ public class ChunkManager : MonoBehaviour
 
         // 1) StartChunk (fixed)
         GameObject startChunk = Instantiate(startChunkPrefab, Vector3.zero, Quaternion.identity, transform);
+        PositionChunkAt(startChunk, Vector3.zero); // bottomAnchor가 (0,0,0)에 오도록
         spawnedChunks.Add(startChunk);
+
         Chunk startC = startChunk.GetComponent<Chunk>();
+
         Vector3 attachPoint = startC.topAnchor.position;
 
-        // 2) 랜덤 청크 n개 (순서 섞기 원하면 Shuffle 사용)
+        // 2) 랜덤 청크 n개
         List<GameObject> pool = new List<GameObject>(randomChunkPrefabs);
         Shuffle(pool);
 
@@ -35,27 +38,33 @@ public class ChunkManager : MonoBehaviour
             GameObject chunk = Instantiate(prefab, Vector3.zero, Quaternion.identity, transform);
             PositionChunkAt(chunk, attachPoint);
             spawnedChunks.Add(chunk);
-            attachPoint = chunk.GetComponent<Chunk>().topAnchor.position;
+
+            Chunk c = chunk.GetComponent<Chunk>();
+
+            attachPoint = c.topAnchor.position;
         }
 
         // 3) BossChunk (fixed)
         GameObject boss = Instantiate(bossChunkPrefab, Vector3.zero, Quaternion.identity, transform);
         PositionChunkAt(boss, attachPoint);
         spawnedChunks.Add(boss);
+
+        Chunk bossC = boss.GetComponent<Chunk>();
     }
 
-    private void PositionChunkAt(GameObject chunkObj, Vector3 attachPosition)
+    // 청크를 특정 지점에 bottomAnchor 기준으로 배치
+    private void PositionChunkAt(GameObject chunk, Vector3 targetPoint)
     {
-        Chunk chunk = chunkObj.GetComponent<Chunk>();
-        if (chunk == null || chunk.bottomAnchor == null)
+        Chunk c = chunk.GetComponent<Chunk>();
+        if (c == null || c.bottomAnchor == null)
         {
-            Debug.LogError("Chunk or bottomAnchor missing on " + chunkObj.name);
+            Debug.LogError($"[PositionChunkAt] {chunk.name}에 Chunk 컴포넌트나 bottomAnchor가 없습니다!");
             return;
         }
 
-        Vector3 bottomWorld = chunk.bottomAnchor.position; // 현재 월드 위치
-        Vector3 delta = attachPosition - bottomWorld;
-        chunkObj.transform.position += delta;
+        // bottomAnchor가 targetPoint에 오도록 이동시킨다
+        Vector3 offset = targetPoint - c.bottomAnchor.position;
+        chunk.transform.position += offset;
     }
 
     private void ClearTower()
