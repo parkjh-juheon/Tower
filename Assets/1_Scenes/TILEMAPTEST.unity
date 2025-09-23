@@ -217,7 +217,7 @@ Animator:
   m_GameObject: {fileID: 27505582}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 529508d65e32b6344b4c083f8b8dac16, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3ee92bd9d388dba49b41430afe562d34, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -15226,6 +15226,7 @@ MonoBehaviour:
   invincibleDuration: 1
   isInvincible: 0
   knockbackDuration: 0.2
+  knockbackPower: 10
   deathDeactivateDelay: 1
 --- !u!114 &1848940054
 MonoBehaviour:
@@ -15255,11 +15256,13 @@ MonoBehaviour:
     bulletSpeed: 15
   meleeAnimator: {fileID: 9100000, guid: 31dfe57c908dcff48b7b8b852adec891, type: 2}
   rangedAnimator: {fileID: 9100000, guid: e71519ea05a1b034395e3421fff989c7, type: 2}
+  rapidFireAnimator: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   baseAttackCooldown: 0.5
   bulletPrefab: {fileID: 4010983974561404889, guid: bfb572eee26fa7e43af08d57dde717ca, type: 3}
+  rapidFireBulletPrefab: {fileID: 0}
   firePoint: {fileID: 1342177755}
   maxAmmo: 6
   reloadTime: 2
