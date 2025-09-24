@@ -369,11 +369,13 @@ public class PlayerController : MonoBehaviour
             canControl = false;
             airAttackHasHit = false; // 리셋
 
+            // 강제 낙하
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
+
             animator.SetTrigger("AirAttack"); // 낙하 모션 실행
             Debug.Log("[PlayerController] AirAttack 시작");
 
-            // 강제 낙하
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
+
         }
     }
 
