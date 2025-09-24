@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
     private int facingDirection = 1;
 
     public bool canControl = true;
+    public bool airAttackHasHit = false; // 공중 공격 판정용 플래그
 
     private void Awake()
     {
@@ -115,7 +116,13 @@ public class PlayerController : MonoBehaviour
         HandleRoll();
         HandleAttack();
 
-        if (isGrounded && isAirAttacking) EndAirAttack();
+        // Update() 안에서
+        if (isAirAttacking && isGrounded)
+        {
+            PerformAirAttack(); // 착지하자마자 판정 (애니 이벤트 대신)
+            EndAirAttack();
+        }
+
         if (isAirAttacking) AirAttackHitCheck();
 
         UpdateAmmoUI();
@@ -356,22 +363,43 @@ public class PlayerController : MonoBehaviour
 
     private void StartAirAttack()
     {
-        isAirAttacking = true; canControl = false;
-        animator?.SetTrigger("AirAttack");
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
+        if (!isGrounded)
+        {
+            isAirAttacking = true;
+            canControl = false;
+            airAttackHasHit = false; // 리셋
+
+            animator.SetTrigger("AirAttack"); // 낙하 모션 실행
+            Debug.Log("[PlayerController] AirAttack 시작");
+
+            // 강제 낙하
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
+        }
     }
 
-    private void PerformAirAttack()
+    // 애니 이벤트 또는 호출용으로 수정
+    public void PerformAirAttack()
     {
-        Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * stats.meleeRange * 0.5f;
-        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, stats.meleeRange, LayerMask.GetMask("Enemy"));
+        if (airAttackHasHit) return; // 이미 맞았다면 중복 방지
+        airAttackHasHit = true;
+
+        Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, enemyLayer);
 
         foreach (var hit in hits)
         {
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-            if (enemy != null) enemy.TakeDamage((int)stats.attackDamage * 2, transform.position, stats.knockbackPower * 1.5f);
+            if (enemy != null)
+            {
+                int damage = (int)(stats.attackDamage * 2); // 데미지 2배
+                float knockback = stats.knockbackPower * 1.5f; // 넉백 강화
+                enemy.TakeDamage(damage, transform.position, knockback);
+
+                Debug.Log($"[PlayerController] AirAttack 적중 → {enemy.name}, 피해 {damage}");
+            }
         }
     }
+
 
     private void AirAttackHitCheck()
     {
@@ -387,7 +415,8 @@ public class PlayerController : MonoBehaviour
 
     private void EndAirAttack()
     {
-        isAirAttacking = false; canControl = true;
+        isAirAttacking = false; 
+        canControl = true;
     }
 
     private IEnumerator ResetAnimatorSpeed()
