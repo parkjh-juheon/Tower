@@ -367,17 +367,15 @@ public class PlayerController : MonoBehaviour
         {
             isAirAttacking = true;
             canControl = false;
-            airAttackHasHit = false; // 리셋
+            airAttackHasHit = false;
 
-            // 강제 낙하
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
 
-            animator.SetTrigger("AirAttack"); // 낙하 모션 실행
-            Debug.Log("[PlayerController] AirAttack 시작");
-
-
+            animator.SetTrigger("Air");
+            Debug.Log($"[{Time.time:F2}] [PlayerController] AirAttack 시작 (코드)");
         }
     }
+
 
     // 애니 이벤트 또는 호출용으로 수정
     public void PerformAirAttack()
