@@ -73,12 +73,16 @@ public class FallingObstacleSpawner : MonoBehaviour
         GameObject warningLineObj = Instantiate(warningLinePrefab, spawnPos, Quaternion.identity);
         LineRenderer lineRenderer = warningLineObj.GetComponent<LineRenderer>();
 
-        // Line Renderer의 끝 지점 설정 (아래쪽으로 15 유닛 떨어진 지점)
-        lineRenderer.SetPosition(0, spawnPos);
-        lineRenderer.SetPosition(1, new Vector3(spawnPos.x, spawnPos.y - 50f, spawnPos.z));
+        // === 땅까지 길이 자동 맞추기 ===
+        float maxDistance = 100f; // 최대 탐지 거리
+        RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, maxDistance, LayerMask.GetMask("RealGround"));
+        float endY = hit.collider != null ? hit.point.y : spawnPos.y - 50f;
 
-        // 2. 깜빡이는 효과를 위한 코루틴 시작 (BlinkEffect 코루틴의 참조를 저장)
-        Coroutine blinkCoroutine = StartCoroutine(BlinkEffect(lineRenderer));
+        lineRenderer.SetPosition(0, spawnPos);
+        lineRenderer.SetPosition(1, new Vector3(spawnPos.x, endY, spawnPos.z));
+
+        // 2. 깜빡이는 효과 (Fade In/Out)
+        Coroutine fadeCoroutine = StartCoroutine(FadeEffect(lineRenderer));
 
         // 3. 경고 시간만큼 대기
         yield return new WaitForSeconds(warningDuration);
@@ -91,23 +95,55 @@ public class FallingObstacleSpawner : MonoBehaviour
             obstacle.fallSpeed = Random.Range(minFallSpeed, maxFallSpeed);
         }
 
-        // 5. 경고선 파괴 전에 깜빡이 코루틴을 멈춥니다.
-        StopCoroutine(blinkCoroutine);
-
-        // 6. 경고선 파괴
+        // 5. 코루틴 정지 & 경고선 파괴
+        StopCoroutine(fadeCoroutine);
         Destroy(warningLineObj);
     }
 
-    // 경고선을 깜빡이게 만드는 코루틴
-    private IEnumerator BlinkEffect(LineRenderer lineRenderer)
+    // 경고선을 Fade In/Out 시키는 코루틴
+    // 경고선을 Fade In/Out 시키는 코루틴
+    private IEnumerator FadeEffect(LineRenderer lineRenderer)
     {
+        Color baseStart = lineRenderer.startColor;
+        Color baseEnd = lineRenderer.endColor;
+
+        float alpha = 1f;
+        bool fadingOut = true;
+
         while (true)
         {
-            // 0.2초마다 투명도를 조절하여 깜빡이는 효과 구현
-            lineRenderer.enabled = !lineRenderer.enabled;
-            yield return new WaitForSeconds(0.2f);
+            if (fadingOut)
+                alpha -= Time.deltaTime * 2f; // 0.5초에 완전히 사라짐
+            else
+                alpha += Time.deltaTime * 2f;
+
+            alpha = Mathf.Clamp01(alpha);
+
+            Color newStart = new Color(baseStart.r, baseStart.g, baseStart.b, alpha);
+            Color newEnd = new Color(baseEnd.r, baseEnd.g, baseEnd.b, alpha);
+
+            lineRenderer.startColor = newStart;
+            lineRenderer.endColor = newEnd;
+
+            if (alpha <= 0f) fadingOut = false;
+            if (alpha >= 1f) fadingOut = true;
+
+            yield return null;
         }
     }
+
+
+
+    //// 경고선을 깜빡이게 만드는 코루틴
+    //private IEnumerator BlinkEffect(LineRenderer lineRenderer)
+    //{
+    //    while (true)
+    //    {
+    //        // 0.2초마다 투명도를 조절하여 깜빡이는 효과 구현
+    //        lineRenderer.enabled = !lineRenderer.enabled;
+    //        yield return new WaitForSeconds(0.2f);
+    //    }
+    //}
 
     private bool IsTooClose(float newX, List<float> usedPositions)
     {
