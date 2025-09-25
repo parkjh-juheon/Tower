@@ -22,8 +22,8 @@ public class FallingObstacleSpawner : MonoBehaviour
     public float maxFallSpeed = 7f;
 
     [Header("경고선 설정")]
-    public GameObject warningLinePrefab; // 위에서 만든 WarningLine 프리팹을 여기에 연결
-    public float warningDuration = 1.0f; // 경고선이 표시되는 시간 (초)
+    public GameObject warningLinePrefab; 
+    public float warningDuration = 1.0f; // 경고선이 표시되는 시간
 
     [Header("겹침 방지")]
     public float minSpacing = 1.0f;   // X 좌표 간 최소 간격
@@ -60,7 +60,6 @@ public class FallingObstacleSpawner : MonoBehaviour
                 Vector3 spawnPos = spawnPoint.position;
                 spawnPos.x += spawnX;
 
-                // 여기서 경고선 생성 코루틴만 시작합니다.
                 StartCoroutine(ShowWarningAndSpawn(spawnPos));
             }
 
@@ -76,7 +75,7 @@ public class FallingObstacleSpawner : MonoBehaviour
 
         // Line Renderer의 끝 지점 설정 (아래쪽으로 15 유닛 떨어진 지점)
         lineRenderer.SetPosition(0, spawnPos);
-        lineRenderer.SetPosition(1, new Vector3(spawnPos.x, spawnPos.y - 15f, spawnPos.z));
+        lineRenderer.SetPosition(1, new Vector3(spawnPos.x, spawnPos.y - 50f, spawnPos.z));
 
         // 2. 깜빡이는 효과를 위한 코루틴 시작 (BlinkEffect 코루틴의 참조를 저장)
         Coroutine blinkCoroutine = StartCoroutine(BlinkEffect(lineRenderer));
