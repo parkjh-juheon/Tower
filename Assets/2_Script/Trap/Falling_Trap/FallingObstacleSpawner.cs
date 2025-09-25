@@ -21,6 +21,10 @@ public class FallingObstacleSpawner : MonoBehaviour
     public float minFallSpeed = 3f;
     public float maxFallSpeed = 7f;
 
+    [Header("경고선 설정")]
+    public GameObject warningLinePrefab; // 위에서 만든 WarningLine 프리팹을 여기에 연결
+    public float warningDuration = 1.0f; // 경고선이 표시되는 시간 (초)
+
     [Header("겹침 방지")]
     public float minSpacing = 1.0f;   // X 좌표 간 최소 간격
 
@@ -37,19 +41,17 @@ public class FallingObstacleSpawner : MonoBehaviour
             int spawnCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
             float interval = Random.Range(minSpawnInterval, maxSpawnInterval);
 
-            List<float> usedPositions = new List<float>(); // 이번 스폰에서 사용된 X 좌표
+            List<float> usedPositions = new List<float>();
 
             for (int i = 0; i < spawnCount; i++)
             {
                 float spawnX;
                 int safety = 0;
-
-                // 최소 간격을 만족하는 X 좌표 찾기
                 do
                 {
                     spawnX = Random.Range(-spawnRangeX, spawnRangeX);
                     safety++;
-                    if (safety > 20) break; // 무한 루프 방지
+                    if (safety > 20) break;
                 }
                 while (IsTooClose(spawnX, usedPositions));
 
@@ -58,17 +60,53 @@ public class FallingObstacleSpawner : MonoBehaviour
                 Vector3 spawnPos = spawnPoint.position;
                 spawnPos.x += spawnX;
 
-                GameObject obj = Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
-
-                // 낙하 속도 랜덤 적용
-                FallingObstacle obstacle = obj.GetComponent<FallingObstacle>();
-                if (obstacle != null)
-                {
-                    obstacle.fallSpeed = Random.Range(minFallSpeed, maxFallSpeed);
-                }
+                // 여기서 경고선 생성 코루틴만 시작합니다.
+                StartCoroutine(ShowWarningAndSpawn(spawnPos));
             }
 
             yield return new WaitForSeconds(interval);
+        }
+    }
+
+    private IEnumerator ShowWarningAndSpawn(Vector3 spawnPos)
+    {
+        // 1. 경고선 생성
+        GameObject warningLineObj = Instantiate(warningLinePrefab, spawnPos, Quaternion.identity);
+        LineRenderer lineRenderer = warningLineObj.GetComponent<LineRenderer>();
+
+        // Line Renderer의 끝 지점 설정 (아래쪽으로 15 유닛 떨어진 지점)
+        lineRenderer.SetPosition(0, spawnPos);
+        lineRenderer.SetPosition(1, new Vector3(spawnPos.x, spawnPos.y - 15f, spawnPos.z));
+
+        // 2. 깜빡이는 효과를 위한 코루틴 시작 (BlinkEffect 코루틴의 참조를 저장)
+        Coroutine blinkCoroutine = StartCoroutine(BlinkEffect(lineRenderer));
+
+        // 3. 경고 시간만큼 대기
+        yield return new WaitForSeconds(warningDuration);
+
+        // 4. 장애물 생성
+        GameObject obj = Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+        FallingObstacle obstacle = obj.GetComponent<FallingObstacle>();
+        if (obstacle != null)
+        {
+            obstacle.fallSpeed = Random.Range(minFallSpeed, maxFallSpeed);
+        }
+
+        // 5. 경고선 파괴 전에 깜빡이 코루틴을 멈춥니다.
+        StopCoroutine(blinkCoroutine);
+
+        // 6. 경고선 파괴
+        Destroy(warningLineObj);
+    }
+
+    // 경고선을 깜빡이게 만드는 코루틴
+    private IEnumerator BlinkEffect(LineRenderer lineRenderer)
+    {
+        while (true)
+        {
+            // 0.2초마다 투명도를 조절하여 깜빡이는 효과 구현
+            lineRenderer.enabled = !lineRenderer.enabled;
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
