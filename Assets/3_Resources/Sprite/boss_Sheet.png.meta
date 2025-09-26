@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f42a6cabaa5a96a4da0c97ec47f60df7
+guid: 1df76f154d8ce904289c80041de8a761
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -410,6 +410,30 @@ TextureImporter:
   - first:
       213: 3530375420595774686
     second: boss_Sheet_135
+  - first:
+      213: -8986135523639556694
+    second: boss_Sheet_136
+  - first:
+      213: -6521857221955097647
+    second: boss_Sheet_137
+  - first:
+      213: -5755060909756144075
+    second: boss_Sheet_138
+  - first:
+      213: -4135364087990162140
+    second: boss_Sheet_139
+  - first:
+      213: 3322359286212114990
+    second: boss_Sheet_140
+  - first:
+      213: 7236064086124013060
+    second: boss_Sheet_141
+  - first:
+      213: 1201261894634190028
+    second: boss_Sheet_142
+  - first:
+      213: 8885484648909394153
+    second: boss_Sheet_143
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -477,7 +501,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 16384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -509,7 +533,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -531,7 +555,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -553,7 +577,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -575,7 +599,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -597,7 +621,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4000
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -619,7 +643,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4800
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -641,7 +665,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5600
-        y: 7040
+        y: 7680
         width: 800
         height: 640
       alignment: 7
@@ -663,7 +687,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -685,7 +709,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 800
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -707,7 +731,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -729,7 +753,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -751,7 +775,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -773,7 +797,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4000
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -795,7 +819,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4800
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -817,7 +841,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5600
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -839,7 +863,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 6400
-        y: 6400
+        y: 7040
         width: 800
         height: 640
       alignment: 7
@@ -861,7 +885,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -883,7 +907,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 800
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -905,7 +929,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -927,7 +951,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -949,7 +973,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -971,7 +995,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4000
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -993,7 +1017,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4800
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -1015,7 +1039,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 5600
-        y: 5760
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -1036,8 +1060,8 @@ TextureImporter:
       name: boss_Sheet_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 5120
+        x: 6400
+        y: 6400
         width: 800
         height: 640
       alignment: 7
@@ -1058,8 +1082,8 @@ TextureImporter:
       name: boss_Sheet_25
       rect:
         serializedVersion: 2
-        x: 800
-        y: 5120
+        x: 0
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1080,8 +1104,8 @@ TextureImporter:
       name: boss_Sheet_26
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 5120
+        x: 800
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1102,8 +1126,8 @@ TextureImporter:
       name: boss_Sheet_27
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 5120
+        x: 1600
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1124,8 +1148,8 @@ TextureImporter:
       name: boss_Sheet_28
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 5120
+        x: 2400
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1146,8 +1170,8 @@ TextureImporter:
       name: boss_Sheet_29
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 5120
+        x: 3200
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1168,8 +1192,8 @@ TextureImporter:
       name: boss_Sheet_30
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 5120
+        x: 4000
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1190,8 +1214,8 @@ TextureImporter:
       name: boss_Sheet_31
       rect:
         serializedVersion: 2
-        x: 5600
-        y: 5120
+        x: 4800
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1212,8 +1236,8 @@ TextureImporter:
       name: boss_Sheet_32
       rect:
         serializedVersion: 2
-        x: 0
-        y: 4480
+        x: 5600
+        y: 5760
         width: 800
         height: 640
       alignment: 7
@@ -1234,8 +1258,8 @@ TextureImporter:
       name: boss_Sheet_33
       rect:
         serializedVersion: 2
-        x: 800
-        y: 4480
+        x: 0
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1256,8 +1280,8 @@ TextureImporter:
       name: boss_Sheet_34
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 4480
+        x: 800
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1278,8 +1302,8 @@ TextureImporter:
       name: boss_Sheet_35
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 4480
+        x: 1600
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1300,8 +1324,8 @@ TextureImporter:
       name: boss_Sheet_36
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 4480
+        x: 2400
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1322,8 +1346,8 @@ TextureImporter:
       name: boss_Sheet_37
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 4480
+        x: 3200
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1344,8 +1368,8 @@ TextureImporter:
       name: boss_Sheet_38
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 4480
+        x: 4000
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1366,8 +1390,8 @@ TextureImporter:
       name: boss_Sheet_39
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3840
+        x: 4800
+        y: 5120
         width: 800
         height: 640
       alignment: 7
@@ -1388,8 +1412,8 @@ TextureImporter:
       name: boss_Sheet_40
       rect:
         serializedVersion: 2
-        x: 800
-        y: 3840
+        x: 0
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1410,8 +1434,8 @@ TextureImporter:
       name: boss_Sheet_41
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 3840
+        x: 800
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1432,8 +1456,8 @@ TextureImporter:
       name: boss_Sheet_42
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 3840
+        x: 1600
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1454,8 +1478,8 @@ TextureImporter:
       name: boss_Sheet_43
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 3840
+        x: 2400
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1476,8 +1500,8 @@ TextureImporter:
       name: boss_Sheet_44
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 3840
+        x: 4000
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1498,8 +1522,8 @@ TextureImporter:
       name: boss_Sheet_45
       rect:
         serializedVersion: 2
-        x: 5600
-        y: 3840
+        x: 4800
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1520,8 +1544,8 @@ TextureImporter:
       name: boss_Sheet_46
       rect:
         serializedVersion: 2
-        x: 6400
-        y: 3840
+        x: 5600
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1542,8 +1566,8 @@ TextureImporter:
       name: boss_Sheet_47
       rect:
         serializedVersion: 2
-        x: 7200
-        y: 3840
+        x: 6400
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1564,8 +1588,8 @@ TextureImporter:
       name: boss_Sheet_48
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3200
+        x: 7200
+        y: 4480
         width: 800
         height: 640
       alignment: 7
@@ -1586,8 +1610,8 @@ TextureImporter:
       name: boss_Sheet_49
       rect:
         serializedVersion: 2
-        x: 800
-        y: 3200
+        x: 0
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1608,8 +1632,8 @@ TextureImporter:
       name: boss_Sheet_50
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 3200
+        x: 800
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1630,8 +1654,8 @@ TextureImporter:
       name: boss_Sheet_51
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 3200
+        x: 1600
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1652,8 +1676,8 @@ TextureImporter:
       name: boss_Sheet_52
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 3200
+        x: 2400
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1674,8 +1698,8 @@ TextureImporter:
       name: boss_Sheet_53
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 3200
+        x: 3200
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1696,8 +1720,8 @@ TextureImporter:
       name: boss_Sheet_54
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 3200
+        x: 4000
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1718,8 +1742,8 @@ TextureImporter:
       name: boss_Sheet_55
       rect:
         serializedVersion: 2
-        x: 5600
-        y: 3200
+        x: 4800
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1740,8 +1764,8 @@ TextureImporter:
       name: boss_Sheet_56
       rect:
         serializedVersion: 2
-        x: 6400
-        y: 3200
+        x: 5600
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1762,8 +1786,8 @@ TextureImporter:
       name: boss_Sheet_57
       rect:
         serializedVersion: 2
-        x: 7200
-        y: 3200
+        x: 6400
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1784,8 +1808,8 @@ TextureImporter:
       name: boss_Sheet_58
       rect:
         serializedVersion: 2
-        x: 0
-        y: 2560
+        x: 7200
+        y: 3840
         width: 800
         height: 640
       alignment: 7
@@ -1806,8 +1830,8 @@ TextureImporter:
       name: boss_Sheet_59
       rect:
         serializedVersion: 2
-        x: 800
-        y: 2560
+        x: 0
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1828,8 +1852,8 @@ TextureImporter:
       name: boss_Sheet_60
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 2560
+        x: 800
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1850,8 +1874,8 @@ TextureImporter:
       name: boss_Sheet_61
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 2560
+        x: 1600
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1872,8 +1896,8 @@ TextureImporter:
       name: boss_Sheet_62
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 2560
+        x: 2400
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1894,8 +1918,8 @@ TextureImporter:
       name: boss_Sheet_63
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 2560
+        x: 3200
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1916,8 +1940,8 @@ TextureImporter:
       name: boss_Sheet_64
       rect:
         serializedVersion: 2
-        x: 0
-        y: 1920
+        x: 4000
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1938,8 +1962,8 @@ TextureImporter:
       name: boss_Sheet_65
       rect:
         serializedVersion: 2
-        x: 800
-        y: 1920
+        x: 4800
+        y: 3200
         width: 800
         height: 640
       alignment: 7
@@ -1957,77 +1981,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: boss_Sheet_66
-      rect:
-        serializedVersion: 2
-        x: 1600
-        y: 1920
-        width: 800
-        height: 640
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2d0cb73cedafa8d60800000000000000
-      internalID: 7893397131589566674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_Sheet_67
-      rect:
-        serializedVersion: 2
-        x: 2400
-        y: 1920
-        width: 800
-        height: 640
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 117f581a453a623a0800000000000000
-      internalID: -6690480612529801455
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_Sheet_68
-      rect:
-        serializedVersion: 2
-        x: 3200
-        y: 1920
-        width: 800
-        height: 640
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 590b5cc46a50e4d60800000000000000
-      internalID: 7876239010128310421
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: boss_Sheet_69
       rect:
         serializedVersion: 2
         x: 0
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2049,7 +2007,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 800
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2071,7 +2029,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2093,7 +2051,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2115,7 +2073,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2137,7 +2095,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4000
-        y: 1280
+        y: 2560
         width: 800
         height: 640
       alignment: 7
@@ -2158,8 +2116,8 @@ TextureImporter:
       name: boss_Sheet_75
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 1280
+        x: 0
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2180,8 +2138,8 @@ TextureImporter:
       name: boss_Sheet_76
       rect:
         serializedVersion: 2
-        x: 5600
-        y: 1280
+        x: 800
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2202,8 +2160,8 @@ TextureImporter:
       name: boss_Sheet_77
       rect:
         serializedVersion: 2
-        x: 6400
-        y: 1280
+        x: 1600
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2224,8 +2182,8 @@ TextureImporter:
       name: boss_Sheet_78
       rect:
         serializedVersion: 2
-        x: 0
-        y: 640
+        x: 2400
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2246,8 +2204,8 @@ TextureImporter:
       name: boss_Sheet_79
       rect:
         serializedVersion: 2
-        x: 800
-        y: 640
+        x: 3200
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2268,8 +2226,8 @@ TextureImporter:
       name: boss_Sheet_80
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 640
+        x: 4000
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2290,8 +2248,8 @@ TextureImporter:
       name: boss_Sheet_81
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 640
+        x: 4800
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2312,8 +2270,8 @@ TextureImporter:
       name: boss_Sheet_82
       rect:
         serializedVersion: 2
-        x: 3200
-        y: 640
+        x: 5600
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2334,8 +2292,8 @@ TextureImporter:
       name: boss_Sheet_83
       rect:
         serializedVersion: 2
-        x: 4000
-        y: 640
+        x: 6400
+        y: 1920
         width: 800
         height: 640
       alignment: 7
@@ -2357,7 +2315,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2379,7 +2337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 800
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2401,7 +2359,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1600
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2423,7 +2381,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2400
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2445,7 +2403,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3200
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2467,7 +2425,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4000
-        y: 0
+        y: 1280
         width: 800
         height: 640
       alignment: 7
@@ -2488,8 +2446,8 @@ TextureImporter:
       name: boss_Sheet_90
       rect:
         serializedVersion: 2
-        x: 4800
-        y: 0
+        x: 0
+        y: 640
         width: 800
         height: 640
       alignment: 7
@@ -2510,8 +2468,8 @@ TextureImporter:
       name: boss_Sheet_91
       rect:
         serializedVersion: 2
-        x: 5600
-        y: 0
+        x: 800
+        y: 640
         width: 800
         height: 640
       alignment: 7
@@ -2532,8 +2490,8 @@ TextureImporter:
       name: boss_Sheet_92
       rect:
         serializedVersion: 2
-        x: 7200
-        y: 0
+        x: 1600
+        y: 640
         width: 800
         height: 640
       alignment: 7
@@ -2550,11 +2508,363 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_93
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54c7b6523d3985ac0800000000000000
+      internalID: -3866177745022387131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_94
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3b1e387a89f2c450800000000000000
+      internalID: 6107718417785953082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_95
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f3061d778f341720800000000000000
+      internalID: 2815945518165132272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_96
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 116e59d90c33744d0800000000000000
+      internalID: -3150492511951788527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_97
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb210d0dc445efd70800000000000000
+      internalID: 9078786587723043515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_98
+      rect:
+        serializedVersion: 2
+        x: 7200
+        y: 640
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09f7f48ff98a72830800000000000000
+      internalID: 4046388195234906000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_99
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3a9c90f1ec13bfa0800000000000000
+      internalID: -5786249339510941126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_100
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d4ec07cfe2659c60800000000000000
+      internalID: 7824268709602321625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_101
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcd3b0c937a6864a0800000000000000
+      internalID: -6599908209139696177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_102
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87a7387544165e170800000000000000
+      internalID: 8207072842106501752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_103
+      rect:
+        serializedVersion: 2
+        x: 4000
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f05d769663d8227d0800000000000000
+      internalID: -2944635941510720241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_104
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abf5599dfc65b5c00800000000000000
+      internalID: 890400802044469178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_105
+      rect:
+        serializedVersion: 2
+        x: 7200
+        y: 0
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23eb39378aa39a7a0800000000000000
+      internalID: -6365492103143506382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_66
+      rect:
+        serializedVersion: 2
+        x: 5600
+        y: 3200
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 113a6cb6527e8fa4f90e35a1c58e42d7
+      internalID: 7893397131589566674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_67
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 3200
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e04b0c388e403094390564d01886b20b
+      internalID: -6690480612529801455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_Sheet_68
+      rect:
+        serializedVersion: 2
+        x: 7200
+        y: 3200
+        width: 800
+        height: 640
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c693a0a28e94a1d4db3b8caac5b6af22
+      internalID: 7876239010128310421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8fac648a57b71d943aeeb7f609020cd6
+    spriteID: 5d98b037975cf32488489a01babe17e7
     internalID: 0
     vertices: []
     indices: 
@@ -2564,11 +2874,17 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":12.0},"gridSpriteSize":{"x":800.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":10.0,"y":13.0},"gridSpriteSize":{"x":800.0,"y":640.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       boss_Sheet_0: 2800949794376262975
       boss_Sheet_1: 723603755648725316
       boss_Sheet_10: 3538468255675900543
+      boss_Sheet_100: 7824268709602321625
+      boss_Sheet_101: -6599908209139696177
+      boss_Sheet_102: 8207072842106501752
+      boss_Sheet_103: -2944635941510720241
+      boss_Sheet_104: 890400802044469178
+      boss_Sheet_105: -6365492103143506382
       boss_Sheet_11: -5715944388869572772
       boss_Sheet_12: -6574104129586564725
       boss_Sheet_13: 3485324087218965869
@@ -2659,6 +2975,13 @@ TextureImporter:
       boss_Sheet_90: -6372111554402948111
       boss_Sheet_91: 6783533104925308351
       boss_Sheet_92: -7469380498119386643
+      boss_Sheet_93: -3866177745022387131
+      boss_Sheet_94: 6107718417785953082
+      boss_Sheet_95: 2815945518165132272
+      boss_Sheet_96: -3150492511951788527
+      boss_Sheet_97: 9078786587723043515
+      boss_Sheet_98: 4046388195234906000
+      boss_Sheet_99: -5786249339510941126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
