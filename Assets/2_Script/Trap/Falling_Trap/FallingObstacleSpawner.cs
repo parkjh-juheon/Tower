@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class FallingObstacleSpawner : MonoBehaviour
 {
     [Header("장애물 설정")]
-    public GameObject obstaclePrefab;
+    public GameObject[] obstaclePrefabs;
     public Transform spawnPoint;
     public float spawnRangeX = 5f;   // 좌우 랜덤 범위
 
@@ -88,7 +88,8 @@ public class FallingObstacleSpawner : MonoBehaviour
         yield return new WaitForSeconds(warningDuration);
 
         // 4. 장애물 생성
-        GameObject obj = Instantiate(obstaclePrefab, spawnPos, Quaternion.identity);
+        int prefabIndex = Random.Range(0, obstaclePrefabs.Length);
+        GameObject obj = Instantiate(obstaclePrefabs[prefabIndex], spawnPos, Quaternion.identity);
         FallingObstacle obstacle = obj.GetComponent<FallingObstacle>();
         if (obstacle != null)
         {
@@ -131,19 +132,6 @@ public class FallingObstacleSpawner : MonoBehaviour
             yield return null;
         }
     }
-
-
-
-    //// 경고선을 깜빡이게 만드는 코루틴
-    //private IEnumerator BlinkEffect(LineRenderer lineRenderer)
-    //{
-    //    while (true)
-    //    {
-    //        // 0.2초마다 투명도를 조절하여 깜빡이는 효과 구현
-    //        lineRenderer.enabled = !lineRenderer.enabled;
-    //        yield return new WaitForSeconds(0.2f);
-    //    }
-    //}
 
     private bool IsTooClose(float newX, List<float> usedPositions)
     {
