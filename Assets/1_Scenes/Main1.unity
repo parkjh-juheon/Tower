@@ -5335,7 +5335,7 @@ Transform:
   m_GameObject: {fileID: 347670867}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.14, y: 2.28, z: 0}
+  m_LocalPosition: {x: 3.92, y: 2.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8358,7 +8358,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2800949794376262975, guid: f42a6cabaa5a96a4da0c97ec47f60df7, type: 3}
+  m_Sprite: {fileID: 2800949794376262975, guid: 1df76f154d8ce904289c80041de8a761, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -8422,7 +8422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1188963192}
   moveSpeed: 2
-  detectionRange: 10
+  detectionRange: 15
 --- !u!114 &1935790500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8545,6 +8545,11 @@ MonoBehaviour:
   rangedRange: 8
   meleeCooldown: 2
   rangedCooldown: 15
+  dashSpeed: 10
+  dashDuration: 1
+  dashCooldown: 5
+  dashDamage: 25
+  dashKnockback: 12
   missilePrefab: {fileID: 3491121129478528822, guid: 879ce3636c956564fa90609f3b994452, type: 3}
   firePoint: {fileID: 347670868}
   attackDamage: 20
