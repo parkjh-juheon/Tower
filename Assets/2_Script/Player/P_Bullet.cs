@@ -34,12 +34,25 @@ public class P_Bullet : MonoBehaviour
             SpawnHitEffect();
             Destroy(gameObject);
         }
+
+        else if (other.CompareTag("Boss"))
+        {
+            BossHealth bossHealth = other.GetComponent<BossHealth>();
+            if (bossHealth != null)
+            {
+                bossHealth.TakeDamage(damage);
+            }
+            SpawnHitEffect();
+            Destroy(gameObject);
+        }
+
         else if (other.CompareTag("Ground"))
         {
             SpawnHitEffect();
             Destroy(gameObject);
         }
     }
+
     public void Init(int damage, float speed, float size, float lifeTime, int facingDirection)
     {
         this.damage = damage;
@@ -52,7 +65,7 @@ public class P_Bullet : MonoBehaviour
         float spreadAngle = Random.Range(-3f, 3f);
         float radians = spreadAngle * Mathf.Deg2Rad;
 
-        // 기본 방향은 오른쪽(-1,0) 또는 왼쪽(1,0)
+        // 기본 방향은 오른쪽(1,0) 또는 왼쪽(-1,0)
         Vector2 baseDir = new Vector2(facingDirection, 0f);
         Vector2 dir = new Vector2(
             baseDir.x * Mathf.Cos(radians) - baseDir.y * Mathf.Sin(radians),

@@ -252,10 +252,21 @@ public class PlayerController : MonoBehaviour
 
             foreach (var hit in hits)
             {
+                // 일반 적
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
+                {
                     enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
+                }
+
+                // 보스
+                BossHealth boss = hit.GetComponent<BossHealth>();
+                if (boss != null)
+                {
+                    boss.TakeDamage((int)stats.attackDamage);
+                }
             }
+
         }
         StartCoroutine(ResetAnimatorSpeed());
     }
@@ -388,16 +399,24 @@ public class PlayerController : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            // 일반 적
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
-                int damage = (int)(stats.attackDamage * 2); // 데미지 2배
-                float knockback = stats.knockbackPower * 1.5f; // 넉백 강화
+                int damage = (int)(stats.attackDamage * 2);
+                float knockback = stats.knockbackPower * 1.5f;
                 enemy.TakeDamage(damage, transform.position, knockback);
+            }
 
-                Debug.Log($"[PlayerController] AirAttack 적중 → {enemy.name}, 피해 {damage}");
+            // 보스
+            BossHealth boss = hit.GetComponent<BossHealth>();
+            if (boss != null)
+            {
+                int damage = (int)(stats.attackDamage * 2); // 2배 데미지
+                boss.TakeDamage(damage);
             }
         }
+
     }
 
 
@@ -408,9 +427,17 @@ public class PlayerController : MonoBehaviour
 
         foreach (var hit in hits)
         {
+            // 일반 적
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-            if (enemy != null) enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
+            if (enemy != null)
+                enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
+
+            // 보스
+            BossHealth boss = hit.GetComponent<BossHealth>();
+            if (boss != null)
+                boss.TakeDamage((int)stats.attackDamage);
         }
+
     }
 
     private void EndAirAttack()
