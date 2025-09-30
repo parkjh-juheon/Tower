@@ -7,46 +7,64 @@ public class BossAttack : MonoBehaviour
     private enum BossPattern { None, Melee, Ranged, Dash }
     private BossPattern nextPattern = BossPattern.None;
 
-    public float meleeStopDistance = 3f;  // 근접 공격 사정거리
-    public float rangedStopDistance = 8f; // 원거리 공격 사정거리
+    [Header("공격 범위")]
+    public float meleeRange = 3f;
+    public float rangedRange = 8f;
+    public float meleeStopDistance = 3f;
+    public float rangedStopDistance = 8f;
 
-    public BossChase bossChase;
-    public Transform player;
+    [Header("쿨다운")]
+    public float meleeCooldown = 2f;
+    public float rangedCooldown = 3f;
+    private float nextRangedAvailableTime = 0f;
 
-    public float meleeRange = 3f;      // 근접 공격 범위
-    public float rangedRange = 8f;     // 원거리 공격 범위
+    [Header("돌진 패턴")]
+    public float dashSpeed = 10f;
+    public float dashCooldown = 5f;
+    public int dashDamage = 25;
+    public float dashKnockback = 12f;
+    public float dashStunDuration = 1.0f; // 벽 충돌 후 행동 불가 시간
+    
+    private bool isStunned = false;
+    public float stunDuration = 0.5f;
+    public float backOffDistance = 1f;
 
-    public float meleeCooldown = 2f;        // 근거리 공격 쿨다운
-    public float rangedCooldown = 3f;       // 원거리 공격 쿨다운
-    private float nextRangedAvailableTime = 20f;
-
-    public float dashSpeed = 10f;        // 돌진 속도
-    public float dashDuration = 1f;      // 돌진 유지 시간
-    public float dashCooldown = 5f;      // 돌진 패턴 쿨다운
-    public int dashDamage = 25;          // 돌진 피해
-    public float dashKnockback = 12f;    // 돌진 넉백
-
-    private bool canDash = true;
-    private bool isDashing = false;
-
-    public GameObject missilePrefab;
-    public Transform firePoint;
-
+    [Header("근접 공격")]
     public int attackDamage = 20;
     public float knockbackPower = 8f;
-
     public Transform hitboxCenter;
     public Vector2 hitboxSize = new Vector2(2f, 1f);
     public LayerMask targetLayer;
 
+    [Header("원거리 공격")]
+    public GameObject missilePrefab;
+    public Transform firePoint;
+
+    [Header("카메라 흔들림")]
+    public Cinemachine.CinemachineImpulseSource impulseSource;
+
+    public BossChase bossChase;
+    public Transform player;
+
     private Animator anim;
     private bool isAttacking = false;
-
+    private bool isDashing = false;
+    private bool canDash = true;
+    private Vector2 dashDir;
     private BossPattern lastPattern = BossPattern.None;
+
+    private Rigidbody2D rb;
+
+    // 대쉬 관련 코루틴 추적
+    private Coroutine dashPrepCoroutine;
+    private Coroutine dashCooldownCoroutine;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         if (bossChase == null) bossChase = GetComponent<BossChase>();
         if (player == null)
         {
@@ -57,9 +75,24 @@ public class BossAttack : MonoBehaviour
 
     void Update()
     {
+        // 스턴 중이면 추격 비활성화 + 행동 중단
+        if (isStunned)
+        {
+            if (bossChase != null && bossChase.enabled)
+                bossChase.enabled = false;
+            return;
+        }
+
+        // 돌진 중 이동 처리
+        if (isDashing)
+        {
+            rb.MovePosition(rb.position + dashDir * dashSpeed * Time.fixedDeltaTime);
+            return;
+        }
+
         if (player == null || isAttacking) return;
 
-        // 패턴 결정
+        // 다음 패턴 결정
         DecideNextPattern();
 
         switch (nextPattern)
@@ -81,78 +114,35 @@ public class BossAttack : MonoBehaviour
                 break;
 
             case BossPattern.Dash:
-                StartCoroutine(DoDashAttack());
+                DashPrep();
                 nextPattern = BossPattern.None;
                 break;
         }
     }
 
+
+    // =================== 애니메이션 이벤트 ===================
+    public void StopChase()
+    {
+        if (bossChase != null)
+            bossChase.enabled = false;
+    }
+
+    public void ResumeChase()
+    {
+        if (bossChase != null)
+            bossChase.enabled = true;
+    }
+
+    // =================== 근접 공격 ===================
     IEnumerator DoMeleeAttack()
     {
         isAttacking = true;
-        anim.SetTrigger("Attack"); // 애니메이션 이벤트에서 BossChase 제어
+        anim.SetTrigger("Attack");
         yield return new WaitForSeconds(meleeCooldown);
         isAttacking = false;
     }
 
-    IEnumerator DoRangedAttack()
-    {
-        isAttacking = true;
-        anim.SetTrigger("RangedAttack");  // 이벤트에서 ShootMissile 호출
-        yield return new WaitForSeconds(rangedCooldown);
-        isAttacking = false;
-    }
-
-    IEnumerator DoDashAttack()
-    {
-        if (!canDash) yield break;
-        canDash = false;
-        isAttacking = true;
-
-        // 준비 동작
-        anim.SetTrigger("DashPrep");
-        if (bossChase != null) bossChase.enabled = false;
-        yield return new WaitForSeconds(0.5f); // 준비 시간
-
-        // 돌진 시작
-        Vector2 dashDir = (player.position - transform.position).normalized;
-        float elapsed = 0f;
-        isDashing = true;
-        anim.SetTrigger("Dash");
-
-        while (elapsed < dashDuration)
-        {
-            transform.position += (Vector3)(dashDir * dashSpeed * Time.deltaTime);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        isDashing = false;
-
-        // 돌진 종료
-        yield return new WaitForSeconds(0.5f); // 후딜
-        if (bossChase != null) bossChase.enabled = true;
-
-        isAttacking = false;
-
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
-    }
-
-    // 돌진 충돌 판정
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (isDashing && collision.collider.CompareTag("Player"))
-        {
-            PlayerHealth ph = collision.collider.GetComponent<PlayerHealth>();
-            if (ph != null)
-            {
-                ph.TakeDamage(dashDamage, transform.position, dashKnockback);
-            }
-        }
-    }
-
-    // 근접 공격 히트박스 (애니메이션 이벤트에서 호출)
     public void PerformHit()
     {
         Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter.position, hitboxSize, 0f, targetLayer);
@@ -169,10 +159,15 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-    public void StopChase() { if (bossChase != null) bossChase.enabled = false; }
-    public void ResumeChase() { if (bossChase != null) bossChase.enabled = true; }
+    // =================== 원거리 공격 ===================
+    IEnumerator DoRangedAttack()
+    {
+        isAttacking = true;
+        anim.SetTrigger("RangedAttack");
+        yield return new WaitForSeconds(rangedCooldown);
+        isAttacking = false;
+    }
 
-    // 원거리 공격에서 미사일 발사 (애니메이션 이벤트에서 호출)
     public void ShootMissile()
     {
         if (missilePrefab != null && firePoint != null && player != null)
@@ -184,6 +179,152 @@ public class BossAttack : MonoBehaviour
         }
     }
 
+    // =================== 돌진 공격 ===================
+    public void DashPrep()
+    {
+        if (!canDash || isAttacking) return;
+        dashPrepCoroutine = StartCoroutine(DashPrepCoroutine());
+    }
+
+    IEnumerator DashPrepCoroutine()
+    {
+        canDash = false;
+        isAttacking = true;
+        anim.SetTrigger("DashPrep");
+
+        if (bossChase != null) bossChase.enabled = false;
+
+        // 준비 시 바라본 방향으로 dashDir 고정
+        dashDir = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+        yield return new WaitForSeconds(2f); // 준비 애니메이션 길이
+        StartDash();
+    }
+
+    public void StartDash()
+    {
+        if (!isAttacking) return;
+
+        isDashing = true;
+        anim.SetTrigger("Dash");
+    }
+
+    public void PerformDashHit()
+    {
+        if (!isDashing) return;
+
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, 1f, targetLayer);
+        if (hit != null && hit.CompareTag("Player"))
+        {
+            PlayerHealth ph = hit.GetComponent<PlayerHealth>();
+            if (ph != null)
+                ph.TakeDamage(dashDamage, transform.position, dashKnockback);
+        }
+    }
+
+    private void StopDash()
+    {
+        // 대쉬 관련 코루틴 정리
+        if (dashPrepCoroutine != null)
+        {
+            StopCoroutine(dashPrepCoroutine);
+            dashPrepCoroutine = null;
+        }
+        if (dashCooldownCoroutine != null)
+        {
+            StopCoroutine(dashCooldownCoroutine);
+            dashCooldownCoroutine = null;
+        }
+
+        isDashing = false;
+        isAttacking = false;
+
+        anim.ResetTrigger("Dash");
+        anim.ResetTrigger("DashPrep");
+        anim.SetTrigger("EndDash");
+
+        //  카메라 흔들림
+        if (impulseSource != null)
+            impulseSource.GenerateImpulse();
+
+        StartCoroutine(DashStunCoroutine());
+    }
+
+    private IEnumerator DashStunCoroutine()
+    {
+        isStunned = true;
+
+        // 보스 이동/추격 중지
+        if (bossChase != null)
+            bossChase.enabled = false;
+
+        // 스턴 유지 시간
+        yield return new WaitForSeconds(dashStunDuration);
+
+        // 스턴 해제
+        isStunned = false;
+
+        // 스턴이 끝난 후에만 추격 복구
+        if (bossChase != null)
+            bossChase.enabled = true;
+
+        // 쿨다운 시작
+        dashCooldownCoroutine = StartCoroutine(DashCooldownCoroutine());
+    }
+
+    private IEnumerator StunAndBackOff(Vector2 knockbackDir)
+    {
+        if (isStunned) yield break;
+        isStunned = true;
+
+        // 돌진 중지
+        isDashing = false;
+        if (bossChase != null) bossChase.enabled = false;
+
+        // 살짝 뒤로 밀어내기
+        Vector3 backPos = transform.position - (Vector3)knockbackDir.normalized * backOffDistance;
+        transform.position = backPos;
+
+        // 스턴 유지
+        yield return new WaitForSeconds(stunDuration);
+
+        // 스턴 종료 후 Chase 재활성화
+        if (bossChase != null) bossChase.enabled = true;
+        isStunned = false;
+    }
+
+    private IEnumerator DashCooldownCoroutine()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+        dashCooldownCoroutine = null;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!isDashing) return;
+
+        if (collision.collider.CompareTag("Player"))
+        {
+            // 플레이어 데미지 + 넉백
+            PlayerHealth ph = collision.collider.GetComponent<PlayerHealth>();
+            if (ph != null)
+                ph.TakeDamage(dashDamage, transform.position, dashKnockback);
+        }
+        else if (collision.collider.CompareTag("Wall"))
+        {
+            // 벽 충돌 시 뒤로 살짝 튕기기
+            Vector2 backDir = -dashDir; // 현재 돌진 방향 반대
+            rb.MovePosition(rb.position + backDir * backOffDistance);
+
+            StopDash(); // EndDash 애니메이션 + 카메라 흔들림 처리
+            Debug.Log("Dash stopped and boss bounced back from wall.");
+        }
+    }
+
+
+    // =================== 패턴 결정 ===================
     void DecideNextPattern()
     {
         List<BossPattern> candidates = new List<BossPattern>();
@@ -226,5 +367,11 @@ public class BossAttack : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangedRange);
+
+        if (isDashing)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawRay(transform.position, dashDir * 2f);
+        }
     }
 }
