@@ -84,4 +84,11 @@ public class ChunkManager : MonoBehaviour
             list[j] = tmp;
         }
     }
+
+    public void ResetTower()
+    {
+        ClearTower();   // 扁粮 没农 昏力
+        BuildTower();   // 促矫 没农 积己
+    }
+
 }

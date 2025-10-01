@@ -23,6 +23,10 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(true);   // 옵션창 열기
         Time.timeScale = 0f;           // 게임 정지
         isPaused = true;
+
+        // 커서 활성화 (옵션 조작 가능하도록)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -30,15 +34,20 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(false);  // 옵션창 닫기
         Time.timeScale = 1f;           // 게임 재개
         isPaused = false;
+
+        // 필요시 커서 다시 잠그기
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void QuitGame()
     {
-        // 게임 종료 로직 (빌드에서만 동작)
+        // 게임 종료 (빌드 환경)
         Application.Quit();
 
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 종료 대신 실행 멈춤
+        // 유니티 에디터에서는 Play 모드 중지
+        UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
 }
