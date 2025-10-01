@@ -6,6 +6,10 @@ public class Chunk : MonoBehaviour
     public Transform bottomAnchor;
     public Transform topAnchor;
 
+    [Header("아이템 스폰 포인트")]
+    public Transform[] itemSpawnPoints;
+
+
     // 유틸리티: 청크 높이 (월드 좌표 기준)
     public float Height => topAnchor.position.y - bottomAnchor.position.y;
 }

@@ -7,6 +7,8 @@ public class ChunkManager : MonoBehaviour
     [SerializeField] private List<GameObject> randomChunkPrefabs = new List<GameObject>();
     [SerializeField] private GameObject bossChunkPrefab;
     [SerializeField] private int chunksPerRound = 5;
+    [SerializeField] private GameObject statItemPrefab;
+    [SerializeField] private StatItemData[] itemDatabase; // 생성 가능한 아이템 목록
 
     private List<GameObject> spawnedChunks = new List<GameObject>();
 
@@ -15,16 +17,31 @@ public class ChunkManager : MonoBehaviour
         BuildTower();
     }
 
+
+    private void SpawnItemsInChunk(Chunk chunk)
+    {
+        foreach (var point in chunk.itemSpawnPoints)
+        {
+            if (Random.value < 0.5f) // 50% 확률로 스폰
+            {
+                GameObject go = Instantiate(statItemPrefab, point.position, Quaternion.identity);
+                StatItem item = go.GetComponent<StatItem>();
+                item.data = itemDatabase[Random.Range(0, itemDatabase.Length)];
+            }
+        }
+    }
+
     public void BuildTower()
     {
         ClearTower();
 
         // 1) StartChunk (fixed)
         GameObject startChunk = Instantiate(startChunkPrefab, Vector3.zero, Quaternion.identity, transform);
-        PositionChunkAt(startChunk, Vector3.zero); // bottomAnchor가 (0,0,0)에 오도록
+        PositionChunkAt(startChunk, Vector3.zero);
         spawnedChunks.Add(startChunk);
 
         Chunk startC = startChunk.GetComponent<Chunk>();
+        SpawnItemsInChunk(startC); // 아이템 스폰 호출
 
         Vector3 attachPoint = startC.topAnchor.position;
 
@@ -40,6 +57,7 @@ public class ChunkManager : MonoBehaviour
             spawnedChunks.Add(chunk);
 
             Chunk c = chunk.GetComponent<Chunk>();
+            SpawnItemsInChunk(c); //  랜덤 청크에도 아이템 생성
 
             attachPoint = c.topAnchor.position;
         }
@@ -50,7 +68,9 @@ public class ChunkManager : MonoBehaviour
         spawnedChunks.Add(boss);
 
         Chunk bossC = boss.GetComponent<Chunk>();
+        SpawnItemsInChunk(bossC); // 보스 청크에도 아이템 생성 (원한다면)
     }
+
 
     // 청크를 특정 지점에 bottomAnchor 기준으로 배치
     private void PositionChunkAt(GameObject chunk, Vector3 targetPoint)
