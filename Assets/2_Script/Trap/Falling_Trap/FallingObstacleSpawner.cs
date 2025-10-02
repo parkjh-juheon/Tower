@@ -74,32 +74,43 @@ public class FallingObstacleSpawner : MonoBehaviour
         LineRenderer lineRenderer = warningLineObj.GetComponent<LineRenderer>();
 
         // === 땅까지 길이 자동 맞추기 ===
-        float maxDistance = 100f; // 최대 탐지 거리
+        float maxDistance = 100f;
         RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, maxDistance, LayerMask.GetMask("RealGround"));
         float endY = hit.collider != null ? hit.point.y : spawnPos.y - 50f;
 
         lineRenderer.SetPosition(0, spawnPos);
         lineRenderer.SetPosition(1, new Vector3(spawnPos.x, endY, spawnPos.z));
 
-        // 2. 깜빡이는 효과 (Fade In/Out)
+        // 2. 장애물 프리팹 크기에 맞춰 선 두께 조정
+        int prefabIndex = Random.Range(0, obstaclePrefabs.Length);
+        GameObject prefab = obstaclePrefabs[prefabIndex];
+        SpriteRenderer sr = prefab.GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            float obstacleWidth = sr.bounds.size.x;
+            lineRenderer.startWidth = obstacleWidth;
+            lineRenderer.endWidth = obstacleWidth;
+        }
+
+        // 3. 깜빡이는 효과
         Coroutine fadeCoroutine = StartCoroutine(FadeEffect(lineRenderer));
 
-        // 3. 경고 시간만큼 대기
+        // 4. 경고 시간만큼 대기
         yield return new WaitForSeconds(warningDuration);
 
-        // 4. 장애물 생성
-        int prefabIndex = Random.Range(0, obstaclePrefabs.Length);
-        GameObject obj = Instantiate(obstaclePrefabs[prefabIndex], spawnPos, Quaternion.identity);
+        // 5. 장애물 생성
+        GameObject obj = Instantiate(prefab, spawnPos, Quaternion.identity);
         FallingObstacle obstacle = obj.GetComponent<FallingObstacle>();
         if (obstacle != null)
         {
             obstacle.fallSpeed = Random.Range(minFallSpeed, maxFallSpeed);
         }
 
-        // 5. 코루틴 정지 & 경고선 파괴
+        // 6. 코루틴 정지 & 경고선 파괴
         StopCoroutine(fadeCoroutine);
         Destroy(warningLineObj);
     }
+
 
     // 경고선을 Fade In/Out 시키는 코루틴
     // 경고선을 Fade In/Out 시키는 코루틴

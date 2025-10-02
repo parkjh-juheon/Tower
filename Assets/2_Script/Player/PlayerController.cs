@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public class CharacterStats
     {
         // 공통 스탯
-        public int maxHP;
         public float moveSpeed;
         public float dashDistance;
         public float jumpForce;

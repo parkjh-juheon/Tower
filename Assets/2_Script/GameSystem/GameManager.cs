@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerController player;
     public ChunkManager chunkManager;
+    public PlayerHealth playerHealth;
 
     private List<GameObject> collectedItems = new List<GameObject>();
     private Vector3 startPosition;
@@ -30,9 +31,13 @@ public class GameManager : MonoBehaviour
         // 2) 플레이어 스탯 초기화
         player.SetAttackType(PlayerController.AttackType.Melee); // 기본 공격으로
         player.stats.attackDamage = 10;   // 기본값
-        player.stats.moveSpeed = 5f;
-        player.stats.maxHP = 100;
+        player.stats.moveSpeed = 12f;
         player.stats.maxJumpCount = 1;
+        player.stats.jumpForce = 12f;
+        player.stats.attackCooldown = 0.5f;
+        playerHealth.UpdateMaxHP(100);    // 기본값
+
+
 
         // 3) Chunk 초기화
         chunkManager.ResetTower();

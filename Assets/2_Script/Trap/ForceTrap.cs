@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class ForceTrap : MonoBehaviour
 {
-    [Header("Æ®¸®°Å ¹üÀ§")]
+    [Header("íŠ¸ë¦¬ê±° ë²”ìœ„")]
     public float triggerRadius = 3f;
 
-    [Header("Èû ¼³Á¤")]
+    [Header("í˜ ì„¤ì •")]
     public float forceStrength = 10f;
     public bool isPulling = true;
 
-    [Header("¹ßµ¿ ½Ã°£ ¼³Á¤")]
+    [Header("ë°œë™ ì‹œê°„ ì„¤ì •")]
     public float forceDuration = 0.5f;
     public float forceCooldown = 2f;
 
-    [Header("ÀÌÆåÆ® ¼³Á¤")]
-    public GameObject effectObject; // ÀÌÆåÆ® ¿ÀºêÁ§Æ®
+    [Header("ì´í™íŠ¸ ì„¤ì •")]
+    public GameObject effectObject; // ì´í™íŠ¸ ì˜¤ë¸Œì íŠ¸
     public bool useDifferentEffects = false;
-    public GameObject pullEffect; // ²ø¾î´ç±è Àü¿ë
-    public GameObject pushEffect; // ¹Ğ¾î³»±â Àü¿ë
+    public GameObject pullEffect; // ëŒì–´ë‹¹ê¹€ ì „ìš©
+    public GameObject pushEffect; // ë°€ì–´ë‚´ê¸° ì „ìš©
 
     private Transform player;
     private Rigidbody2D playerRb;
@@ -67,13 +67,6 @@ public class ForceTrap : MonoBehaviour
         ShowEffect(true);
     }
 
-    void StopForce()
-    {
-        isActive = false;
-        cooldownTimer = 0f;
-        ShowEffect(false);
-    }
-
     void ShowEffect(bool state)
     {
         if (useDifferentEffects)
@@ -89,12 +82,13 @@ public class ForceTrap : MonoBehaviour
 
     void ApplyForce()
     {
-        if (playerRb == null) return;
+        if (playerRb == null)
+        {
+            return;
+        }
 
         Vector2 direction = (player.position - transform.position).normalized;
-
-        if (!isPulling)
-            direction *= -1;
+        if (!isPulling) direction *= -1;
 
         playerRb.AddForce(direction * forceStrength, ForceMode2D.Force);
     }
@@ -103,31 +97,33 @@ public class ForceTrap : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             player = other.transform;
             playerRb = other.GetComponent<Rigidbody2D>();
+
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+
+private void OnTriggerExit2D(Collider2D other)
+{
+    if (other.CompareTag("Player"))
     {
-        if (other.CompareTag("Player"))
-        {
-            player = null;
-            playerRb = null;
-            StopForce();
-        }
-
-        void StopForce()
-        {
-            isActive = false;
-            cooldownTimer = 0f;
-            ShowEffect(false);
-
-            // ¹Ğ±â/´ç±â±â ³¡³­ µÚ¿¡¸¸ ÂüÁ¶ ÇØÁ¦
-            player = null;
-            playerRb = null;
-        }
+        StopForce();
     }
+}
+
+void StopForce()
+{
+    isActive = false;
+    cooldownTimer = 0f;
+    ShowEffect(false);
+
+    // ë°€ê¸°/ë‹¹ê¸°ê¸° ëë‚œ ë’¤ì—ë§Œ ì°¸ì¡° í•´ì œ
+    player = null;
+    playerRb = null;
+}
+
 
     void OnDrawGizmosSelected()
     {

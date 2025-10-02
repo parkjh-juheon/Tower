@@ -44,12 +44,16 @@ public class StatItem : MonoBehaviour
                 }
 
                 // 최대 체력 증가
-                if (maxHPBonus != 0)
+                if (maxHPBonus != 0 && health != null)
                 {
-                    stats.maxHP += maxHPBonus;
+                    health.UpdateMaxHP(health.maxHP + maxHPBonus);
+                }
 
-                    if (health != null)
-                        health.UpdateMaxHP(health.maxHP + maxHPBonus);
+                // 체력 회복
+                if (healAmount > 0 && health != null)
+                {
+                    health.currentHP = Mathf.Min(health.currentHP + healAmount, health.maxHP);
+                    health.UpdateHealthBar();
                 }
 
                 //  체력 회복

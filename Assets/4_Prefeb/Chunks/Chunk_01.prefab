@@ -213,8 +213,8 @@ GameObject:
   - component: {fileID: 1229122868643515429}
   - component: {fileID: 2532016797053168831}
   - component: {fileID: 9007951793903990927}
-  - component: {fileID: 1323785181569948091}
   - component: {fileID: 787769594760724631}
+  - component: {fileID: 840946089625607888}
   m_Layer: 0
   m_Name: ForceTrap(Pull)
   m_TagString: Untagged
@@ -305,42 +305,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788afe50ee9ef449817041283796ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerRadius: 5
+  triggerRadius: 3
   forceStrength: 10
   isPulling: 0
   forceDuration: 2
-  forceCooldown: 1
+  forceCooldown: 0.2
   effectObject: {fileID: 2745125675708500728}
   useDifferentEffects: 0
   pullEffect: {fileID: 2745125675708500728}
   pushEffect: {fileID: 0}
---- !u!50 &1323785181569948091
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2320527072799783836}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &787769594760724631
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -375,8 +348,35 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02180767, y: 0.036868095}
-  m_Radius: 4.9613886
+  m_Offset: {x: -0.03178501, y: 0.036868095}
+  m_Radius: 3.0142088
+--- !u!50 &840946089625607888
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2320527072799783836}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2579454560704503945
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,8 +388,8 @@ GameObject:
   - component: {fileID: 1327091540203258581}
   - component: {fileID: 4409194785746812300}
   - component: {fileID: 3596742799779783943}
-  - component: {fileID: 1730025084235635508}
   - component: {fileID: 504160611465955298}
+  - component: {fileID: 1063753245238718246}
   m_Layer: 0
   m_Name: ForceTrap(Push)
   m_TagString: Untagged
@@ -489,33 +489,6 @@ MonoBehaviour:
   useDifferentEffects: 0
   pullEffect: {fileID: 0}
   pushEffect: {fileID: 2801579416503022257}
---- !u!50 &1730025084235635508
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2579454560704503945}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &504160611465955298
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -552,6 +525,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0011825562, y: 0.1166811}
   m_Radius: 4.85147
+--- !u!50 &1063753245238718246
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2579454560704503945}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2745125675708500728
 GameObject:
   m_ObjectHideFlags: 0
@@ -10287,8 +10287,8 @@ GameObject:
   - component: {fileID: 103765231294205744}
   - component: {fileID: 1048696941565295482}
   - component: {fileID: 7156841839053589678}
-  - component: {fileID: 710968887262668357}
   - component: {fileID: 5848030114614104784}
+  - component: {fileID: 6830422376490862940}
   m_Layer: 0
   m_Name: ForceTrap(Pull) (1)
   m_TagString: Untagged
@@ -10379,42 +10379,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788afe50ee9ef449817041283796ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerRadius: 5
+  triggerRadius: 3
   forceStrength: 10
   isPulling: 0
   forceDuration: 2
-  forceCooldown: 1
+  forceCooldown: 0.2
   effectObject: {fileID: 6239117377645715435}
   useDifferentEffects: 0
   pullEffect: {fileID: 6239117377645715435}
   pushEffect: {fileID: 0}
---- !u!50 &710968887262668357
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2960582631803397915}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &5848030114614104784
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10449,8 +10422,35 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.02180767, y: 0.036868095}
-  m_Radius: 4.9613886
+  m_Offset: {x: 0.040175915, y: 0.036868095}
+  m_Radius: 2.9960518
+--- !u!50 &6830422376490862940
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960582631803397915}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3368507908004825175
 GameObject:
   m_ObjectHideFlags: 0
@@ -11880,6 +11880,46 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 0, y: 39, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: 39, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 25, y: 39, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 26, y: 39, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 41, y: 39, z: 0}
     second:
       serializedVersion: 2
@@ -11900,26 +11940,6 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 0, y: 40, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 3
-      m_TileSpriteIndex: 3
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 1, y: 40, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 4
-      m_TileSpriteIndex: 4
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   - first: {x: 41, y: 40, z: 0}
     second:
       serializedVersion: 2
@@ -11930,33 +11950,13 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 27, y: 41, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  - first: {x: 28, y: 41, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 5
-      m_TileSpriteIndex: 5
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 9bb487f4cd8fe1f4fa78050a9317ff63, type: 2}
   - m_RefCount: 94
     m_Data: {fileID: 11400000, guid: 88932382aa648124f860f0e922dd2ee8, type: 2}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: dd7e537724761d44384cbae727ed7878, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 9f654678bda86e642bda22daf1d694aa, type: 2}
@@ -11971,11 +11971,11 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 7fdf0d4e398142445944dd229e2de851, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 6785311307166827535, guid: 004150d6d8b36ae44977b9db40081d62, type: 3}
   - m_RefCount: 94
     m_Data: {fileID: 7264315131932042796, guid: 004150d6d8b36ae44977b9db40081d62, type: 3}
-  - m_RefCount: 2
+  - m_RefCount: 1
     m_Data: {fileID: -28948107790800794, guid: 004150d6d8b36ae44977b9db40081d62, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 204050282, guid: 004150d6d8b36ae44977b9db40081d62, type: 3}
