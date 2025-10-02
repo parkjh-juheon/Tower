@@ -6582,9 +6582,9 @@ MonoBehaviour:
   attackCooldownBonus: 0
   moveSpeedBonus: 0
   jumpForceBonus: 0
-  maxHPBonus: 100
+  maxHPBonus: -50
   healAmount: 0
-  maxJumpCountBonus: 0
+  maxJumpCountBonus: 3
   meleeAttackRangeBonus: 0
   knockbackBonus: 0
   bulletSpeedBonus: 0

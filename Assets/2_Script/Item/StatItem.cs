@@ -47,13 +47,7 @@ public class StatItem : MonoBehaviour
                 if (maxHPBonus != 0 && health != null)
                 {
                     health.UpdateMaxHP(health.maxHP + maxHPBonus);
-                }
-
-                // 체력 회복
-                if (healAmount > 0 && health != null)
-                {
-                    health.currentHP = Mathf.Min(health.currentHP + healAmount, health.maxHP);
-                    health.UpdateHealthBar();
+                    Debug.Log($"Max HP increased by {maxHPBonus}. New Max HP: {health.maxHP}");
                 }
 
                 //  체력 회복
