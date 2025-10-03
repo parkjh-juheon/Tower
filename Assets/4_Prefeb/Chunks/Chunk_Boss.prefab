@@ -274,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &697427517898645974
 Transform:
   m_ObjectHideFlags: 0
@@ -362,6 +362,7 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 2
   detectionRange: 15
+  stopChaseDistance: 3
 --- !u!114 &5800857294410140672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +410,7 @@ MonoBehaviour:
   attackDamage: 20
   knockbackPower: 8
   hitboxCenter: {fileID: 4977171158700199663}
-  hitboxSize: {x: 3.2, y: 3.5}
+  hitboxSize: {x: 5.5, y: 3.5}
   targetLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -594,7 +595,7 @@ Transform:
   m_GameObject: {fileID: 2526666334655759754}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.78, y: 1.7, z: 0}
+  m_LocalPosition: {x: 1.21, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -690,7 +691,7 @@ Transform:
   m_GameObject: {fileID: 3698974375875371212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.92, y: 2.7, z: 0}
+  m_LocalPosition: {x: 4.23, y: 2.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1149,7 +1150,7 @@ RectTransform:
   m_Father: {fileID: 7703894758432475997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1209,7 +1210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4054379438975659791
 RectTransform:
   m_ObjectHideFlags: 0

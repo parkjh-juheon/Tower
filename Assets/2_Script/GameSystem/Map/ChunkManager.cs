@@ -8,6 +8,9 @@ public class ChunkManager : MonoBehaviour
     [SerializeField] private GameObject bossChunkPrefab;
     [SerializeField] private int chunksPerRound = 5;
 
+    [Header("아이템 풀")]
+    public List<ItemData> itemPool; // ScriptableObject 아이템 리스트
+
     private List<GameObject> spawnedChunks = new List<GameObject>();
 
     private void Start()
@@ -19,16 +22,18 @@ public class ChunkManager : MonoBehaviour
     {
         ClearTower();
 
-        // 1) StartChunk (fixed)
+        // 1) StartChunk
         GameObject startChunk = Instantiate(startChunkPrefab, Vector3.zero, Quaternion.identity, transform);
-        PositionChunkAt(startChunk, Vector3.zero); // bottomAnchor가 (0,0,0)에 오도록
+        PositionChunkAt(startChunk, Vector3.zero);
         spawnedChunks.Add(startChunk);
 
-        Chunk startC = startChunk.GetComponent<Chunk>();
+        // 아이템 스폰 실행
+        SpawnItemsInChunk(startChunk);
 
+        Chunk startC = startChunk.GetComponent<Chunk>();
         Vector3 attachPoint = startC.topAnchor.position;
 
-        // 2) 랜덤 청크 n개
+        // 2) 랜덤 청크
         List<GameObject> pool = new List<GameObject>(randomChunkPrefabs);
         Shuffle(pool);
 
@@ -39,20 +44,22 @@ public class ChunkManager : MonoBehaviour
             PositionChunkAt(chunk, attachPoint);
             spawnedChunks.Add(chunk);
 
-            Chunk c = chunk.GetComponent<Chunk>();
+            // 아이템 스폰 실행
+            SpawnItemsInChunk(chunk);
 
+            Chunk c = chunk.GetComponent<Chunk>();
             attachPoint = c.topAnchor.position;
         }
 
-        // 3) BossChunk (fixed)
+        // 3) BossChunk
         GameObject boss = Instantiate(bossChunkPrefab, Vector3.zero, Quaternion.identity, transform);
         PositionChunkAt(boss, attachPoint);
         spawnedChunks.Add(boss);
 
-        Chunk bossC = boss.GetComponent<Chunk>();
+        // 아이템 스폰 실행
+        SpawnItemsInChunk(boss);
     }
 
-    // 청크를 특정 지점에 bottomAnchor 기준으로 배치
     private void PositionChunkAt(GameObject chunk, Vector3 targetPoint)
     {
         Chunk c = chunk.GetComponent<Chunk>();
@@ -62,9 +69,56 @@ public class ChunkManager : MonoBehaviour
             return;
         }
 
-        // bottomAnchor가 targetPoint에 오도록 이동시킨다
         Vector3 offset = targetPoint - c.bottomAnchor.position;
         chunk.transform.position += offset;
+    }
+
+    private void SpawnItemsInChunk(GameObject chunkGO)
+    {
+        Chunk chunk = chunkGO.GetComponent<Chunk>();
+        if (chunk == null || chunk.itemSpawnPoints == null || chunk.itemSpawnPoints.Length == 0) return;
+
+        foreach (Transform spawnPoint in chunk.itemSpawnPoints)
+        {
+            if (Random.value < 0.5f) // 스폰 확률
+            {
+                ItemData itemData = GetRandomItemByRarity(); // 희귀도 기반 아이템 선택
+                GameObject itemObj = Instantiate(itemData.prefab, spawnPoint.position, Quaternion.identity, chunkGO.transform);
+
+                StatItem statItem = itemObj.GetComponent<StatItem>();
+                if (statItem != null)
+                    statItem.data = itemData;
+            }
+        }
+    }
+
+
+    private ItemData GetRandomItemByRarity()
+    {
+        // 희귀도 확률 분포 (합 = 1.0f)
+        float commonChance = 0.7f;
+        float rareChance = 0.2f;
+        float epicChance = 0.09f;
+        float legendaryChance = 0.01f;
+
+        float roll = Random.value;
+
+        ItemRarity selectedRarity;
+        if (roll < commonChance) selectedRarity = ItemRarity.Common;
+        else if (roll < commonChance + rareChance) selectedRarity = ItemRarity.Rare;
+        else if (roll < commonChance + rareChance + epicChance) selectedRarity = ItemRarity.Epic;
+        else selectedRarity = ItemRarity.Legendary;
+
+        // 선택된 희귀도에 해당하는 아이템만 필터링
+        List<ItemData> candidates = itemPool.FindAll(item => item.rarity == selectedRarity);
+
+        if (candidates.Count == 0)
+        {
+            Debug.LogWarning($"[{selectedRarity}] 희귀도의 아이템이 없습니다. Common으로 대체합니다.");
+            candidates = itemPool.FindAll(item => item.rarity == ItemRarity.Common);
+        }
+
+        return candidates[Random.Range(0, candidates.Count)];
     }
 
     private void ClearTower()
@@ -87,8 +141,7 @@ public class ChunkManager : MonoBehaviour
 
     public void ResetTower()
     {
-        ClearTower();   // 기존 청크 삭제
-        BuildTower();   // 다시 청크 생성
+        ClearTower();
+        BuildTower();
     }
-
 }

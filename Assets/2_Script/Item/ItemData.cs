@@ -1,15 +1,32 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewItemData", menuName = "Game/ItemData")]
+public enum ItemRarity { Common, Rare, Epic, Legendary }
+
+[CreateAssetMenu(fileName = "NewItemData", menuName = "Game/Item Data")]
 public class ItemData : ScriptableObject
 {
+    [Header("기본 정보")]
     public string itemName;
-    public GameObject prefab; // 실제 씬에 등장할 아이템 프리팹
+    [TextArea] public string description;
+    public ItemRarity rarity;    // 희귀도
+    public GameObject prefab;
+
+    // --- 스탯 보너스 ---
+    public float moveSpeedBonus;
+    public float dashDistanceBonus;
+    public float jumpForceBonus;
+    public int maxJumpCountBonus;
     public float attackDamageBonus;
     public float attackCooldownBonus;
-    public float attackRangeBonus;
-    public float moveSpeedBonus;
-    public float jumpForceBonus;
-    public float jumpcountBonus;
     public int maxHPBonus;
+    public int healAmount;
+
+    // 근접 전용
+    public float knockbackPowerBonus;
+    public float meleeRangeBonus;
+
+    // 원거리 전용
+    public float bulletSizeBonus;
+    public float bulletLifeTimeBonus;
+    public float bulletSpeedBonus;
 }
