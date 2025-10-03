@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Color stunColor = Color.yellow;
     private Color originalColor;
+    private bool isStunned = false;
 
 
     [Header("사망 처리")]
@@ -92,8 +93,11 @@ public class PlayerHealth : MonoBehaviour
             StartCoroutine(InvincibleCoroutine());
         }
     }
+
     private IEnumerator ApplyStun(float duration)
     {
+        isStunned = true;
+
         if (playerController != null)
             playerController.canControl = false;
 
@@ -105,9 +109,12 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null)
             spriteRenderer.color = originalColor;
 
+        isStunned = false;
+
         if (playerController != null)
             playerController.canControl = true;
     }
+
 
     void ApplyKnockback(Vector2 attackerPosition, float power)
     {
@@ -138,9 +145,11 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(knockbackDuration);
 
         isKnockback = false;
-        if (playerController != null)
+
+        if (!isStunned && playerController != null)
             playerController.canControl = true;
     }
+
 
     IEnumerator InvincibleCoroutine()
     {

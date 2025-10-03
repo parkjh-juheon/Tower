@@ -228,7 +228,7 @@ public class BossAttack : MonoBehaviour
             {
                 // 기존 넉백보다 더 강하게
                 // 돌진 공격 피격 시
-                ph.TakeDamage(dashDamage, transform.position, dashKnockback * 3f, 5f);
+                ph.TakeDamage(dashDamage, transform.position, dashKnockback * 1.5f, 3f);
             }
         }
     }

@@ -370,7 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   explosionPrefab: {fileID: 2962579926642019452, guid: 05baa31a17f965c44bca2e1f5eedc378, type: 3}
-  lifeTime: 2
+  lifeTime: 4
 --- !u!114 &1647427402454413755
 MonoBehaviour:
   m_ObjectHideFlags: 0
