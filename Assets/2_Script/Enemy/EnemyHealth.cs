@@ -74,6 +74,15 @@ void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
 
     void Die()
     {
-        Destroy(gameObject);
+        Missile missile = GetComponent<Missile>();
+        if (missile != null)
+        {
+            missile.Explode(); // 폭발 연출 포함 파괴
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+
 }

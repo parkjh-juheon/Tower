@@ -480,7 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788afe50ee9ef449817041283796ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerRadius: 5
+  triggerRadius: 3
   forceStrength: 10
   isPulling: 1
   forceDuration: 1
@@ -523,8 +523,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0011825562, y: 0.1166811}
-  m_Radius: 4.85147
+  m_Offset: {x: -0.06046295, y: 0.1166811}
+  m_Radius: 2.9248466
 --- !u!50 &1063753245238718246
 Rigidbody2D:
   serializedVersion: 5

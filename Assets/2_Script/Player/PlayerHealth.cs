@@ -26,6 +26,12 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rb;
     private bool isKnockback = false;
 
+    [Header("스턴 표시")]
+    public SpriteRenderer spriteRenderer;
+    public Color stunColor = Color.yellow;
+    private Color originalColor;
+
+
     [Header("사망 처리")]
     [SerializeField] private float deathDeactivateDelay = 1.5f;
 
@@ -42,7 +48,11 @@ public class PlayerHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         playerController = GetComponent<PlayerController>();
+
+        if (spriteRenderer != null)
+            originalColor = spriteRenderer.color;
     }
+
 
     public void UpdateMaxHP(int newMaxHP)
     {
@@ -51,7 +61,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHealthBar();
     }
 
-    public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower)
+    public void TakeDamage(int damage, Vector2 attackerPosition, float attackerKnockbackPower, float stunTime = 0f)
     {
         if (isInvincible) return;
 
@@ -75,8 +85,28 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             ApplyKnockback(attackerPosition, attackerKnockbackPower);
+
+            if (stunTime > 0f)
+                StartCoroutine(ApplyStun(stunTime));
+
             StartCoroutine(InvincibleCoroutine());
         }
+    }
+    private IEnumerator ApplyStun(float duration)
+    {
+        if (playerController != null)
+            playerController.canControl = false;
+
+        if (spriteRenderer != null)
+            spriteRenderer.color = stunColor;
+
+        yield return new WaitForSeconds(duration);
+
+        if (spriteRenderer != null)
+            spriteRenderer.color = originalColor;
+
+        if (playerController != null)
+            playerController.canControl = true;
     }
 
     void ApplyKnockback(Vector2 attackerPosition, float power)
