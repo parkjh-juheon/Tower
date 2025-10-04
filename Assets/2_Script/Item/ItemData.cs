@@ -13,7 +13,7 @@ public class ItemData : ScriptableObject
 
     // --- Ω∫≈» ∫∏≥ Ω∫ ---
     public float moveSpeedBonus;
-    public float dashDistanceBonus;
+    //public float dashDistanceBonus;
     public float jumpForceBonus;
     public int maxJumpCountBonus;
     public float attackDamageBonus;

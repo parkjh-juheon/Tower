@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     {
         // 공통 스탯
         public float moveSpeed;
-        public float dashDistance;
+        //public float dashDistance;
         public float jumpForce;
         public int maxJumpCount;
         public float attackDamage;
@@ -54,9 +54,13 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI ammoText;
     public Image ammoReloadFill;   //  도넛 모양 재장전 표시
 
-    [Header("구르기 설정")]
-    [SerializeField] private float rollForce = 6f;
-    [SerializeField] private float rollDuration = 0.5f;
+    // 보류
+    // [Header("구르기 설정")]
+    // [SerializeField] private float rollForce = 6f;
+    // [SerializeField] private float rollDuration = 0.5f;
+    // private bool isRolling = false;
+    // private float rollTimer = 0f;
+
 
     [Header("점프 설정")]
     [SerializeField] private int maxJumpCount = 1;
@@ -81,9 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded = true;
     private bool wasGrounded = false;
-    private bool isRolling = false;
     private bool isAirAttacking = false;
-    private float rollTimer = 0f;
     private int facingDirection = 1;
 
     public bool canControl = true;
@@ -112,13 +114,12 @@ public class PlayerController : MonoBehaviour
 
         HandleMovement();
         HandleJump();
-        HandleRoll();
+        // HandleRoll();
         HandleAttack();
 
-        // Update() 안에서
         if (isAirAttacking && isGrounded)
         {
-            PerformAirAttack(); // 착지하자마자 판정 (애니 이벤트 대신)
+            PerformAirAttack();
             EndAirAttack();
         }
 
@@ -295,7 +296,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (!canControl || isRolling) return;
+        //if (!canControl || isRolling) return;
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * stats.moveSpeed, rb.linearVelocity.y);
 
@@ -323,7 +324,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (!canControl || isRolling) return;
+        //if (!canControl || isRolling) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -353,13 +354,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
     private void HandleRoll()
     {
         if (!canControl) return;
         if (isRolling)
         {
             rollTimer += Time.deltaTime;
-            if (rollTimer >= rollDuration) { isRolling = false; animator?.SetBool("Roll", false); }
+            if (rollTimer >= rollDuration)
+            { 
+                isRolling = false;
+                animator?.SetBool("Roll", false);
+            }
             return;
         }
 
@@ -370,6 +376,8 @@ public class PlayerController : MonoBehaviour
             animator?.SetBool("Roll", true);
         }
     }
+    */
+
 
     private void StartAirAttack()
     {

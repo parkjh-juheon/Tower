@@ -103,6 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 214d64561edc2544991a270581caf245, type: 2}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 2529452689316103460, guid: b14380b7e47a6e2479746412d4ee4529, type: 3}
+  pickupSound: {fileID: 0}
 --- !u!58 &2350157345661510150
 CircleCollider2D:
   m_ObjectHideFlags: 0

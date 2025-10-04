@@ -151,8 +151,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: -0.000031095962, y: 0}
+  m_Radius: 0.9257579
 --- !u!114 &944276554356780279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 6db57656178911a468c1e283450fe4ba, type: 2}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 2529452689316103460, guid: b14380b7e47a6e2479746412d4ee4529, type: 3}
+  pickupSound: {fileID: 0}
