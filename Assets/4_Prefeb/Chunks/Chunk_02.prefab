@@ -788,7 +788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 5
-  forceStrength: 10
+  forceStrength: 15
   isPulling: 1
   forceDuration: 1
   forceCooldown: 1
@@ -1537,6 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottomAnchor: {fileID: 6240843785001780987}
   topAnchor: {fileID: 7870169751500516722}
+  itemSpawnPoints: []
 --- !u!1 &2402013153926390255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2507,18 +2508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 0
-  attackCooldownBonus: 0
-  moveSpeedBonus: 0
-  jumpForceBonus: 1
-  maxHPBonus: 0
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
 --- !u!1 &4082758848752236152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2656,18 +2646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 0
-  attackCooldownBonus: 0
-  moveSpeedBonus: 5
-  jumpForceBonus: 0
-  maxHPBonus: 0
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
 --- !u!1 &4196769510418495372
 GameObject:
   m_ObjectHideFlags: 0
