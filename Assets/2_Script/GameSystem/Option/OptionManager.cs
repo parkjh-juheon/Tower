@@ -5,6 +5,9 @@ public class OptionManager : MonoBehaviour
     [Header("옵션 패널")]
     public GameObject optionPanel;
 
+    [Header("인벤토리 캔버스")]
+    public Canvas inventoryCanvas; // InventoryCanvas 직접 참조
+
     private bool isPaused = false;
 
     void Update()
@@ -16,6 +19,19 @@ public class OptionManager : MonoBehaviour
             else
                 PauseGame();
         }
+
+        // Tab키로 인벤토리 캔버스 토글
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            ToggleInventoryCanvas();
+        }
+    }
+
+    void ToggleInventoryCanvas()
+    {
+        if (inventoryCanvas == null) return;
+        bool isActive = inventoryCanvas.gameObject.activeSelf;
+        inventoryCanvas.gameObject.SetActive(!isActive);
     }
 
     void PauseGame()
