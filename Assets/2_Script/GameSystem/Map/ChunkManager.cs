@@ -15,7 +15,6 @@ public class ChunkManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("[ChunkManager] Start() 실행됨");
         BuildTower();
     }
 
@@ -66,7 +65,6 @@ public class ChunkManager : MonoBehaviour
         Chunk c = chunk.GetComponent<Chunk>();
         if (c == null || c.bottomAnchor == null)
         {
-            Debug.LogError($"[PositionChunkAt] {chunk.name}에 Chunk 컴포넌트나 bottomAnchor가 없습니다!");
             return;
         }
 
@@ -79,7 +77,6 @@ public class ChunkManager : MonoBehaviour
         Chunk chunk = chunkGO.GetComponent<Chunk>();
         if (chunk == null || chunk.itemSpawnPoints == null || chunk.itemSpawnPoints.Length == 0)
         {
-            Debug.Log($"[ChunkManager] {chunkGO.name}에는 itemSpawnPoints가 없습니다!");
             return;
         }
 
@@ -88,16 +85,11 @@ public class ChunkManager : MonoBehaviour
             if (Random.value < 1f) // 스폰 확률
             {
                 ItemData itemData = GetRandomItemByRarity();
-                Debug.Log($"[ChunkManager] {chunkGO.name}에 {itemData.itemName} 아이템 스폰 시도");
 
                 GameObject itemObj = Instantiate(itemData.prefab, spawnPoint.position, Quaternion.identity, chunkGO.transform);
                 StatItem statItem = itemObj.GetComponent<StatItem>();
                 if (statItem != null)
                     statItem.data = itemData;
-            }
-            else
-            {
-                Debug.Log($"[ChunkManager] {chunkGO.name} 스폰 포인트 {spawnPoint.name}은 확률로 스킵됨");
             }
         }
     }

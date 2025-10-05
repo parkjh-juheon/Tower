@@ -5,7 +5,7 @@ public enum ItemRarity { Common, Rare, Epic, Legendary }
 [CreateAssetMenu(fileName = "NewItemData", menuName = "Game/Item Data")]
 public class ItemData : ScriptableObject
 {
-    [Header("±âº» Á¤º¸")]
+    [Header("item")]
     public string itemName;
     [TextArea] public string description;
     public ItemRarity rarity;    // Èñ±Íµµ

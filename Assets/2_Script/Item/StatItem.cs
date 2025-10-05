@@ -2,8 +2,13 @@ using UnityEngine;
 
 public class StatItem : MonoBehaviour
 {
+    [Header("아이템 데이터")]
     public ItemData data;
+
+    [Header("상호작용 설정")]
     public float interactDistance = 2.5f;
+
+    [Header("연출 설정")]
     public GameObject pickupEffectPrefab;
     public AudioClip pickupSound;
 
@@ -20,22 +25,26 @@ public class StatItem : MonoBehaviour
 
     private void Update()
     {
-        if (player == null) return;
+        if (player == null || data == null) return;
 
+        // 플레이어와의 거리 계산
         float distance = Vector2.Distance(transform.position, player.position);
 
+        // 근처에 들어오면 설명창 표시
         if (distance <= interactDistance && !isPlayerInRange)
         {
             isPlayerInRange = true;
             ItemUIManager.Instance?.ShowItemInfo(data);
         }
+        // 범위 밖으로 나가면 설명창 닫기
         else if (distance > interactDistance && isPlayerInRange)
         {
             isPlayerInRange = false;
             ItemUIManager.Instance?.HideItemInfo();
         }
 
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.C))
+        // C키 입력 시 아이템 획득
+        if (isPlayerInRange && !pickedUp && Input.GetKeyDown(KeyCode.C))
         {
             PickupItem();
         }
@@ -46,30 +55,46 @@ public class StatItem : MonoBehaviour
         if (pickedUp) return;
         pickedUp = true;
 
+        Debug.Log($"[StatItem] PickupItem 실행됨: {data.itemName}");
+
         PlayerController controller = player.GetComponent<PlayerController>();
         PlayerHealth health = player.GetComponent<PlayerHealth>();
 
+        // 스탯 반영
         if (controller != null && controller.stats != null)
         {
             var stats = controller.stats;
             stats.moveSpeed += data.moveSpeedBonus;
-            //stats.dashDistance += data.dashDistanceBonus;
             stats.jumpForce += data.jumpForceBonus;
             stats.maxJumpCount += data.maxJumpCountBonus;
             stats.attackDamage += data.attackDamageBonus;
             stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
 
-            if (data.maxHPBonus > 0 && health != null)
-                health.UpdateMaxHP(health.maxHP + data.maxHPBonus);
-
-            if (data.healAmount > 0 && health != null)
+            // HP 변화
+            if (health != null)
             {
-                health.currentHP = Mathf.Min(health.currentHP + data.healAmount, health.maxHP);
-                health.UpdateHealthBar();
+                if (data.maxHPBonus > 0)
+                    health.UpdateMaxHP(health.maxHP + data.maxHPBonus);
+
+                if (data.healAmount > 0)
+                {
+                    health.currentHP = Mathf.Min(health.currentHP + data.healAmount, health.maxHP);
+                    health.UpdateHealthBar();
+                }
             }
         }
 
-        // 이펙트
+        //  인벤토리 반영
+        if (ItemInventory.Instance != null)
+        {
+            ItemInventory.Instance.AddItem(data);
+        }
+        else
+        {
+            Debug.LogWarning(" ItemInventory.Instance가 null입니다!");
+        }
+
+        //  이펙트 출력
         if (pickupEffectPrefab != null)
         {
             GameObject effect = Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
@@ -81,16 +106,21 @@ public class StatItem : MonoBehaviour
             Destroy(effect, 2f);
         }
 
-        // 사운드
+        //  사운드 재생
         if (pickupSound != null)
+        {
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+        }
 
-        Debug.Log($"획득한 아이템: {data.itemName} (희귀도: {data.rarity})");
-
+        //  설명창 닫기
         ItemUIManager.Instance?.HideItemInfo();
-        Destroy(gameObject);
+        ItemTooltip.Instance?.HideTooltip();
+
+        //  아이템 제거
+        Destroy(gameObject, 0.05f);
     }
 
+    // 희귀도에 따른 색상
     private Color GetColorByRarity(ItemRarity rarity)
     {
         switch (rarity)
