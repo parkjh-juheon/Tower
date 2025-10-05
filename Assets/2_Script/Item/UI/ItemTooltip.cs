@@ -23,7 +23,7 @@ public class ItemTooltip : MonoBehaviour
         if (!isTooltipVisible) return;
 
         // 마우스 따라다니게 (조금 오른쪽 아래)
-        Vector2 pos = Input.mousePosition + new Vector3(80f, -40f);
+        Vector2 pos = Input.mousePosition + new Vector3(-360f, -360f);
         rect.position = pos;
 
         // 화면 밖으로 나가지 않게 Clamp
