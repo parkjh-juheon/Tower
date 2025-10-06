@@ -27,23 +27,35 @@ public class StatItem : MonoBehaviour
     {
         if (player == null || data == null) return;
 
-        // 플레이어와의 거리 계산
         float distance = Vector2.Distance(transform.position, player.position);
+        Animator animator = player.GetComponent<Animator>();
 
-        // 근처에 들어오면 설명창 표시
+        // 근처 접근
         if (distance <= interactDistance && !isPlayerInRange)
         {
             isPlayerInRange = true;
             ItemUIManager.Instance?.ShowItemInfo(data);
+
+            if (animator != null)
+            {
+                animator.SetBool("NearItem", true);
+                Debug.Log($"[StatItem] NearItem → TRUE  | 거리: {distance:F2} | 아이템: {data.itemName}");
+            }
         }
-        // 범위 밖으로 나가면 설명창 닫기
+        // 범위 벗어남
         else if (distance > interactDistance && isPlayerInRange)
         {
             isPlayerInRange = false;
             ItemUIManager.Instance?.HideItemInfo();
+
+            if (animator != null)
+            {
+                animator.SetBool("NearItem", false);
+                Debug.Log($"[StatItem] NearItem → FALSE | 거리: {distance:F2} | 아이템: {data.itemName}");
+            }
         }
 
-        // C키 입력 시 아이템 획득
+        // C 키로 획득
         if (isPlayerInRange && !pickedUp && Input.GetKeyDown(KeyCode.C))
         {
             PickupItem();
@@ -55,10 +67,18 @@ public class StatItem : MonoBehaviour
         if (pickedUp) return;
         pickedUp = true;
 
-        Debug.Log($"[StatItem] PickupItem 실행됨: {data.itemName}");
+        Animator animator = player.GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Pickup");
+            animator.SetBool("NearItem", false);
+            Debug.Log($"[StatItem] PickupItem 실행됨 → NearItem 강제 FALSE 처리 | 아이템: {data.itemName}");
+        }
 
         PlayerController controller = player.GetComponent<PlayerController>();
         PlayerHealth health = player.GetComponent<PlayerHealth>();
+
+        Debug.Log($"[StatItem] PickupItem 실행됨: {data.itemName}");
 
         // 스탯 반영
         if (controller != null && controller.stats != null)
@@ -70,7 +90,6 @@ public class StatItem : MonoBehaviour
             stats.attackDamage += data.attackDamageBonus;
             stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
 
-            // HP 변화
             if (health != null)
             {
                 if (data.maxHPBonus > 0)
@@ -84,17 +103,13 @@ public class StatItem : MonoBehaviour
             }
         }
 
-        //  인벤토리 반영
+        // 인벤토리 반영
         if (ItemInventory.Instance != null)
-        {
             ItemInventory.Instance.AddItem(data);
-        }
         else
-        {
-            Debug.LogWarning(" ItemInventory.Instance가 null입니다!");
-        }
+            Debug.LogWarning("[StatItem] ItemInventory.Instance가 null입니다!");
 
-        //  이펙트 출력
+        // 이펙트 출력
         if (pickupEffectPrefab != null)
         {
             GameObject effect = Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
@@ -106,21 +121,18 @@ public class StatItem : MonoBehaviour
             Destroy(effect, 2f);
         }
 
-        //  사운드 재생
+        // 사운드 재생
         if (pickupSound != null)
-        {
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-        }
 
-        //  설명창 닫기
+        // 설명창 닫기
         ItemUIManager.Instance?.HideItemInfo();
         ItemTooltip.Instance?.HideTooltip();
 
-        //  아이템 제거
+        // 아이템 제거
         Destroy(gameObject, 0.05f);
     }
 
-    // 희귀도에 따른 색상
     private Color GetColorByRarity(ItemRarity rarity)
     {
         switch (rarity)
