@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: 01
   m_EditorClassIdentifier: 
   itemName: "\uC77C\uBC18"
-  description: "\uD558\uAE30 \uC2EB\uC5B4, \uC9D1\uC5D0 \uAC00\uACE0 \uC2F6\uC5B4"
+  description: dkdkdkd
   rarity: 0
   prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
-  moveSpeedBonus: 0.3
+  moveSpeedBonus: 0.5
   jumpForceBonus: 0
   maxJumpCountBonus: 0
   attackDamageBonus: 0
-  attackCooldownBonus: 0
+  attackCooldownBonus: 1
   maxHPBonus: 10
   healAmount: 0
   knockbackPowerBonus: 0

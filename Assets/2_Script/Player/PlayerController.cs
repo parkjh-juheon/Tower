@@ -78,6 +78,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Vector2 airAttackBoxSize = new Vector2(1.5f, 2f);
     [SerializeField] public float airAttackOffsetX = 1f;
 
+    [Header("사운드 설정")]
+    public AudioSource audioSource;
+    public AudioClip footstepSound;
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    public AudioClip meleeAttackSound;
+    public AudioClip shootSound;
+
+    private float footstepTimer = 0f;
+    private float footstepInterval = 0.4f; // 발소리 주기
+
     private float lastAttackTime = 0f;
     private Rigidbody2D rb;
     private Animator animator;
@@ -127,6 +138,22 @@ public class PlayerController : MonoBehaviour
 
         UpdateAmmoUI();
     }
+    private void CheckGrounded()
+    {
+        wasGrounded = isGrounded;
+        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
+
+        // 착지 사운드
+        if (!wasGrounded && isGrounded)
+        {
+            if (landSound != null) audioSource.PlayOneShot(landSound);
+            currentJumpCount = 0;
+            groundJumpCount = 0;
+            maxJumpCount = baseMaxJumpCount;
+        }
+
+        animator.SetBool("isGrounded", isGrounded);
+    }
 
     public void SetAttackType(AttackType newType)
     {
@@ -157,20 +184,6 @@ public class PlayerController : MonoBehaviour
         UpdateAmmoUI();
     }
 
-    private void CheckGrounded()
-    {
-        wasGrounded = isGrounded;
-        isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
-
-        if (!wasGrounded && isGrounded)
-        {
-            currentJumpCount = 0;
-            groundJumpCount = 0;
-            maxJumpCount = baseMaxJumpCount;
-        }
-
-        animator.SetBool("isGrounded", isGrounded);
-    }
 
     private void HandleAttack()
     {
@@ -241,6 +254,9 @@ public class PlayerController : MonoBehaviour
         float speedRatio = baseAttackCooldown / stats.attackCooldown;
         animator.speed = speedRatio;
 
+        //  근접 공격 사운드
+        if (meleeAttackSound != null) audioSource.PlayOneShot(meleeAttackSound);
+
         if (!isGrounded) StartAirAttack();
         else
         {
@@ -279,6 +295,9 @@ public class PlayerController : MonoBehaviour
 
         if (prefab == null || firePoint == null) return;
 
+        //  총알 발사 사운드
+        if (shootSound != null) audioSource.PlayOneShot(shootSound);
+
         animator?.SetTrigger("Shoot");
 
         GameObject bulletObj = Instantiate(prefab, firePoint.position, firePoint.rotation);
@@ -296,9 +315,19 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
-        //if (!canControl || isRolling) return;
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * stats.moveSpeed, rb.linearVelocity.y);
+
+        // 걷기/달리기 사운드
+        if (isGrounded && Mathf.Abs(inputX) > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= footstepInterval)
+            {
+                if (footstepSound != null) audioSource.PlayOneShot(footstepSound);
+                footstepTimer = 0f;
+            }
+        }
 
         if (inputX > 0 && facingDirection != 1)
         {
@@ -330,6 +359,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isGrounded)
             {
+                if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                 groundJumpCount++;
                 currentJumpCount = 0;
@@ -337,6 +367,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (currentJumpCount < maxJumpCount)
             {
+                if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
                 if (groundJumpCount == 0 && currentJumpCount == 0)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
@@ -346,6 +377,7 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                 {
+                    if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount++;
                     animator?.SetTrigger("Jump");

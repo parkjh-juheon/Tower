@@ -17,7 +17,6 @@ MonoBehaviour:
   rarity: 1
   prefab: {fileID: 8034247429560853940, guid: 503129ace9cf6da4a950e916094c7793, type: 3}
   moveSpeedBonus: 0
-  dashDistanceBonus: 0
   jumpForceBonus: 0
   maxJumpCountBonus: 0
   attackDamageBonus: 0

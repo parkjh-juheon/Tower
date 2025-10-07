@@ -32,6 +32,9 @@ public class PlayerHealth : MonoBehaviour
     private Color originalColor;
     private bool isStunned = false;
 
+    [Header("사운드 설정")]
+    public AudioSource audioSource;
+    public AudioClip hitSound;
 
     [Header("사망 처리")]
     [SerializeField] private float deathDeactivateDelay = 1.5f;
@@ -75,6 +78,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (animator != null)
             animator.SetTrigger("Hit");
+
+        if (hitSound != null) 
+            audioSource.PlayOneShot(hitSound);
 
         if (hitEffect != null)
             hitEffect.Play();

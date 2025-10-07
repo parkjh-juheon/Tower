@@ -8,8 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/1_Scenes/Main.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
-    path: Assets/1_Scenes/Title 1.unity
+  - enabled: 1
+    path: Assets/1_Scenes/Title.unity
     guid: 0ff8c0f85be85104292ee8b2a203c5d2
   - enabled: 0
     path: Assets/1_Scenes/TILEMAPTEST.unity
