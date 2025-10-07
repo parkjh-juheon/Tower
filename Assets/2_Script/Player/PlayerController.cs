@@ -479,7 +479,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private void EndAirAttack()
+    private void EndAirAttack() 
     {
         isAirAttacking = false; 
         canControl = true;

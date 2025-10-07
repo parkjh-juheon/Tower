@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class OptionManager : MonoBehaviour
 {
@@ -9,6 +10,21 @@ public class OptionManager : MonoBehaviour
     public Canvas inventoryCanvas; // InventoryCanvas 직접 참조
 
     private bool isPaused = false;
+
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+
+    void Start()
+    {
+        float bgmValue = Mathf.Pow(10, PlayerPrefs.GetFloat("BGMVolume", 0f) / 20);
+        float sfxValue = Mathf.Pow(10, PlayerPrefs.GetFloat("SFXVolume", 0f) / 20);
+
+        bgmSlider.value = bgmValue;
+        sfxSlider.value = sfxValue;
+
+        bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
+        sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+    }
 
     void Update()
     {
