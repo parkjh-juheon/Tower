@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
 using Cinemachine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerHealth : MonoBehaviour
@@ -182,6 +183,8 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator DeactivateAfterDelay()
     {
         yield return new WaitForSeconds(deathDeactivateDelay);
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);  // 이 줄은 제거하거나 주석 처리
+
+        SceneManager.LoadScene("GameOver"); // GameOver 씬으로 전환
     }
 }

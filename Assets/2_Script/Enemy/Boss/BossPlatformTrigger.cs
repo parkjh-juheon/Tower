@@ -11,7 +11,7 @@ public class BossPlatformTrigger : MonoBehaviour
     {
         if (activated) return;
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("GroundChecker"))
         {
             if (bossObject != null)
                 bossObject.SetActive(true);

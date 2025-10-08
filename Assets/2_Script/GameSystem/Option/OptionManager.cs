@@ -27,20 +27,15 @@ public class OptionManager : MonoBehaviour
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
 
-        isTitleScene = SceneManager.GetActiveScene().name == "Title";
+        string sceneName = SceneManager.GetActiveScene().name;
+        isTitleScene = (sceneName == "Title" || sceneName == "GameOver");
 
-        if (isTitleScene)
-        {
-            SetCursorState(true);
-        }
-        else
-        {
-            SetCursorState(false);
-        }
+        SetCursorState(isTitleScene);
     }
 
     void Update()
     {
+        // 타이틀/게임오버 씬에서는 항상 커서가 보이게 유지
         if (isTitleScene)
         {
             if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
@@ -68,6 +63,9 @@ public class OptionManager : MonoBehaviour
         if (inventoryCanvas == null) return;
         bool isActive = inventoryCanvas.gameObject.activeSelf;
         inventoryCanvas.gameObject.SetActive(!isActive);
+
+        // 인벤토리 열릴 때 커서 표시, 닫힐 때 잠금
+        SetCursorState(!isActive);
     }
 
     void PauseGame()

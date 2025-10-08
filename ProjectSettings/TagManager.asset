@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Boss
   - Wall
+  - GroundChecker
   layers:
   - Default
   - TransparentFX

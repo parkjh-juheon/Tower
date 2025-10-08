@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/1_Scenes/TILEMAPTEST.unity
     guid: b94e5b76975cc9c4891334d12bf882af
   - enabled: 1
+    path: Assets/1_Scenes/GameOver.unity
+    guid: 3381ebdd4d813fb4c8a6504ef6e09feb
+  - enabled: 1
     path: Assets/1_Scenes/Main1.unity
     guid: ade4c49b098a2d342a2f5644543d67b7
   m_configObjects:
