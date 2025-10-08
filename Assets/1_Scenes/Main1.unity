@@ -346,7 +346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &159054385
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6093,7 +6093,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 874899889}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadMainMenu
         m_Mode: 1
@@ -6779,7 +6779,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7211,10 +7211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1716c9368d4123d4ca16339826630e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionPanel: {fileID: 0}
+  optionPanel: {fileID: 964901073}
   inventoryCanvas: {fileID: 1450159388}
-  bgmSlider: {fileID: 0}
-  sfxSlider: {fileID: 0}
+  bgmSlider: {fileID: 740252466}
+  sfxSlider: {fileID: 932594224}
 --- !u!114 &874899889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7227,7 +7227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb932c37315862f4a956b50a9e279cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeImage: {fileID: 0}
+  fadeImage: {fileID: 4722295594774477351}
   fadeDuration: 1
 --- !u!1 &931346866
 GameObject:
@@ -7451,7 +7451,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7911,12 +7911,12 @@ GameObject:
   - component: {fileID: 1188963192}
   - component: {fileID: 1188963191}
   - component: {fileID: 1188963190}
-  - component: {fileID: 1188963185}
   - component: {fileID: 1188963189}
   - component: {fileID: 1188963188}
   - component: {fileID: 1188963187}
   - component: {fileID: 1188963186}
   - component: {fileID: 1188963193}
+  - component: {fileID: 1188963185}
   - component: {fileID: 1188963194}
   m_Layer: 9
   m_Name: Player
@@ -8136,6 +8136,7 @@ MonoBehaviour:
   reloadTime: 2
   ammoText: {fileID: 931346868}
   ammoReloadFill: {fileID: 15814529}
+  maxJumpCount: 1
   groundCheck: {fileID: 680754353}
   groundCheckSize: {x: 0.6, y: 0.3}
   groundLayer:
@@ -8144,11 +8145,11 @@ MonoBehaviour:
   airAttackFallSpeed: 10
   airAttackBoxSize: {x: 1.5, y: 2}
   airAttackOffsetX: 1
-  footstepClip: {fileID: 0}
-  jumpClip: {fileID: 8300000, guid: 99c7c03417fd5734a87ae6b4d6adcd2f, type: 3}
-  landClip: {fileID: 8300000, guid: 3368b3f0fa25eab4aad4b5c9185bb4c0, type: 3}
-  meleeAttackClip: {fileID: 8300000, guid: 4531cc7fd26bbaf47b97e62249520433, type: 3}
-  shootClip: {fileID: 8300000, guid: 8630da7e2cba9344aa8551f4f68ea1e2, type: 3}
+  footstepSound: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 99c7c03417fd5734a87ae6b4d6adcd2f, type: 3}
+  landSound: {fileID: 8300000, guid: 3368b3f0fa25eab4aad4b5c9185bb4c0, type: 3}
+  meleeAttackSound: {fileID: 8300000, guid: 4531cc7fd26bbaf47b97e62249520433, type: 3}
+  shootSound: {fileID: 8300000, guid: 8630da7e2cba9344aa8551f4f68ea1e2, type: 3}
   canControl: 1
   airAttackHasHit: 0
 --- !u!212 &1188963191
@@ -8461,7 +8462,7 @@ RectTransform:
   m_Father: {fileID: 432386369}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8661,7 +8662,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 874899889}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: ReloadCurrentScene
         m_Mode: 1
@@ -8780,7 +8781,7 @@ RectTransform:
   m_Father: {fileID: 1004255248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9516,8 +9517,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 964901074}
   - {fileID: 2077100247851193275}
+  - {fileID: 964901074}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9749,7 +9750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -61.65387, y: 70.64905}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3645205071797391556

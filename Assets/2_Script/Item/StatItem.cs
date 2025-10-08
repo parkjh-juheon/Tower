@@ -23,7 +23,6 @@ public class StatItem : MonoBehaviour
         if (playerObj != null)
         {
             player = playerObj.transform;
-            Debug.Log($"[StatItem] Player 오브젝트 탐색 성공: {player.name}");
         }
     }
 
@@ -76,10 +75,7 @@ public class StatItem : MonoBehaviour
             StartCoroutine(ReturnToIdle(animator, 0.8f));
         }
 
-
         PlayerController controller = player.GetComponent<PlayerController>();
-        PlayerHealth health = player.GetComponent<PlayerHealth>();
-
         if (controller != null && controller.stats != null)
         {
             var stats = controller.stats;
@@ -89,25 +85,22 @@ public class StatItem : MonoBehaviour
             stats.attackDamage += data.attackDamageBonus;
             stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
         }
-        else
-        {
-        }
 
         if (ItemInventory.Instance != null)
             ItemInventory.Instance.AddItem(data);
-        else
 
         if (pickupEffectPrefab != null)
             Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
 
         if (pickupSound != null)
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
+            AudioManager.Instance?.PlaySFX(pickupSound);
 
         ItemUIManager.Instance?.HideItemInfo();
         ItemTooltip.Instance?.HideTooltip();
 
         Destroy(gameObject, 0.05f);
     }
+
 
     private IEnumerator ReturnToIdle(Animator animator, float delay)
     {

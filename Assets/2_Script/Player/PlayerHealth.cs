@@ -33,8 +33,7 @@ public class PlayerHealth : MonoBehaviour
     private bool isStunned = false;
 
     [Header("사운드 설정")]
-    public AudioSource audioSource;
-    public AudioClip hitSound;
+    public AudioClip hitSound;   // AudioManager를 통해 재생할 사운드
 
     [Header("사망 처리")]
     [SerializeField] private float deathDeactivateDelay = 1.5f;
@@ -57,7 +56,6 @@ public class PlayerHealth : MonoBehaviour
             originalColor = spriteRenderer.color;
     }
 
-
     public void UpdateMaxHP(int newMaxHP)
     {
         maxHP = newMaxHP;
@@ -79,8 +77,9 @@ public class PlayerHealth : MonoBehaviour
         if (animator != null)
             animator.SetTrigger("Hit");
 
-        if (hitSound != null) 
-            audioSource.PlayOneShot(hitSound);
+        //  AudioManager를 통해 SFX 재생
+        if (hitSound != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(hitSound);
 
         if (hitEffect != null)
             hitEffect.Play();
@@ -121,26 +120,23 @@ public class PlayerHealth : MonoBehaviour
             playerController.canControl = true;
     }
 
-
     void ApplyKnockback(Vector2 attackerPosition, float power)
     {
         if (isKnockback) return;
 
-        // 방향 계산
         Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
 
-        // 너무 가까워서 (0,0) 되는 것 방지
         if (direction == Vector2.zero)
             direction = Vector2.left;
 
-        direction.y = 0.3f;        // 살짝 위로 튕기게
+        direction.y = 0.3f;
         direction.Normalize();
 
         isKnockback = true;
         if (playerController != null)
             playerController.canControl = false;
 
-        rb.linearVelocity = Vector2.zero; // 기존 속도 초기화
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(direction * power, ForceMode2D.Impulse);
 
         StartCoroutine(EndKnockback());
@@ -155,7 +151,6 @@ public class PlayerHealth : MonoBehaviour
         if (!isStunned && playerController != null)
             playerController.canControl = true;
     }
-
 
     IEnumerator InvincibleCoroutine()
     {

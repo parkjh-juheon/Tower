@@ -24,6 +24,19 @@ public class OptionManager : MonoBehaviour
 
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
+
+        // 현재 씬이 Title이면 커서 항상 활성화
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Title")
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            // 다른 씬에서는 기본적으로 잠금
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void Update()
@@ -52,24 +65,36 @@ public class OptionManager : MonoBehaviour
 
     void PauseGame()
     {
-        optionPanel.SetActive(true);   // 옵션창 열기
-        Time.timeScale = 0f;           // 게임 정지
+        optionPanel.SetActive(true);
+        Time.timeScale = 0f;
         isPaused = true;
-
-        // 커서 활성화 (옵션 조작 가능하도록)
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        SetCursorState(true);
     }
 
     public void ResumeGame()
     {
-        optionPanel.SetActive(false);  // 옵션창 닫기
-        Time.timeScale = 1f;           // 게임 재개
+        optionPanel.SetActive(false);
+        Time.timeScale = 1f;
         isPaused = false;
+        StartCoroutine(ForceCursorLock());
+    }
 
-        // 필요시 커서 다시 잠그기
+    private System.Collections.IEnumerator ForceCursorLock()
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        yield return new WaitForSecondsRealtime(0.05f);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+
+    private void SetCursorState(bool isVisible)
+    {
+        Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isVisible;
     }
 
     public void QuitGame()

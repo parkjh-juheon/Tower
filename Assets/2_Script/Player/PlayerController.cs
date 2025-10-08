@@ -10,20 +10,19 @@ public class PlayerController : MonoBehaviour
     {
         // 공통 스탯
         public float moveSpeed;
-        //public float dashDistance;
         public float jumpForce;
         public int maxJumpCount;
         public float attackDamage;
         public float attackCooldown;
 
         // 근접 전용
-        public float knockbackPower;   // 넉백
-        public float meleeRange;       // 공격 범위
+        public float knockbackPower;
+        public float meleeRange;
 
         // 원거리 전용
-        public float bulletSize;       // 총알 크기
-        public float bulletLifeTime;   // 지속 시간
-        public float bulletSpeed;      // 탄속
+        public float bulletSize;
+        public float bulletLifeTime;
+        public float bulletSpeed;
     }
 
     public enum AttackType { Melee, Ranged, RapidFire }
@@ -37,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("공격 설정")]
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private float baseAttackCooldown = 0.5f; // 애니메이터 속도 보정용
+    [SerializeField] private float baseAttackCooldown = 0.5f;
 
     [Header("원거리 공격 설정")]
     public GameObject bulletPrefab;
@@ -52,15 +51,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI ammoText;
-    public Image ammoReloadFill;   //  도넛 모양 재장전 표시
-
-    // 보류
-    // [Header("구르기 설정")]
-    // [SerializeField] private float rollForce = 6f;
-    // [SerializeField] private float rollDuration = 0.5f;
-    // private bool isRolling = false;
-    // private float rollTimer = 0f;
-
+    public Image ammoReloadFill;
 
     [Header("점프 설정")]
     [SerializeField] private int maxJumpCount = 1;
@@ -79,7 +70,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float airAttackOffsetX = 1f;
 
     [Header("사운드 설정")]
-    public AudioSource audioSource;
     public AudioClip footstepSound;
     public AudioClip jumpSound;
     public AudioClip landSound;
@@ -87,7 +77,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip shootSound;
 
     private float footstepTimer = 0f;
-    private float footstepInterval = 0.4f; // 발소리 주기
+    private float footstepInterval = 0.4f;
 
     private float lastAttackTime = 0f;
     private Rigidbody2D rb;
@@ -100,7 +90,7 @@ public class PlayerController : MonoBehaviour
     private int facingDirection = 1;
 
     public bool canControl = true;
-    public bool airAttackHasHit = false; // 공중 공격 판정용 플래그
+    public bool airAttackHasHit = false;
 
     private void Awake()
     {
@@ -117,7 +107,6 @@ public class PlayerController : MonoBehaviour
         SetAttackType(attackType);
     }
 
-
     private void Update()
     {
         CheckGrounded();
@@ -125,7 +114,6 @@ public class PlayerController : MonoBehaviour
 
         HandleMovement();
         HandleJump();
-        // HandleRoll();
         HandleAttack();
 
         if (isAirAttacking && isGrounded)
@@ -138,15 +126,15 @@ public class PlayerController : MonoBehaviour
 
         UpdateAmmoUI();
     }
+
     private void CheckGrounded()
     {
         wasGrounded = isGrounded;
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundCheckSize, 0f, groundLayer);
 
-        // 착지 사운드
         if (!wasGrounded && isGrounded)
         {
-            if (landSound != null) audioSource.PlayOneShot(landSound);
+            if (landSound != null) AudioManager.Instance.PlaySFX(landSound);
             currentJumpCount = 0;
             groundJumpCount = 0;
             maxJumpCount = baseMaxJumpCount;
@@ -183,7 +171,6 @@ public class PlayerController : MonoBehaviour
 
         UpdateAmmoUI();
     }
-
 
     private void HandleAttack()
     {
@@ -254,8 +241,7 @@ public class PlayerController : MonoBehaviour
         float speedRatio = baseAttackCooldown / stats.attackCooldown;
         animator.speed = speedRatio;
 
-        //  근접 공격 사운드
-        if (meleeAttackSound != null) audioSource.PlayOneShot(meleeAttackSound);
+        if (meleeAttackSound != null) AudioManager.Instance.PlaySFX(meleeAttackSound);
 
         if (!isGrounded) StartAirAttack();
         else
@@ -268,21 +254,14 @@ public class PlayerController : MonoBehaviour
 
             foreach (var hit in hits)
             {
-                // 일반 적
                 EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
                 if (enemy != null)
-                {
                     enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
-                }
 
-                // 보스
                 BossHealth boss = hit.GetComponent<BossHealth>();
                 if (boss != null)
-                {
                     boss.TakeDamage((int)stats.attackDamage);
-                }
             }
-
         }
         StartCoroutine(ResetAnimatorSpeed());
     }
@@ -295,8 +274,7 @@ public class PlayerController : MonoBehaviour
 
         if (prefab == null || firePoint == null) return;
 
-        //  총알 발사 사운드
-        if (shootSound != null) audioSource.PlayOneShot(shootSound);
+        if (shootSound != null) AudioManager.Instance.PlaySFX(shootSound);
 
         animator?.SetTrigger("Shoot");
 
@@ -318,13 +296,12 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * stats.moveSpeed, rb.linearVelocity.y);
 
-        // 걷기/달리기 사운드
         if (isGrounded && Mathf.Abs(inputX) > 0.1f)
         {
             footstepTimer += Time.deltaTime;
             if (footstepTimer >= footstepInterval)
             {
-                if (footstepSound != null) audioSource.PlayOneShot(footstepSound);
+                if (footstepSound != null) AudioManager.Instance.PlaySFX(footstepSound);
                 footstepTimer = 0f;
             }
         }
@@ -337,6 +314,7 @@ public class PlayerController : MonoBehaviour
         {
             facingDirection = -1; spriteRenderer.flipX = false; FlipFirePoint();
         }
+
         animator?.SetFloat("Speed", Mathf.Abs(inputX));
     }
 
@@ -353,31 +331,30 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        //if (!canControl || isRolling) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isGrounded)
             {
-                if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
+                if (jumpSound != null) AudioManager.Instance.PlaySFX(jumpSound);
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                 groundJumpCount++;
                 currentJumpCount = 0;
                 animator?.SetTrigger("Jump");
             }
-            else if (currentJumpCount < maxJumpCount)
+            else if (currentJumpCount < stats.maxJumpCount)
             {
-                if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
+                if (jumpSound != null) AudioManager.Instance.PlaySFX(jumpSound);
+
                 if (groundJumpCount == 0 && currentJumpCount == 0)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount = 1;
-                    maxJumpCount = baseMaxJumpCount + 1;
+                    stats.maxJumpCount = baseMaxJumpCount + 1;
                     animator?.SetTrigger("Jump");
                 }
                 else
                 {
-                    if (jumpSound != null) audioSource.PlayOneShot(jumpSound);
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount++;
                     animator?.SetTrigger("Jump");
@@ -385,31 +362,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    /*
-    private void HandleRoll()
-    {
-        if (!canControl) return;
-        if (isRolling)
-        {
-            rollTimer += Time.deltaTime;
-            if (rollTimer >= rollDuration)
-            { 
-                isRolling = false;
-                animator?.SetBool("Roll", false);
-            }
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded)
-        {
-            isRolling = true; rollTimer = 0f;
-            rb.linearVelocity = new Vector2(facingDirection * rollForce, rb.linearVelocity.y);
-            animator?.SetBool("Roll", true);
-        }
-    }
-    */
-
 
     private void StartAirAttack()
     {
@@ -426,11 +378,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    // 애니 이벤트 또는 호출용으로 수정
     public void PerformAirAttack()
     {
-        if (airAttackHasHit) return; // 이미 맞았다면 중복 방지
+        if (airAttackHasHit) return;
         airAttackHasHit = true;
 
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
@@ -438,7 +388,6 @@ public class PlayerController : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            // 일반 적
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
@@ -447,17 +396,11 @@ public class PlayerController : MonoBehaviour
                 enemy.TakeDamage(damage, transform.position, knockback);
             }
 
-            // 보스
             BossHealth boss = hit.GetComponent<BossHealth>();
             if (boss != null)
-            {
-                int damage = (int)(stats.attackDamage * 2); // 2배 데미지
-                boss.TakeDamage(damage);
-            }
+                boss.TakeDamage((int)(stats.attackDamage * 2));
         }
-
     }
-
 
     private void AirAttackHitCheck()
     {
@@ -466,22 +409,19 @@ public class PlayerController : MonoBehaviour
 
         foreach (var hit in hits)
         {
-            // 일반 적
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
                 enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
 
-            // 보스
             BossHealth boss = hit.GetComponent<BossHealth>();
             if (boss != null)
                 boss.TakeDamage((int)stats.attackDamage);
         }
-
     }
 
-    private void EndAirAttack() 
+    private void EndAirAttack()
     {
-        isAirAttacking = false; 
+        isAirAttacking = false;
         canControl = true;
     }
 
