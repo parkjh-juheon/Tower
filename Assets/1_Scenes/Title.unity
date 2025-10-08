@@ -151,6 +151,11 @@ MonoBehaviour:
   mixer: {fileID: 24100000, guid: f2896b64fff8eaa40af884132c5dc800, type: 2}
   bgmSource: {fileID: 1797909116}
   sfxSource: {fileID: 1974803350}
+  titleBGM: {fileID: 8300000, guid: 16ff9750849a8ab4aa01d0c67cad48a2, type: 3}
+  stageBGM: {fileID: 8300000, guid: a7e970352a90e754bb150513cc1c2f6e, type: 3}
+  bossBGM: {fileID: 0}
+  gameoverBGM: {fileID: 8300000, guid: 2d7808fa5d7c35543b459beab05184c7, type: 3}
+  clearBGM: {fileID: 0}
 --- !u!4 &16061811
 Transform:
   m_ObjectHideFlags: 0

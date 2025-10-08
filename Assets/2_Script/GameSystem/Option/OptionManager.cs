@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionManager : MonoBehaviour
 {
@@ -7,9 +8,10 @@ public class OptionManager : MonoBehaviour
     public GameObject optionPanel;
 
     [Header("인벤토리 캔버스")]
-    public Canvas inventoryCanvas; // InventoryCanvas 직접 참조
+    public Canvas inventoryCanvas;
 
     private bool isPaused = false;
+    private bool isTitleScene = false;
 
     public Slider bgmSlider;
     public Slider sfxSlider;
@@ -25,22 +27,27 @@ public class OptionManager : MonoBehaviour
         bgmSlider.onValueChanged.AddListener(AudioManager.Instance.SetBGMVolume);
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
 
-        // 현재 씬이 Title이면 커서 항상 활성화
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Title")
+        isTitleScene = SceneManager.GetActiveScene().name == "Title";
+
+        if (isTitleScene)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            SetCursorState(true);
         }
         else
         {
-            // 다른 씬에서는 기본적으로 잠금
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            SetCursorState(false);
         }
     }
 
     void Update()
     {
+        if (isTitleScene)
+        {
+            if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
+                SetCursorState(true);
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -76,20 +83,8 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-        StartCoroutine(ForceCursorLock());
+        SetCursorState(false);
     }
-
-    private System.Collections.IEnumerator ForceCursorLock()
-    {
-        yield return new WaitForSecondsRealtime(0.05f);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        yield return new WaitForSecondsRealtime(0.05f);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
 
     private void SetCursorState(bool isVisible)
     {
@@ -99,11 +94,9 @@ public class OptionManager : MonoBehaviour
 
     public void QuitGame()
     {
-        // 게임 종료 (빌드 환경)
         Application.Quit();
 
 #if UNITY_EDITOR
-        // 유니티 에디터에서는 Play 모드 중지
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
     }
