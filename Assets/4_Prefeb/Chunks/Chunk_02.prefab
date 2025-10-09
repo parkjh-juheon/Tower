@@ -787,7 +787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a788afe50ee9ef449817041283796ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerRadius: 5
+  triggerRadius: 3
   forceStrength: 15
   isPulling: 1
   forceDuration: 1
@@ -857,8 +857,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0011825562, y: 0.1166811}
-  m_Radius: 4.85147
+  m_Offset: {x: -0.0011825562, y: -0.0018725395}
+  m_Radius: 2.9841113
 --- !u!1 &1630877308713024065
 GameObject:
   m_ObjectHideFlags: 0
@@ -2509,6 +2509,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!1 &4082758848752236152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2647,6 +2650,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!1 &4196769510418495372
 GameObject:
   m_ObjectHideFlags: 0

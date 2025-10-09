@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StatItem : MonoBehaviour
 {
@@ -19,10 +20,13 @@ public class StatItem : MonoBehaviour
 
     private void Start()
     {
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
+        foreach (var p in GameObject.FindGameObjectsWithTag("Player"))
         {
-            player = playerObj.transform;
+            if (p.activeInHierarchy)
+            {
+                player = p.transform;
+                break;
+            }
         }
     }
 
@@ -37,25 +41,15 @@ public class StatItem : MonoBehaviour
         {
             isPlayerInRange = true;
             ItemUIManager.Instance?.ShowItemInfo(data);
-
-            if (animator != null)
-            {
-                animator.SetBool("NearItem", true);
-            }
+            if (animator != null) animator.SetBool("NearItem", true);
         }
-        // 범위 벗어남
         else if (distance > interactDistance && isPlayerInRange)
         {
             isPlayerInRange = false;
             ItemUIManager.Instance?.HideItemInfo();
-
-            if (animator != null)
-            {
-                animator.SetBool("NearItem", false);
-            }
+            if (animator != null) animator.SetBool("NearItem", false);
         }
 
-        // 아이템 줍기
         if (isPlayerInRange && !pickedUp && Input.GetKeyDown(KeyCode.C))
         {
             PickupItem();
@@ -76,22 +70,111 @@ public class StatItem : MonoBehaviour
         }
 
         PlayerController controller = player.GetComponent<PlayerController>();
-        if (controller != null && controller.stats != null)
+        PlayerHealth health = player.GetComponent<PlayerHealth>();
+
+        if (controller == null) controller = player.GetComponentInChildren<PlayerController>();
+        if (health == null) health = player.GetComponentInChildren<PlayerHealth>();
+
+        if (controller == null || controller.stats == null) return;
+        var stats = controller.stats;
+
+        // ---------------------
+        //  기존값 저장
+        // ---------------------
+        Dictionary<string, float> before = new()
         {
-            var stats = controller.stats;
-            stats.moveSpeed += data.moveSpeedBonus;
-            stats.jumpForce += data.jumpForceBonus;
-            stats.maxJumpCount += data.maxJumpCountBonus;
-            stats.attackDamage += data.attackDamageBonus;
-            stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
+            { "moveSpeed", stats.moveSpeed },
+            { "jumpForce", stats.jumpForce },
+            { "maxJumpCount", stats.maxJumpCount },
+            { "attackDamage", stats.attackDamage },
+            { "attackCooldown", stats.attackCooldown },
+            { "meleeRange", stats.meleeRange },
+            { "knockbackPower", stats.knockbackPower },
+            { "bulletSpeed", stats.bulletSpeed },
+            { "bulletLifeTime", stats.bulletLifeTime },
+            { "bulletSize", stats.bulletSize },
+            { "maxHP", health != null ? health.maxHP : 0 },
+            { "currentHP", health != null ? health.currentHP : 0 }
+        };
+
+        // ---------------------
+        // 스탯 적용
+        // ---------------------
+        stats.moveSpeed += data.moveSpeedBonus;
+        stats.jumpForce += data.jumpForceBonus;
+        stats.maxJumpCount += data.maxJumpCountBonus;
+        stats.attackDamage += data.attackDamageBonus;
+        stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
+
+        if (controller.attackType == PlayerController.AttackType.Melee)
+        {
+            stats.knockbackPower += data.knockbackPowerBonus;
+            stats.meleeRange += data.meleeRangeBonus;
+        }
+        else
+        {
+            stats.bulletSize += data.bulletSizeBonus;
+            stats.bulletLifeTime += data.bulletLifeTimeBonus;
+            stats.bulletSpeed += data.bulletSpeedBonus;
         }
 
-        if (ItemInventory.Instance != null)
-            ItemInventory.Instance.AddItem(data);
+        if (health != null)
+        {
+            if (data.maxHPBonus != 0)
+                health.UpdateMaxHP(health.maxHP + data.maxHPBonus);
+
+            if (data.healAmount > 0)
+            {
+                health.currentHP = Mathf.Min(health.currentHP + data.healAmount, health.maxHP);
+                health.UpdateHealthBar();
+            }
+        }
+
+        // ---------------------
+        //  변화 감지 & UI 출력
+        // ---------------------
+        void TryShowChange(string name, float newValue)
+        {
+            if (!before.ContainsKey(name)) return;
+            float oldValue = before[name];
+            if (!Mathf.Approximately(oldValue, newValue))
+                PlayerStatsUI.Instance?.ShowStatChange(name, oldValue, newValue);
+        }
+
+        // 공통 스탯
+        TryShowChange("moveSpeed", stats.moveSpeed);
+        TryShowChange("jumpForce", stats.jumpForce);
+        TryShowChange("maxJumpCount", stats.maxJumpCount);
+        TryShowChange("attackDamage", stats.attackDamage);
+        TryShowChange("attackCooldown", stats.attackCooldown);
+
+        // 타입별
+        if (controller.attackType == PlayerController.AttackType.Melee)
+        {
+            TryShowChange("meleeRange", stats.meleeRange);
+            TryShowChange("knockbackPower", stats.knockbackPower);
+        }
+        else
+        {
+            TryShowChange("bulletSpeed", stats.bulletSpeed);
+            TryShowChange("bulletLifeTime", stats.bulletLifeTime);
+            TryShowChange("bulletSize", stats.bulletSize);
+        }
+
+        // 체력 관련
+        if (health != null)
+        {
+            TryShowChange("maxHP", health.maxHP);
+            TryShowChange("currentHP", health.currentHP);
+        }
+
+        // ---------------------
+        //  이펙트 & 사운드 & UI 정리
+        // ---------------------
+        ItemInventory.Instance?.AddItem(data);
 
         if (pickupEffectPrefab != null)
             Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
-
         if (pickupSound != null)
             AudioManager.Instance?.PlaySFX(pickupSound);
 
@@ -100,7 +183,6 @@ public class StatItem : MonoBehaviour
 
         Destroy(gameObject, 0.05f);
     }
-
 
     private IEnumerator ReturnToIdle(Animator animator, float delay)
     {

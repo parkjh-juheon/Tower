@@ -16,15 +16,15 @@ MonoBehaviour:
   description: "\uC5D0\uD53D"
   rarity: 2
   prefab: {fileID: 808646922598960546, guid: 9aeae185fedac6149858239ad56f3863, type: 3}
-  moveSpeedBonus: 0
-  jumpForceBonus: 1
-  maxJumpCountBonus: 0
-  attackDamageBonus: 0
-  attackCooldownBonus: 0
-  maxHPBonus: 0
-  healAmount: 0
-  knockbackPowerBonus: 0
-  meleeRangeBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
-  bulletSpeedBonus: 0
+  moveSpeedBonus: 3
+  jumpForceBonus: 3
+  maxJumpCountBonus: 3
+  attackDamageBonus: 3
+  attackCooldownBonus: 3
+  maxHPBonus: 3
+  healAmount: 3
+  knockbackPowerBonus: 33
+  meleeRangeBonus: 3
+  bulletSizeBonus: 3
+  bulletLifeTimeBonus: 3
+  bulletSpeedBonus: 3

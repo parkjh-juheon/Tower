@@ -15,7 +15,6 @@ public class ItemInventory : MonoBehaviour
 
     public void AddItem(ItemData item)
     {
-        Debug.Log($"[ItemInventory] AddItem 호출됨: {item?.itemName}");
         acquiredItems.Add(item);
         if (inventoryUI == null)
             Debug.LogWarning("inventoryUI가 연결되지 않았습니다!");
