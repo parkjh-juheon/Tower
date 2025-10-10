@@ -1,16 +1,19 @@
 fileFormatVersion: 2
-guid: e8fdc46d653c1214eb8031193d23b1e9
+guid: 91494f08c0621c1479048bb9d2624edb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1831794209133437786
-    second: etc-enemy 1_0
+      213: -5252460069739397803
+    second: etc-trap_0
   - first:
-      213: -6428504680849316032
-    second: etc-enemy 1_1
+      213: 6252005369770996880
+    second: etc-trap_1
   - first:
-      213: -8676306865728083138
-    second: etc-enemy 1_2
+      213: 6419248585790212140
+    second: etc-trap_2
+  - first:
+      213: 8313706590176365066
+    second: etc-trap_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -106,7 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: etc-enemy_0
+      name: etc-trap_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,16 +122,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 24f077dba5339814395b8706414bf20a
-      internalID: -1695667485
+      spriteID: 55d724235638b17b0800000000000000
+      internalID: -5252460069739397803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: etc-enemy_1
+      name: etc-trap_1
       rect:
         serializedVersion: 2
         x: 160
@@ -141,16 +144,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: c7b0c40db2fcac94a8f01c5e0dd7d7ea
-      internalID: -735254995
+      spriteID: 094f80f52c593c650800000000000000
+      internalID: 6252005369770996880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: etc-enemy_2
+      name: etc-trap_2
       rect:
         serializedVersion: 2
         x: 320
@@ -163,10 +166,32 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8fd7108c907a01b428ee7f211060c643
-      internalID: -239362734
+      spriteID: c2844f00490c51950800000000000000
+      internalID: 6419248585790212140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: etc-trap_3
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0a494a8818306370800000000000000
+      internalID: 8313706590176365066
       vertices: []
       indices: 
       edges: []
@@ -175,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e89062700543fd8438f972bb1fef679c
+    spriteID: c4b561b4d40ff2240add87d4368deffb
     internalID: 0
     vertices: []
     indices: 
@@ -187,9 +212,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":160.0,"y":160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      etc-enemy_0: -1695667485
-      etc-enemy_1: -735254995
-      etc-enemy_2: -239362734
+      etc-trap_0: -5252460069739397803
+      etc-trap_1: 6252005369770996880
+      etc-trap_2: 6419248585790212140
+      etc-trap_3: 8313706590176365066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
