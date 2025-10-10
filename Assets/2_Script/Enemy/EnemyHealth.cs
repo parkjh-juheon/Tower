@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,8 @@ public class EnemyHealth : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isKnockback = false;
+
+    public event Action onDie;
 
     private void Start()
     {
@@ -72,8 +75,9 @@ void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
         }
     }
 
-    void Die()
+    public void Die()
     {
+        onDie?.Invoke();
         Missile missile = GetComponent<Missile>();
         if (missile != null)
         {
