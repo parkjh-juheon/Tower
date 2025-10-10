@@ -189,7 +189,7 @@ SpriteRenderer:
   m_Size: {x: 2.4, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &27505585
@@ -428,18 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 5
-  attackCooldownBonus: -0.2
-  moveSpeedBonus: 5
-  jumpForceBonus: 10
-  maxHPBonus: 200
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &81531811
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -814,18 +806,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 0
-  attackCooldownBonus: -0.49
-  moveSpeedBonus: 0
-  jumpForceBonus: 0
-  maxHPBonus: 0
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &245218449
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -908,6 +892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b936b6568d372fc4a85869be575470dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   newAttackType: 1
   giveAmmo: 100
 --- !u!1 &270365499
@@ -6844,6 +6829,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   optionPanel: {fileID: 2024391363}
+  inventoryCanvas: {fileID: 0}
+  bgmSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!4 &904630836
 Transform:
   m_ObjectHideFlags: 0
@@ -7593,18 +7581,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 5
-  attackCooldownBonus: 0
-  moveSpeedBonus: 5
-  jumpForceBonus: 10
-  maxHPBonus: 100
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &1173692559
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8071,6 +8051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b936b6568d372fc4a85869be575470dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 0}
   newAttackType: 0
   giveAmmo: 10000
 --- !u!114 &1355911442
@@ -8085,18 +8066,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0942fda98f7aaa244ad261439fda0bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamageBonus: 0
-  attackCooldownBonus: 0
-  moveSpeedBonus: 0
-  jumpForceBonus: 0
-  maxHPBonus: 0
-  healAmount: 0
-  maxJumpCountBonus: 0
-  meleeAttackRangeBonus: 0
-  knockbackBonus: 0
-  bulletSpeedBonus: 0
-  bulletSizeBonus: 0
-  bulletLifeTimeBonus: 0
+  data: {fileID: 0}
+  interactDistance: 2.5
+  pickupEffectPrefab: {fileID: 0}
+  pickupSound: {fileID: 0}
 --- !u!212 &1355911443
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15029,6 +15002,9 @@ MonoBehaviour:
   isInvincible: 0
   knockbackDuration: 0.2
   knockbackPower: 10
+  spriteRenderer: {fileID: 0}
+  stunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hitSound: {fileID: 0}
   deathDeactivateDelay: 1
 --- !u!114 &1848940054
 MonoBehaviour:
@@ -15044,9 +15020,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackType: 0
   stats:
-    maxHP: 100
     moveSpeed: 12
-    dashDistance: 12
     jumpForce: 12
     maxJumpCount: 1
     attackDamage: 10
@@ -15070,8 +15044,6 @@ MonoBehaviour:
   reloadTime: 2
   ammoText: {fileID: 922382668}
   ammoReloadFill: {fileID: 556174273}
-  rollForce: 13
-  rollDuration: 0.5
   maxJumpCount: 1
   groundCheck: {fileID: 914301506}
   groundCheckSize: {x: 0.4, y: 0.3}
@@ -15081,6 +15053,11 @@ MonoBehaviour:
   airAttackFallSpeed: 10
   airAttackBoxSize: {x: 1.5, y: 2}
   airAttackOffsetX: 1
+  footstepSound: {fileID: 0}
+  jumpSound: {fileID: 0}
+  landSound: {fileID: 0}
+  meleeAttackSound: {fileID: 0}
+  shootSound: {fileID: 0}
   canControl: 1
   airAttackHasHit: 0
 --- !u!212 &1848940055
