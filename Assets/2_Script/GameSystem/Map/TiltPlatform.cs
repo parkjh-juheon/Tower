@@ -4,9 +4,9 @@ using System.Collections;
 public class TiltPlatform : MonoBehaviour
 {
     [Header("회전 설정")]
-    public float rotateAngle = 30f;        // 회전 각도 (음수면 반대 방향)
+    public float rotateAngle = 30f;        // 회전 각도
     public float rotateDuration = 0.4f;    // 회전 속도
-    public float returnDelay = 1.5f;       // 원위치로 복귀하기 전 대기 시간
+    public float returnDelay = 1.5f;       // 원위치 대기 시간
 
     private bool isTilting = false;
     private Quaternion initialRot;
@@ -16,6 +16,22 @@ public class TiltPlatform : MonoBehaviour
     {
         initialRot = transform.rotation;
         tiltedRot = Quaternion.Euler(transform.eulerAngles + new Vector3(0, 0, rotateAngle));
+
+        // PlayerFallTracker 이벤트 연결
+        PlayerFallTracker player = FindObjectOfType<PlayerFallTracker>();
+        if (player != null)
+        {
+            player.OnHighFallLanded += (Collider2D hitCollider) => HandleHighFallLand(player, hitCollider);
+        }
+    }
+
+    private void HandleHighFallLand(PlayerFallTracker player, Collider2D hitCollider)
+    {
+        // 착지한 발판이 자신이거나, 최근 높은 낙하를 했으면 높이 상관없이 회전
+        if (hitCollider.GetComponentInParent<TiltPlatform>() == this || player.hasRecentHighFall)
+        {
+            TiltOnce();
+        }
     }
 
     public void TiltOnce()
@@ -29,7 +45,7 @@ public class TiltPlatform : MonoBehaviour
         isTilting = true;
         float elapsed = 0f;
 
-        // 1. 회전 (기울이기)
+        // 기울이기
         while (elapsed < rotateDuration)
         {
             transform.rotation = Quaternion.Lerp(initialRot, tiltedRot, elapsed / rotateDuration);
@@ -38,10 +54,10 @@ public class TiltPlatform : MonoBehaviour
         }
         transform.rotation = tiltedRot;
 
-        // 2. 잠시 대기
+        // 대기
         yield return new WaitForSeconds(returnDelay);
 
-        // 3. 원래 각도로 복귀
+        // 복귀
         elapsed = 0f;
         while (elapsed < rotateDuration)
         {
