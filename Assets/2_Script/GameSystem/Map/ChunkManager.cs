@@ -100,7 +100,6 @@ public class ChunkManager : MonoBehaviour
         float commonChance = 0.7f;
         float rareChance = 0.2f;
         float epicChance = 0.09f;
-        float legendaryChance = 0.01f;
 
         float roll = Random.value;
 
