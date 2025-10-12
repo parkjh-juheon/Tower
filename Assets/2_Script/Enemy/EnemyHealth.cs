@@ -87,6 +87,14 @@ void ApplyKnockback(Vector2 attackerPosition, float knockbackPower)
         {
             Destroy(gameObject);
         }
+
+        BattleZoneTrigger zone = FindObjectOfType<BattleZoneTrigger>();
+        if (zone != null)
+        {
+            zone.ReportEnemyDeath(transform.position);
+        }
+
+        Destroy(gameObject);
     }
 
 }

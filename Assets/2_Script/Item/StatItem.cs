@@ -174,7 +174,34 @@ public class StatItem : MonoBehaviour
         ItemInventory.Instance?.AddItem(data);
 
         if (pickupEffectPrefab != null)
-            Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
+        {
+            GameObject effect = Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
+
+            // 등급에 따른 색상 지정
+            Color effectColor = Color.white; // 기본(일반)
+
+            switch (data.rarity)
+            {
+                case ItemRarity.Rare:
+                    effectColor = new Color(0.6f, 1.5f, 0.6f); // 밝은 연두색
+                    break;
+                case ItemRarity.Epic:
+                    effectColor = new Color(0.8f, 0.4f, 1.0f); // 밝은 보라
+                    break;
+                case ItemRarity.Legendary:
+                    effectColor = new Color(1.2f, 1.0f, 0.3f); // 황금빛
+                    break;
+            }
+
+            // 파티클 색상 변경
+            ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                var main = ps.main;
+                main.startColor = effectColor;
+            }
+        }
+
         if (pickupSound != null)
             AudioManager.Instance?.PlaySFX(pickupSound);
 

@@ -1,23 +1,30 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider2D))]
 public class BattleZoneTrigger : MonoBehaviour
 {
     [Header("전투 구간 설정")]
-    public GameObject[] walls;              // 전투 중 플레이어 이동 제한용 벽
-    public string enemyTag = "Enemy";       // 적 태그
-    public float checkInterval = 1f;        // 남은 적 체크 주기(초)
+    public GameObject[] walls;
+    public string enemyTag = "Enemy";
+    public float checkInterval = 1f;
+
+    [Header("아이템 드랍 설정")]
+    public List<ItemData> itemPool;
+    public int dropCount = 1;
+    public float dropRadius = 1.5f;
 
     private bool battleStarted = false;
     private bool battleEnded = false;
     private Collider2D battleZoneCollider;
 
+    // 마지막 적이 죽은 위치
+    private Vector3 lastEnemyPosition;
+
     private void Awake()
     {
         battleZoneCollider = GetComponent<Collider2D>();
-
-        // 트리거 Collider여야 함
         battleZoneCollider.isTrigger = true;
     }
 
@@ -35,14 +42,12 @@ public class BattleZoneTrigger : MonoBehaviour
     {
         battleStarted = true;
 
-        // 벽 활성화
         foreach (GameObject wall in walls)
         {
             if (wall != null)
                 wall.SetActive(true);
         }
 
-        // 주기적으로 남은 적 확인
         StartCoroutine(CheckEnemiesCoroutine());
     }
 
@@ -52,7 +57,6 @@ public class BattleZoneTrigger : MonoBehaviour
         {
             yield return new WaitForSeconds(checkInterval);
 
-            // 전투 구간 안쪽의 적만 가져오기
             Collider2D[] colliders = Physics2D.OverlapBoxAll(
                 battleZoneCollider.bounds.center,
                 battleZoneCollider.bounds.size,
@@ -79,6 +83,7 @@ public class BattleZoneTrigger : MonoBehaviour
 
     void EndBattle()
     {
+        if (battleEnded) return;
         battleEnded = true;
 
         foreach (GameObject wall in walls)
@@ -88,9 +93,45 @@ public class BattleZoneTrigger : MonoBehaviour
         }
 
         Debug.Log("[BattleZone] 전투 종료 - 벽 비활성화됨");
+
+        //  전투 종료 시 아이템 드랍
+        DropItems();
     }
 
-    // 디버그용: 씬에서 전투 구간 박스 시각화
+    void DropItems()
+    {
+        if (itemPool == null || itemPool.Count == 0)
+        {
+            Debug.LogWarning("[BattleZone] 드랍할 아이템 풀 없음!");
+            return;
+        }
+
+        //  마지막 적의 위치를 기준으로 드랍 (없으면 전투구역 중앙)
+        Vector3 center = (lastEnemyPosition != Vector3.zero)
+            ? lastEnemyPosition
+            : battleZoneCollider.bounds.center;
+
+        for (int i = 0; i < dropCount; i++)
+        {
+            ItemData itemData = itemPool[Random.Range(0, itemPool.Count)];
+            Vector3 dropPos = center + (Vector3)Random.insideUnitCircle * dropRadius;
+
+            GameObject itemObj = Instantiate(itemData.prefab, dropPos, Quaternion.identity);
+            StatItem statItem = itemObj.GetComponent<StatItem>();
+            if (statItem != null)
+                statItem.data = itemData;
+
+            Debug.Log($"[BattleZone] 아이템 드랍됨: {itemData.itemName} at {dropPos}");
+        }
+    }
+
+    //  외부(적)에서 호출할 수 있는 메서드
+    public void ReportEnemyDeath(Vector3 deathPosition)
+    {
+        lastEnemyPosition = deathPosition;
+        Debug.Log($"[BattleZone] 마지막 적 사망 위치 기록됨: {deathPosition}");
+    }
+
     private void OnDrawGizmos()
     {
         Collider2D col = GetComponent<Collider2D>();
