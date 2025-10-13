@@ -18,7 +18,7 @@ public class TiltPlatform : MonoBehaviour
         tiltedRot = Quaternion.Euler(transform.eulerAngles + new Vector3(0, 0, rotateAngle));
 
         // PlayerFallTracker 이벤트 연결
-        PlayerFallTracker player = FindObjectOfType<PlayerFallTracker>();
+        PlayerFallTracker player = FindAnyObjectByType<PlayerFallTracker>();
         if (player != null)
         {
             player.OnHighFallLanded += (Collider2D hitCollider) => HandleHighFallLand(player, hitCollider);

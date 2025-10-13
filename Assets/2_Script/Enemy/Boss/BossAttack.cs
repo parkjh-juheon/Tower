@@ -10,7 +10,7 @@ public class BossAttack : MonoBehaviour
     [Header("공격 범위")]
     public float meleeRange = 3f;
     public float rangedRange = 8f;
-    public float meleeStopDistance = 3f;
+    public float meleeStopDistance = 0.8f;
     public float rangedStopDistance = 8f;
 
     [Header("쿨다운")]
@@ -25,7 +25,8 @@ public class BossAttack : MonoBehaviour
     public float dashKnockback = 12f;
     public float stunTime = 0.5f; // 플레이어 스턴 시간
     public float dashStunDuration = 1.0f; // 벽 충돌 후 행동 불가 시간
-    
+    public float dashTriggerDistance = 10f;
+
     private bool isStunned = false;
     public float stunDuration = 0.5f;
     public float backOffDistance = 1f;
@@ -76,45 +77,82 @@ public class BossAttack : MonoBehaviour
 
     void Update()
     {
-        if (isStunned)
-        {
-            if (bossChase != null && bossChase.enabled)
-                bossChase.enabled = false;
-            return;
-        }
-
-        if (target == null || !target.gameObject.activeInHierarchy || isAttacking) return;
-
-        // 다음 공격 패턴 결정
-        DecideNextPattern();
-        Debug.Log("DecideNextPattern called, nextPattern: " + nextPattern);
+        if (isStunned || target == null) return;
 
         float distance = Vector2.Distance(transform.position, target.position);
 
+        // 공격 사거리 안이면 즉시 패턴 실행
+        if (!isAttacking && distance <= Mathf.Max(meleeRange, rangedRange, dashTriggerDistance))
+        {
+            DecideNextPattern(distance);
+            ExecutePattern();
+        }
+        else if (!isAttacking)
+        {
+            // 사거리 밖이면 추격
+            float chaseRange = Mathf.Max(meleeRange, rangedRange, dashTriggerDistance);
+            bossChase.StartChase(chaseRange);
+        }
+
+        bossChase.StartChase(meleeStopDistance);
+    }
+
+    void DecideNextPattern(float distance)
+    {
+        List<BossPattern> candidates = new List<BossPattern>();
+
+        if (distance <= meleeRange)
+            candidates.Add(BossPattern.Melee);
+        if (distance <= rangedRange && Time.time >= nextRangedAvailableTime)
+            candidates.Add(BossPattern.Ranged);
+        if (canDash)
+            candidates.Add(BossPattern.Dash);
+
+        if (candidates.Count == 0)
+        {
+            // 실행 가능한 공격이 없으면 기본 Melee
+            nextPattern = BossPattern.Melee;
+        }
+        else
+        {
+            if (candidates.Count > 1 && candidates.Contains(lastPattern))
+                candidates.Remove(lastPattern);
+
+            int index = Random.Range(0, candidates.Count);
+            nextPattern = candidates[index];
+
+            if (nextPattern == BossPattern.Ranged)
+                nextRangedAvailableTime = Time.time + rangedCooldown * 2f;
+        }
+
+        lastPattern = nextPattern;
+    }
+
+    void ExecutePattern()
+    {
         switch (nextPattern)
         {
             case BossPattern.Melee:
-                if (distance <= meleeStopDistance)
-                {
-                    StartCoroutine(DoMeleeAttack());
-                    nextPattern = BossPattern.None;
-                }
+                bossChase.StopChase();
+                StartCoroutine(DoMeleeAttack());
                 break;
 
             case BossPattern.Ranged:
-                if (distance <= rangedStopDistance)
-                {
-                    StartCoroutine(DoRangedAttack());
-                    nextPattern = BossPattern.None;
-                }
+                bossChase.StopChase();
+                StartCoroutine(DoRangedAttack());
                 break;
 
             case BossPattern.Dash:
+                bossChase.StopChase();
                 DashPrep();
-                nextPattern = BossPattern.None;
                 break;
         }
+
+        nextPattern = BossPattern.None;
     }
+
+
+
     void FixedUpdate()
     {
         if (isDashing)
@@ -141,10 +179,17 @@ public class BossAttack : MonoBehaviour
     // =================== 근접 공격 ===================
     IEnumerator DoMeleeAttack()
     {
+        Debug.Log("StopDistance: " + bossChase.stopDistance);
+        bossChase.StartChase(meleeStopDistance);
         isAttacking = true;
         anim.SetTrigger("Attack");
+
         yield return new WaitForSeconds(meleeCooldown);
+
         isAttacking = false;
+
+        // 공격 후 추격 재개
+        bossChase.StartChase(meleeRange * 1.2f);
     }
 
     public void PerformHit()
@@ -168,8 +213,13 @@ public class BossAttack : MonoBehaviour
     {
         isAttacking = true;
         anim.SetTrigger("RangedAttack");
+
         yield return new WaitForSeconds(rangedCooldown);
+
         isAttacking = false;
+
+        // 공격 후 재추격
+        bossChase.StartChase(rangedRange);
     }
 
     public void ShootMissile()
@@ -179,10 +229,13 @@ public class BossAttack : MonoBehaviour
             GameObject missile = Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
             Missile m = missile.GetComponent<Missile>();
             if (m != null)
-                m.SetTarget(target); //  targetPoint로 자동 유도
+            {
+                // 발사 시 항상 TargetPoint를 목표로 지정
+                m.SetTarget(PlayerController.TargetPoint);
+            }
+
         }
     }
-
 
     // =================== 돌진 공격 ===================
     public void DashPrep()
@@ -291,40 +344,6 @@ public class BossAttack : MonoBehaviour
             StopDash();
         }
     }
-
-    // =================== 패턴 결정 ===================
-    void DecideNextPattern()
-    {
-        List<BossPattern> candidates = new List<BossPattern>();
-        float distance = Vector2.Distance(transform.position, target.position);
-
-        if (distance <= meleeRange)
-            candidates.Add(BossPattern.Melee);
-        if (distance <= rangedRange && Time.time >= nextRangedAvailableTime)
-            candidates.Add(BossPattern.Ranged);
-        if (canDash)
-            candidates.Add(BossPattern.Dash);
-
-        if (candidates.Count == 0)
-        {
-            nextPattern = BossPattern.None;
-            Debug.Log("BossPattern: None");
-            return;
-        }
-
-        if (candidates.Count > 1 && candidates.Contains(lastPattern))
-            candidates.Remove(lastPattern);
-
-        int index = Random.Range(0, candidates.Count);
-        nextPattern = candidates[index];
-        lastPattern = nextPattern;
-
-        if (nextPattern == BossPattern.Ranged)
-            nextRangedAvailableTime = Time.time + rangedCooldown * 2f;
-
-        Debug.Log("BossPattern: " + nextPattern);  // ← 여기서 패턴 로그 출력
-    }
-
 
     void OnDrawGizmosSelected()
     {

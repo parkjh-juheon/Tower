@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         {
             GameObject t = new GameObject("TargetPoint");
             t.transform.SetParent(transform);
-            t.transform.localPosition = new Vector3(0f, 0.5f, 0f); // 허리 정도 높이
+            t.transform.localPosition = new Vector3(0f, 1f, 0f); // 허리 정도 높이
             targetPoint = t.transform;
         }
     }

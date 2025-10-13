@@ -26,6 +26,7 @@ public class BossHealth : MonoBehaviour
     private Collider2D col;
     private bool isDead = false;
     private BossChase bossChase;
+    private BossAttack bossAttack; // 필드 추가
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class BossHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         bossChase = GetComponent<BossChase>();
+        bossAttack = GetComponent<BossAttack>(); // BossAttack 컴포넌트 캐싱
     }
 
     private void Start()
@@ -101,7 +103,10 @@ public class BossHealth : MonoBehaviour
         }
 
         if (bossChase != null)
-            bossChase.enabled = false; // BossChase 컴포넌트 비활성화
+            bossChase.enabled = false; // BossChase 비활성화
+
+        if (bossAttack != null)
+            bossAttack.enabled = false; // BossAttack 비활성화
 
         if (col != null)
             col.enabled = false;

@@ -4,26 +4,24 @@ public class BossChase : MonoBehaviour
 {
     public Transform player;
     public float moveSpeed = 2f;
-    public float detectionRange = 10f;
-
-    [Header("추격 멈춤 거리")]
-    public float stopChaseDistance = 3f; // 플레이어와 너무 가까우면 추격 중지
+    public float stopDistance = 3f; // 패턴마다 동적으로 변경됨
 
     private bool isChasing = false;
+    private bool reachedAttackRange = false;
+
+    private Rigidbody2D rb;
 
     void Start()
     {
         if (player == null)
         {
-            GameObject playerObj = GameObject.FindWithTag("Player");
-            if (playerObj != null)
-                player = playerObj.transform;
+            GameObject p = GameObject.FindWithTag("Player");
+            if (p != null) player = p.transform;
         }
 
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        // 플레이어와의 충돌 무시
         if (player != null)
         {
             Collider2D bossCol = GetComponent<Collider2D>();
@@ -34,37 +32,59 @@ public class BossChase : MonoBehaviour
                 Physics2D.IgnoreCollision(bossCol, playerCol, true);
             }
         }
+
     }
 
     void Update()
     {
         if (player == null) return;
 
-        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+        float distance = Vector2.Distance(transform.position, player.position);
 
-        // 감지 범위 안에 있으면 쫓기 시작
-        if (distanceToPlayer <= detectionRange)
-            isChasing = true;
-
-        // 추격 중, 하지만 stopChaseDistance보다 멀면 이동
-        if (isChasing && distanceToPlayer > stopChaseDistance)
+        // 항상 플레이어를 향해 이동
+        if (distance > stopDistance)
         {
             MoveTowards(player.position);
+            reachedAttackRange = false;
+        }
+        else
+        {
+            reachedAttackRange = true;
+            StopMoving(); // 공격 사거리 안이면 정지
         }
     }
 
+
     void MoveTowards(Vector3 target)
     {
-        Vector3 direction = (target - transform.position);
-        direction.y = 0;
-        direction = direction.normalized;
+        Vector3 dir = (target - transform.position).normalized;
+        dir.y = 0; // 2D 횡스크롤 기준 수평 이동
+        transform.position += dir * moveSpeed * Time.deltaTime;
 
-        transform.position += direction * moveSpeed * Time.deltaTime;
+        // 좌우 방향 전환
+        if (dir.x > 0) transform.localScale = new Vector3(1, 1, 1);
+        else if (dir.x < 0) transform.localScale = new Vector3(-1, 1, 1);
+    }
 
-        // 보스가 플레이어 방향을 바라보게
-        if (direction.x > 0)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (direction.x < 0)
-            transform.localScale = new Vector3(-1, 1, 1);
+    void StopMoving()
+    {
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    public void StartChase(float distanceLimit)
+    {
+        stopDistance = distanceLimit;
+        isChasing = true;
+    }
+
+    public void StopChase()
+    {
+        isChasing = false;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    public bool IsInAttackRange()
+    {
+        return reachedAttackRange;
     }
 }
