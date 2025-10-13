@@ -87,6 +87,7 @@ public class BossAttack : MonoBehaviour
 
         // 다음 공격 패턴 결정
         DecideNextPattern();
+        Debug.Log("DecideNextPattern called, nextPattern: " + nextPattern);
 
         float distance = Vector2.Distance(transform.position, target.position);
 
@@ -307,6 +308,7 @@ public class BossAttack : MonoBehaviour
         if (candidates.Count == 0)
         {
             nextPattern = BossPattern.None;
+            Debug.Log("BossPattern: None");
             return;
         }
 
@@ -319,7 +321,10 @@ public class BossAttack : MonoBehaviour
 
         if (nextPattern == BossPattern.Ranged)
             nextRangedAvailableTime = Time.time + rangedCooldown * 2f;
+
+        Debug.Log("BossPattern: " + nextPattern);  // ← 여기서 패턴 로그 출력
     }
+
 
     void OnDrawGizmosSelected()
     {

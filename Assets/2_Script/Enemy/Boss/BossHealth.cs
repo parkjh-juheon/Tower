@@ -9,13 +9,13 @@ public class BossHealth : MonoBehaviour
     public int currentHP;
 
     [Header("UI")]
-    public Slider bossHealthSlider;  // ȭ�� ��� ���� HP ��
-    public GameObject bossUIRoot;    // ü�� �� ������ ���� ó����
+    public Slider bossHealthSlider;  
+    public GameObject bossUIRoot;    
 
     [Header("Hit Effect")]
-    public SpriteRenderer spriteRenderer;  // ���� ��������Ʈ
-    public Color hitColor = Color.red;     // �ǰ� �� ����
-    public float flashDuration = 0.1f;     // ���� ���� �ð�
+    public SpriteRenderer spriteRenderer;  
+    public Color hitColor = Color.red;     
+    public float flashDuration = 0.1f;    
 
     [Header("Next Door")]
     public GameObject nextDoor;
@@ -25,12 +25,14 @@ public class BossHealth : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D col;
     private bool isDead = false;
+    private BossChase bossChase;
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        bossChase = GetComponent<BossChase>();
     }
 
     private void Start()
@@ -81,32 +83,29 @@ public class BossHealth : MonoBehaviour
 
     void Die()
     {
-
         if (isDead) return;
         isDead = true;
 
         Debug.Log("Boss Dead!");
 
-        // ü�� UI ����
         if (bossUIRoot != null)
             bossUIRoot.SetActive(false);
 
-        // �ִϸ��̼� ���
         if (anim != null)
             anim.SetTrigger("Die");
 
-        // Rigidbody �̵� ����
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
-            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
-        // Collider ��Ȱ��ȭ (�÷��̾ ��� ����)
+        if (bossChase != null)
+            bossChase.enabled = false; // BossChase 컴포넌트 비활성화
+
         if (col != null)
             col.enabled = false;
 
-        // NextDoor Ȱ��ȭ
         if (nextDoor != null)
             nextDoor.SetActive(true);
     }

@@ -392,7 +392,6 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, -airAttackFallSpeed);
 
             animator.SetTrigger("Air");
-            Debug.Log($"[{Time.time:F2}] [PlayerController] AirAttack 시작 (코드)");
         }
     }
 
