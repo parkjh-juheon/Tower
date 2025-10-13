@@ -18,25 +18,25 @@ public class Missile : MonoBehaviour
         spawnTime = Time.time;
         enemyHealth = GetComponent<EnemyHealth>();
 
-        // EnemyHealth의 Die()가 호출되면 폭발되도록 연결
-        if (enemyHealth != null)
-        {
-            // EnemyHealth에서 직접 Destroy하지 말고 Missile이 폭발 처리하도록 유도
-        }
+        // 플레이어 타겟 자동 등록
+        target = PlayerController.TargetPoint;
     }
 
-    public void SetTarget(Transform t) => target = t;
+    public void SetTarget(Transform t)
+    {
+        target = t;
+    }
 
     void Update()
     {
-        // 라이프타임 초과 시 폭발
+        // 수명 초과 시 폭발
         if (Time.time - spawnTime >= lifeTime)
         {
             Explode();
             return;
         }
 
-        if (target == null)
+        if (target == null || !target.gameObject.activeInHierarchy)
         {
             Destroy(gameObject);
             return;
@@ -52,13 +52,10 @@ public class Missile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        PlayerHealth ph = other.GetComponent<PlayerHealth>();
+        if (ph != null)
         {
-            PlayerHealth ph = other.GetComponent<PlayerHealth>();
-            if (ph != null)
-            {
-                ph.TakeDamage(20, transform.position, 5f);
-            }
+            ph.TakeDamage(20, transform.position, 5f);
             Explode();
         }
     }

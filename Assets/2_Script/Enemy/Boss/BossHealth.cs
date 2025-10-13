@@ -9,15 +9,29 @@ public class BossHealth : MonoBehaviour
     public int currentHP;
 
     [Header("UI")]
-    public Slider bossHealthSlider;  // È­¸é »ó´Ü °íÁ¤ HP ¹Ù
-    public GameObject bossUIRoot;    // Ã¼·Â ´Ù ´âÀ¸¸é ¼û±è Ã³¸®¿ë
+    public Slider bossHealthSlider;  // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ HP ï¿½ï¿½
+    public GameObject bossUIRoot;    // Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
 
     [Header("Hit Effect")]
-    public SpriteRenderer spriteRenderer;  // º¸½º ½ºÇÁ¶óÀÌÆ®
-    public Color hitColor = Color.red;     // ÇÇ°Ý ½Ã »ö»ó
-    public float flashDuration = 0.1f;     // »ö»ó À¯Áö ½Ã°£
+    public SpriteRenderer spriteRenderer;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public Color hitColor = Color.red;     // ï¿½Ç°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float flashDuration = 0.1f;     // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+
+    [Header("Next Door")]
+    public GameObject nextDoor;
 
     private Color originalColor;
+    private Animator anim;
+    private Rigidbody2D rb;
+    private Collider2D col;
+    private bool isDead = false;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        col = GetComponent<Collider2D>();
+    }
 
     private void Start()
     {
@@ -67,12 +81,33 @@ public class BossHealth : MonoBehaviour
 
     void Die()
     {
+
+        if (isDead) return;
+        isDead = true;
+
         Debug.Log("Boss Dead!");
 
+        // Ã¼ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
         if (bossUIRoot != null)
-            bossUIRoot.SetActive(false); // Ã¼·Â UI ¼û±è
+            bossUIRoot.SetActive(false);
 
-        // »ç¸Á ¿¬Ãâ
-        Destroy(gameObject, 2f);
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½
+        if (anim != null)
+            anim.SetTrigger("Die");
+
+        // Rigidbody ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
+
+        // Collider ï¿½ï¿½È°ï¿½ï¿½È­ (ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+        if (col != null)
+            col.enabled = false;
+
+        // NextDoor È°ï¿½ï¿½È­
+        if (nextDoor != null)
+            nextDoor.SetActive(true);
     }
 }

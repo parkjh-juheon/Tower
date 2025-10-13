@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public Vector2 airAttackBoxSize = new Vector2(1.5f, 2f);
     [SerializeField] public float airAttackOffsetX = 1f;
 
+    [Header("타게팅 포인트 설정")]
+    public Transform targetPoint;
+
     [Header("사운드 설정")]
     public AudioClip footstepSound;
     public AudioClip jumpSound;
@@ -92,6 +95,8 @@ public class PlayerController : MonoBehaviour
     public bool canControl = true;
     public bool airAttackHasHit = false;
 
+    public static Transform TargetPoint { get; private set; }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -100,11 +105,21 @@ public class PlayerController : MonoBehaviour
         baseMaxJumpCount = stats.maxJumpCount;
         currentAmmo = maxAmmo;
         UpdateAmmoUI();
+        TargetPoint = targetPoint;
     }
 
     private void Start()
     {
         SetAttackType(attackType);
+
+        // targetPoint가 없으면 자동 생성
+        if (targetPoint == null)
+        {
+            GameObject t = new GameObject("TargetPoint");
+            t.transform.SetParent(transform);
+            t.transform.localPosition = new Vector3(0f, 0.5f, 0f); // 허리 정도 높이
+            targetPoint = t.transform;
+        }
     }
 
     private void Update()
@@ -293,6 +308,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (!canControl) return;
+
         float inputX = Input.GetAxisRaw("Horizontal");
         rb.linearVelocity = new Vector2(inputX * stats.moveSpeed, rb.linearVelocity.y);
 
@@ -331,6 +348,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
+        if (!canControl) return;
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

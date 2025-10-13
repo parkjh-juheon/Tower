@@ -5,14 +5,14 @@ using UnityEngine;
 public class EnemyChaseAndExplode : MonoBehaviour
 {
     [Header("탐지 설정")]
-    public float detectionRange = 6f;      // 플레이어 감지 거리
-    public float explosionRange = 1.2f;    // 폭발 범위
+    public float detectionRange = 6f;
+    public float explosionRange = 1.2f;
 
     [Header("이동 설정")]
     public float moveSpeed = 2f;
-    public float chaseSpeed = 5f;          // 돌진 속도
-    public float returnSpeed = 2f;         // 복귀 속도
-    public Transform[] patrolPoints;       // 순찰 지점들
+    public float chaseSpeed = 5f;
+    public float returnSpeed = 2f;
+    public Transform[] patrolPoints;
     private int currentPoint = 0;
 
     [Header("폭발 설정")]
@@ -21,13 +21,14 @@ public class EnemyChaseAndExplode : MonoBehaviour
     public GameObject explosionPrefab;
 
     private Rigidbody2D rb;
-    private Transform player;
+    private Transform target;
     private EnemyHealth enemyHealth;
 
     private bool isChasing = false;
     private bool isExploding = false;
 
     private Vector3 startPos;
+    private float chaseCooldown = 0f;
 
     void Start()
     {
@@ -35,25 +36,26 @@ public class EnemyChaseAndExplode : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         startPos = transform.position;
 
-        GameObject playerObj = GameObject.FindWithTag("Player");
-        if (playerObj != null)
-            player = playerObj.transform;
+        // Player 타겟 자동 연결
+        target = PlayerController.TargetPoint;
 
-        // 체력 0일 때 폭발하도록
         if (enemyHealth != null)
-        {
             enemyHealth.onDie += Explode;
-        }
     }
-
-    private float chaseCooldown = 0f;
 
     void FixedUpdate()
     {
         chaseCooldown -= Time.fixedDeltaTime;
-        if (isExploding || player == null) return;
+        if (isExploding || target == null) return;
 
-        float distToPlayer = Vector2.Distance(transform.position, player.position);
+        // 플레이어 비활성화 시 타겟 해제
+        if (!target.gameObject.activeInHierarchy)
+        {
+            target = null;
+            return;
+        }
+
+        float distToPlayer = Vector2.Distance(transform.position, target.position);
 
         if (distToPlayer <= explosionRange)
         {
@@ -70,7 +72,7 @@ public class EnemyChaseAndExplode : MonoBehaviour
             else if (isChasing && distToPlayer > detectionRange * 1.5f)
             {
                 isChasing = false;
-                chaseCooldown = 1f; // 1초간 다시 감지 안 함
+                chaseCooldown = 1f;
             }
         }
 
@@ -80,10 +82,11 @@ public class EnemyChaseAndExplode : MonoBehaviour
             Patrol();
     }
 
-
     void ChasePlayer()
     {
-        Vector2 dir = (player.position - transform.position).normalized;
+        if (target == null) return;
+
+        Vector2 dir = ((Vector2)target.position - rb.position).normalized;
         rb.MovePosition(rb.position + dir * chaseSpeed * Time.fixedDeltaTime);
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -119,12 +122,9 @@ public class EnemyChaseAndExplode : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explosionRange);
         foreach (var hit in hits)
         {
-            if (hit.CompareTag("Player"))
-            {
-                PlayerHealth ph = hit.GetComponent<PlayerHealth>();
-                if (ph != null)
-                    ph.TakeDamage(damage, transform.position, knockbackForce);
-            }
+            PlayerHealth ph = hit.GetComponent<PlayerHealth>();
+            if (ph != null)
+                ph.TakeDamage(damage, transform.position, knockbackForce);
         }
 
         Destroy(gameObject);
