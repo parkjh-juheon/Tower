@@ -792,7 +792,7 @@ MonoBehaviour:
   sfxSource: {fileID: 1214205886}
   titleBGM: {fileID: 8300000, guid: 16ff9750849a8ab4aa01d0c67cad48a2, type: 3}
   stageBGM: {fileID: 8300000, guid: a7e970352a90e754bb150513cc1c2f6e, type: 3}
-  bossBGM: {fileID: 0}
+  cutsceneBGM: {fileID: 8300000, guid: 79c2b0d5925a50647965acdb7047407a, type: 3}
   gameoverBGM: {fileID: 8300000, guid: 2d7808fa5d7c35543b459beab05184c7, type: 3}
   clearBGM: {fileID: 8300000, guid: 16ff9750849a8ab4aa01d0c67cad48a2, type: 3}
 --- !u!4 &481603469
@@ -2160,7 +2160,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Main1
+          m_StringArgument: Cutscene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1106942446

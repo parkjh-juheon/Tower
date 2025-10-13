@@ -16,7 +16,7 @@ public class AudioManager : MonoBehaviour
     [Header("¾Àº° BGM")]
     public AudioClip titleBGM;
     public AudioClip stageBGM;
-    public AudioClip bossBGM;
+    public AudioClip cutsceneBGM;
     public AudioClip gameoverBGM;
     public AudioClip clearBGM;
 
@@ -84,8 +84,8 @@ public class AudioManager : MonoBehaviour
             case "Mani2":
                 PlayBGM(stageBGM);
                 break;
-            case "Boss":
-                PlayBGM(bossBGM);
+            case "Cutscene":
+                PlayBGM(cutsceneBGM);
                 break;
             case "Clear":
                 PlayBGM(clearBGM);

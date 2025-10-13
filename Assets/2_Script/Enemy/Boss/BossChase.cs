@@ -32,8 +32,8 @@ public class BossChase : MonoBehaviour
                 Physics2D.IgnoreCollision(bossCol, playerCol, true);
             }
         }
-
-    }
+    
+}
 
     void Update()
     {

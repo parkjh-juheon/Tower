@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1_Scenes/Title.unity
     guid: 0ff8c0f85be85104292ee8b2a203c5d2
+  - enabled: 1
+    path: Assets/1_Scenes/Cutscene.unity
+    guid: fd2f5b3f23195cc4d9a687663f0ee40e
   - enabled: 0
     path: Assets/1_Scenes/TILEMAPTEST.unity
     guid: b94e5b76975cc9c4891334d12bf882af
@@ -20,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/1_Scenes/Main1.unity
     guid: ade4c49b098a2d342a2f5644543d67b7
+  - enabled: 1
+    path: Assets/1_Scenes/Clear.unity
+    guid: 2d708a5e1cc1b1f41a85a103c92486d0
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
