@@ -27,12 +27,12 @@ public class TiltPlatform : MonoBehaviour
 
     private void HandleHighFallLand(PlayerFallTracker player, Collider2D hitCollider)
     {
-        // 착지한 발판이 자신이거나, 최근 높은 낙하를 했으면 높이 상관없이 회전
-        if (hitCollider.GetComponentInParent<TiltPlatform>() == this || player.hasRecentHighFall)
+        // 첫 번째 착지거나 최근 낙하 상태이면서 실제 밟은 발판만 반응
+        if (player.hasRecentHighFall && hitCollider.GetComponentInParent<TiltPlatform>() == this)
         {
             TiltOnce();
         }
-    }
+    }   
 
     public void TiltOnce()
     {

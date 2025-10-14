@@ -193,6 +193,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &9067550372935596632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +248,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2043,6 +2044,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &3425958239078182222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2097,7 +2099,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2950,6 +2952,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &1232328146865696349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3004,7 +3007,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10083,6 +10086,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &4955147644250127819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10137,7 +10141,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -10625,6 +10629,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &6854896832621561696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10679,7 +10684,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 3.2, y: 3.2}
     newSize: {x: 1.6, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

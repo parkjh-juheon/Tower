@@ -5016,6 +5016,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &5629709745150749350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5029,7 +5030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1.2
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
@@ -6222,6 +6223,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &8037681981487942281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6235,7 +6237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1.2
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
@@ -7021,6 +7023,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &641278175399062464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7034,7 +7037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1.2
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
@@ -7747,6 +7750,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &2781822622732081288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7760,7 +7764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1.2
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2

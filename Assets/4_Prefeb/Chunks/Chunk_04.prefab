@@ -111,6 +111,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &7480794318995195659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,6 +511,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &8040825408817368548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1502,6 +1504,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &2869249231076478579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1792,6 +1795,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &2712911797601191824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6931,6 +6935,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &1755299670448653930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14850,6 +14855,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &9047198361087851501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15868,6 +15874,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &5207639756268370897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16158,6 +16165,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &2775508598997995359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16373,6 +16381,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &2416876756201705764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17987,6 +17996,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &3716825275259683062
 MonoBehaviour:
   m_ObjectHideFlags: 0

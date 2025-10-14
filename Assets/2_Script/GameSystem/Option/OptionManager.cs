@@ -10,11 +10,17 @@ public class OptionManager : MonoBehaviour
     [Header("인벤토리 캔버스")]
     public Canvas inventoryCanvas;
 
-    private bool isPaused = false;
-    private bool isTitleScene = false;
-
+    [Header("사운드 설정")]
     public Slider bgmSlider;
     public Slider sfxSlider;
+
+    [Header("효과음 설정")]
+    public AudioClip openSound;   // 패널 열릴 때
+    public AudioClip closeSound;  // 패널 닫힐 때
+    public AudioClip buttonSound; // 버튼 클릭 시
+
+    private bool isPaused = false;
+    private bool isTitleScene = false;
 
     void Start()
     {
@@ -28,14 +34,14 @@ public class OptionManager : MonoBehaviour
         sfxSlider.onValueChanged.AddListener(AudioManager.Instance.SetSFXVolume);
 
         string sceneName = SceneManager.GetActiveScene().name;
-        isTitleScene = (sceneName == "Title" || sceneName == "GameOver");
+        isTitleScene = (sceneName == "Title" || sceneName == "GameOver" || sceneName == "Clear");
 
         SetCursorState(isTitleScene);
     }
 
     void Update()
     {
-        // 타이틀/게임오버 씬에서는 항상 커서가 보이게 유지
+        // 타이틀/게임오버 씬에서는 커서 항상 활성
         if (isTitleScene)
         {
             if (Cursor.lockState != CursorLockMode.None || !Cursor.visible)
@@ -51,7 +57,6 @@ public class OptionManager : MonoBehaviour
                 PauseGame();
         }
 
-        // Tab키로 인벤토리 캔버스 토글
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventoryCanvas();
@@ -64,7 +69,10 @@ public class OptionManager : MonoBehaviour
         bool isActive = inventoryCanvas.gameObject.activeSelf;
         inventoryCanvas.gameObject.SetActive(!isActive);
 
-        // 인벤토리 열릴 때 커서 표시, 닫힐 때 잠금
+        // 인벤토리 열릴 때 효과음
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(!isActive ? openSound : closeSound);
+
         SetCursorState(!isActive);
     }
 
@@ -73,6 +81,10 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        if (AudioManager.Instance != null && openSound != null)
+            AudioManager.Instance.PlaySFX(openSound);
+
         SetCursorState(true);
     }
 
@@ -81,6 +93,10 @@ public class OptionManager : MonoBehaviour
         optionPanel.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        if (AudioManager.Instance != null && closeSound != null)
+            AudioManager.Instance.PlaySFX(closeSound);
+
         SetCursorState(false);
     }
 
@@ -90,8 +106,17 @@ public class OptionManager : MonoBehaviour
         Cursor.visible = isVisible;
     }
 
+    public void OnButtonClick()
+    {
+        if (AudioManager.Instance != null && buttonSound != null)
+            AudioManager.Instance.PlaySFX(buttonSound);
+    }
+
     public void QuitGame()
     {
+        if (AudioManager.Instance != null && buttonSound != null)
+            AudioManager.Instance.PlaySFX(buttonSound);
+
         Application.Quit();
 
 #if UNITY_EDITOR

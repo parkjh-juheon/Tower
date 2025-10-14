@@ -186,6 +186,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   sizeInfluence: 1
+  hitSound: {fileID: 8300000, guid: 91ce31301b3309947877db051331f938, type: 3}
 --- !u!114 &3038697301997468900
 MonoBehaviour:
   m_ObjectHideFlags: 0
