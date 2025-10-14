@@ -32,7 +32,7 @@ public class ClearSceneManager : MonoBehaviour
         titleButton.gameObject.SetActive(true);
 
         // 버튼 클릭 이벤트 연결
-        restartButton.onClick.AddListener(() => sceneLoader.ReloadCurrentScene());
+        restartButton.onClick.AddListener(() => sceneLoader.LoadScene("Cutscene"));
         titleButton.onClick.AddListener(() => sceneLoader.LoadMainMenu());
     }
 }

@@ -1,35 +1,20 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAttack : MonoBehaviour
 {
-    private enum BossPattern { None, Melee, Ranged, Dash }
-    private BossPattern nextPattern = BossPattern.None;
-
     [Header("공격 범위")]
-    public float meleeRange = 3f;
-    public float rangedRange = 8f;
-    public float meleeStopDistance = 0.8f;
-    public float rangedStopDistance = 8f;
+    public float meleeRange = 3f;        // 근접 공격 사거리
+    public float rangedRange = 8f;       // 원거리 공격 사거리
+    public float dashTriggerDistance = 10f; // 돌진 발동 거리
 
     [Header("쿨다운")]
-    public float meleeCooldown = 2f;
-    public float rangedCooldown = 3f;
-    private float nextRangedAvailableTime = 0f;
+    public float meleeCooldown = 2f;     // 근접 공격 간격
+    public float rangedCooldown = 4f;    // 원거리 공격 쿨타임
+    public float dashCooldown = 6f;      // 돌진 쿨타임
 
-    [Header("돌진 패턴")]
-    public float dashSpeed = 10f;
-    public float dashCooldown = 5f;
-    public int dashDamage = 25;
-    public float dashKnockback = 12f;
-    public float stunTime = 0.5f; // 플레이어 스턴 시간
-    public float dashStunDuration = 1.0f; // 벽 충돌 후 행동 불가 시간
-    public float dashTriggerDistance = 10f;
-
-    private bool isStunned = false;
-    public float stunDuration = 0.5f;
-    public float backOffDistance = 1f;
+    private float nextRangedTime = 0f;
+    private float nextDashTime = 0f;
 
     [Header("근접 공격")]
     public int attackDamage = 20;
@@ -42,37 +27,42 @@ public class BossAttack : MonoBehaviour
     public GameObject missilePrefab;
     public Transform firePoint;
 
+    [Header("돌진 공격")]
+    public float dashSpeed = 10f;
+    public int dashDamage = 25;
+    public float dashKnockback = 12f;
+    public float dashPrepTime = 1.5f;
+    public float dashStunDuration = 1.0f;
+    public float stunTime = 0.5f;
+    public LayerMask wallLayer;
+    public float backOffDistance = 1f;
+
     [Header("카메라 흔들림")]
     public Cinemachine.CinemachineImpulseSource impulseSource;
 
-    public BossChase bossChase;
-    private Transform target;
-
     private Animator anim;
+    private Rigidbody2D rb;
+    private Transform target;
+    private BossChase bossChase;
+
     private bool isAttacking = false;
     private bool isDashing = false;
-    private bool canDash = true;
+    private bool isStunned = false;
     private bool hasHitPlayer = false;
+    private bool canDash = true;
     private Vector2 dashDir;
-    private float dashFacingDirection; 
-    private BossPattern lastPattern = BossPattern.None;
-
-    private Rigidbody2D rb;
-
-    // 대쉬 관련 코루틴 추적
-    private Coroutine dashPrepCoroutine;
-    private Coroutine dashCooldownCoroutine;
-    public LayerMask wallLayer;
 
     void Start()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        bossChase = GetComponent<BossChase>();
 
-        if (bossChase == null) bossChase = GetComponent<BossChase>();
+        if (rb != null)
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 
-        target = PlayerController.TargetPoint;
+        if (target == null)
+            target = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()
@@ -81,77 +71,102 @@ public class BossAttack : MonoBehaviour
 
         float distance = Vector2.Distance(transform.position, target.position);
 
-        // 공격 사거리 안이면 즉시 패턴 실행
-        if (!isAttacking && distance <= Mathf.Max(meleeRange, rangedRange, dashTriggerDistance))
+        //  Ranged 공격 - 쿨타임 돌았고 중거리면
+        if (!isAttacking && Time.time >= nextRangedTime && distance > meleeRange && distance <= rangedRange)
         {
-            DecideNextPattern(distance);
-            ExecutePattern();
-        }
-        else if (!isAttacking)
-        {
-            // 사거리 밖이면 추격
-            float chaseRange = Mathf.Max(meleeRange, rangedRange, dashTriggerDistance);
-            bossChase.StartChase(chaseRange);
+            StartCoroutine(DoRangedAttack());
+            nextRangedTime = Time.time + rangedCooldown;
+            return;
         }
 
-        bossChase.StartChase(meleeStopDistance);
+        //  Dash 공격 - 쿨타임 돌았고 플레이어가 일정 거리 이상
+        if (!isAttacking && canDash && Time.time >= nextDashTime && distance >= dashTriggerDistance)
+        {
+            DashPrep();
+            nextDashTime = Time.time + dashCooldown;
+            return;
+        }
+
+        //  근접 공격 - 가까우면 무조건 공격
+        if (!isAttacking && distance <= meleeRange)
+        {
+            StartCoroutine(DoMeleeAttack());
+            return;
+        }
+
+        //  기본적으로 계속 추격
+        if (!isAttacking && bossChase != null)
+            bossChase.StartChase(meleeRange);
     }
 
-    void DecideNextPattern(float distance)
+    // ======================= 근접 공격 =======================
+    IEnumerator DoMeleeAttack()
     {
-        List<BossPattern> candidates = new List<BossPattern>();
+        isAttacking = true;
+        bossChase.StopChase();
+        anim.SetTrigger("Attack");
 
-        if (distance <= meleeRange)
-            candidates.Add(BossPattern.Melee);
-        if (distance <= rangedRange && Time.time >= nextRangedAvailableTime)
-            candidates.Add(BossPattern.Ranged);
-        if (canDash)
-            candidates.Add(BossPattern.Dash);
-
-        if (candidates.Count == 0)
-        {
-            // 실행 가능한 공격이 없으면 기본 Melee
-            nextPattern = BossPattern.Melee;
-        }
-        else
-        {
-            if (candidates.Count > 1 && candidates.Contains(lastPattern))
-                candidates.Remove(lastPattern);
-
-            int index = Random.Range(0, candidates.Count);
-            nextPattern = candidates[index];
-
-            if (nextPattern == BossPattern.Ranged)
-                nextRangedAvailableTime = Time.time + rangedCooldown * 2f;
-        }
-
-        lastPattern = nextPattern;
+        yield return new WaitForSeconds(meleeCooldown);
+        isAttacking = false;
+        bossChase.ResumeChase();
     }
 
-    void ExecutePattern()
+    public void PerformHit() // 애니메이션 이벤트용
     {
-        switch (nextPattern)
+        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter.position, hitboxSize, 0f, targetLayer);
+        foreach (Collider2D hit in hits)
         {
-            case BossPattern.Melee:
-                bossChase.StopChase();
-                StartCoroutine(DoMeleeAttack());
-                break;
-
-            case BossPattern.Ranged:
-                bossChase.StopChase();
-                StartCoroutine(DoRangedAttack());
-                break;
-
-            case BossPattern.Dash:
-                bossChase.StopChase();
-                DashPrep();
-                break;
+            if (hit.CompareTag("Player"))
+            {
+                PlayerHealth ph = hit.GetComponent<PlayerHealth>();
+                if (ph != null)
+                    ph.TakeDamage(attackDamage, transform.position, knockbackPower);
+            }
         }
-
-        nextPattern = BossPattern.None;
     }
 
+    // ======================= 원거리 공격 =======================
+    IEnumerator DoRangedAttack()
+    {
+        isAttacking = true;
+        bossChase.StopChase();
+        anim.SetTrigger("RangedAttack");
 
+        yield return new WaitForSeconds(rangedCooldown * 0.5f);
+
+        isAttacking = false;
+        bossChase.ResumeChase();
+    }
+
+    public void ShootMissile() // 애니메이션 이벤트용
+    {
+        if (missilePrefab != null && firePoint != null && target != null)
+        {
+            GameObject missile = Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
+            Missile m = missile.GetComponent<Missile>();
+            if (m != null)
+                m.SetTarget(target);
+        }
+    }
+
+    // ======================= 돌진 공격 =======================
+    public void DashPrep()
+    {
+        if (!canDash || isAttacking) return;
+        StartCoroutine(DashPrepCoroutine());
+    }
+
+    IEnumerator DashPrepCoroutine()
+    {
+        isAttacking = true;
+        bossChase.StopChase();
+        anim.SetTrigger("DashPrep");
+
+        dashDir = new Vector2(Mathf.Sign(transform.localScale.x), 0f);
+
+        yield return new WaitForSeconds(dashPrepTime);
+        StartDash();
+    }
 
     void FixedUpdate()
     {
@@ -162,136 +177,37 @@ public class BossAttack : MonoBehaviour
         }
     }
 
-
-    // =================== 애니메이션 이벤트 ===================
-    public void StopChase()
-    {
-        if (bossChase != null)
-            bossChase.enabled = false;
-    }
-
-    public void ResumeChase()
-    {
-        if (bossChase != null)
-            bossChase.enabled = true;
-    }
-
-    // =================== 근접 공격 ===================
-    IEnumerator DoMeleeAttack()
-    {
-        Debug.Log("StopDistance: " + bossChase.stopDistance);
-        bossChase.StartChase(meleeStopDistance);
-        isAttacking = true;
-        anim.SetTrigger("Attack");
-
-        yield return new WaitForSeconds(meleeCooldown);
-
-        isAttacking = false;
-
-        // 공격 후 추격 재개
-        bossChase.StartChase(meleeRange * 1.2f);
-    }
-
-    public void PerformHit()
-    {
-        Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter.position, hitboxSize, 0f, targetLayer);
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.CompareTag("Player"))
-            {
-                PlayerHealth ph = hit.GetComponent<PlayerHealth>();
-                if (ph != null)
-                {
-                    ph.TakeDamage(attackDamage, transform.position, knockbackPower);
-                }
-            }
-        }
-    }
-
-    // =================== 원거리 공격 ===================
-    IEnumerator DoRangedAttack()
-    {
-        isAttacking = true;
-        anim.SetTrigger("RangedAttack");
-
-        yield return new WaitForSeconds(rangedCooldown);
-
-        isAttacking = false;
-
-        // 공격 후 재추격
-        bossChase.StartChase(rangedRange);
-    }
-
-    public void ShootMissile()
-    {
-        if (missilePrefab != null && firePoint != null && target != null)
-        {
-            GameObject missile = Instantiate(missilePrefab, firePoint.position, Quaternion.identity);
-            Missile m = missile.GetComponent<Missile>();
-            if (m != null)
-            {
-                // 발사 시 항상 TargetPoint를 목표로 지정
-                m.SetTarget(PlayerController.TargetPoint);
-            }
-
-        }
-    }
-
-    // =================== 돌진 공격 ===================
-    public void DashPrep()
-    {
-        if (!canDash || isAttacking) return;
-        dashPrepCoroutine = StartCoroutine(DashPrepCoroutine());
-    }
-
-    IEnumerator DashPrepCoroutine()
-    {
-        canDash = false;
-        isAttacking = true;
-        anim.SetTrigger("DashPrep");
-
-        if (bossChase != null) bossChase.enabled = false;
-
-        //  준비 시점에 바라본 방향 기억 (1: 오른쪽, -1: 왼쪽)
-        dashFacingDirection = Mathf.Sign(transform.localScale.x);
-
-        //  플레이어가 어느 쪽에 있든 현재 바라본 방향으로만 돌진
-        dashDir = new Vector2(dashFacingDirection, 0f);
-
-        yield return new WaitForSeconds(2f); // 준비 애니메이션 길이
-        StartDash();
-    }
     public void StartDash()
     {
-        if (!isAttacking) return;
-
         isDashing = true;
-        hasHitPlayer = false; //  새 돌진 시작 시 초기화
+        hasHitPlayer = false;
         anim.SetTrigger("Dash");
     }
 
     public void PerformDashHit()
     {
-        if (!isDashing || hasHitPlayer) return; //  이미 맞췄으면 무시
+        if (!isDashing || hasHitPlayer) return;
 
         Collider2D hit = Physics2D.OverlapCircle(transform.position, 3f, targetLayer);
-
         if (hit != null && hit.CompareTag("Player"))
         {
             PlayerHealth ph = hit.GetComponent<PlayerHealth>();
             if (ph != null)
             {
-                ph.TakeDamage(dashDamage, transform.position, dashKnockback, stunTime * 2f);
-                hasHitPlayer = true;  //  첫 번째 피격 후 중복 방지
-               // StopDash();           //  피격 즉시 돌진 종료
+                ph.TakeDamage(dashDamage, transform.position, dashKnockback, stunTime);
+                hasHitPlayer = true;
             }
         }
     }
 
     private void StopDash()
     {
+        if (!isDashing) return;
+
         isDashing = false;
         isAttacking = false;
+
+        Debug.Log("Dash Ended");
 
         anim.ResetTrigger("Dash");
         anim.ResetTrigger("DashPrep");
@@ -303,47 +219,32 @@ public class BossAttack : MonoBehaviour
         StartCoroutine(DashStunCoroutine());
     }
 
-
     private IEnumerator DashStunCoroutine()
     {
         isStunned = true;
+        if (bossChase != null) bossChase.StopChase();
 
-        // 보스 이동/추격 중지
-        if (bossChase != null)
-            bossChase.enabled = false;
-
-        // 스턴 유지 시간
         yield return new WaitForSeconds(dashStunDuration);
 
-        // 스턴 해제
         isStunned = false;
-
-        // 스턴이 끝난 후에만 추격 복구
-        if (bossChase != null)
-            bossChase.enabled = true;
-
-        // 쿨다운 시작
-        dashCooldownCoroutine = StartCoroutine(DashCooldownCoroutine());
-    }
-
-    private IEnumerator DashCooldownCoroutine()
-    {
-        canDash = false;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
-        dashCooldownCoroutine = null;
+        isAttacking = false;
+        if (bossChase != null) bossChase.ResumeChase();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (!isDashing) return;
-  
+
+        Debug.Log($"Dash Collision Detected with {collision.gameObject.name}, Layer: {collision.gameObject.layer}");
+
         if (((1 << collision.collider.gameObject.layer) & wallLayer) != 0)
         {
+            Debug.Log("Dash hit wall! Stopping dash.");
             rb.MovePosition(rb.position - dashDir * backOffDistance);
             StopDash();
         }
     }
+
 
     void OnDrawGizmosSelected()
     {
@@ -355,14 +256,7 @@ public class BossAttack : MonoBehaviour
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, meleeRange);
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, rangedRange);
-
-        if (isDashing)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, 1f); // OverlapCircle 반경 시각화
-        }
     }
 }
