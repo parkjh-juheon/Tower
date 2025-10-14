@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 0.3
+  explosionRange: 1.2
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
