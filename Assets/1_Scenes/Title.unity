@@ -1296,9 +1296,9 @@ MonoBehaviour:
   inventoryCanvas: {fileID: 0}
   bgmSlider: {fileID: 1553345847}
   sfxSlider: {fileID: 970835306}
-  openSound: {fileID: 0}
-  closeSound: {fileID: 0}
-  buttonSound: {fileID: 0}
+  openSound: {fileID: 8300000, guid: 8cc3f86a78b56994a86bfe5404a4fca8, type: 3}
+  closeSound: {fileID: 8300000, guid: 7aab49290eaf2df459789f915d181997, type: 3}
+  buttonSound: {fileID: 8300000, guid: 3a4077a06848dcb4995528765e62c7e5, type: 3}
 --- !u!1 &768160595
 GameObject:
   m_ObjectHideFlags: 0

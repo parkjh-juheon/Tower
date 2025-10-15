@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 3
-  forceStrength: 10
+  forceStrength: 30
   isPulling: 0
   forceDuration: 2
   forceCooldown: 0.2
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 3
-  forceStrength: 15
+  forceStrength: 80
   isPulling: 1
   forceDuration: 1
   forceCooldown: 1
@@ -10412,7 +10412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 3
-  forceStrength: 10
+  forceStrength: 30
   isPulling: 0
   forceDuration: 2
   forceCooldown: 0.2

@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerRadius: 3
-  forceStrength: 15
+  forceStrength: 80
   isPulling: 1
   forceDuration: 1
   forceCooldown: 1

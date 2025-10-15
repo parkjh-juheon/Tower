@@ -112,8 +112,6 @@ public class BossAttack : MonoBehaviour
         bossChase.StopChase();
         anim.SetTrigger("Attack");
 
-        AudioManager.Instance?.PlaySFX(meleeSFX);
-
         yield return new WaitForSeconds(meleeCooldown);
         isAttacking = false;
         bossChase.ResumeChase();
@@ -121,6 +119,8 @@ public class BossAttack : MonoBehaviour
 
     public void PerformHit() // 애니메이션 이벤트용
     {
+        AudioManager.Instance?.PlaySFX(meleeSFX);
+
         Collider2D[] hits = Physics2D.OverlapBoxAll(hitboxCenter.position, hitboxSize, 0f, targetLayer);
         foreach (Collider2D hit in hits)
         {
@@ -132,6 +132,7 @@ public class BossAttack : MonoBehaviour
             }
         }
     }
+
 
     // ======================= 원거리 공격 =======================
     IEnumerator DoRangedAttack()
