@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uAC80\uC740\uC0C9 USB"
   description: "\uBE5B\uB098\uB294 USB, \uD751\uBE5B\uC774 \uB3C8\uB2E4.\n\uB109\uBC31\uD30C\uC6CC\uAC00
-    \uB354 \uC99D\uAC00\uD55C\uB2E4"
+    0.4 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 2
-  prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
+  prefab: {fileID: 6402603472621646608, guid: 74dec1d705d08974287b06b1faa723a7, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0
   maxJumpCountBonus: 0

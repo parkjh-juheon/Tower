@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uB178\uB780\uC0C9 \uC218\uB0C9 \uCFE8\uB7EC"
   description: "\uBE5B\uB098\uB294 \uC218\uB0C9 \uCFE8\uB7EC, \uB178\uB780 \uBE5B\uC774
-    \uB3C8\uB2E4.\n\uD0C4\uC0AC\uAC70\uB9AC\uAC00 \uB354 \uC99D\uAC00\uD55C\uB2E4"
+    \uB3C8\uB2E4.\n\uD0C4\uC0AC\uAC70\uB9AC\uAC00 0.3 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 1
-  prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
+  prefab: {fileID: 6402603472621646608, guid: 4639bf1054e3a0247a17056b3658d93c, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0
   maxJumpCountBonus: 0

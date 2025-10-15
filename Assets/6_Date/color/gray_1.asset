@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uD68C\uC0C9 \uD50C\uB85C\uD53C \uB514\uC2A4\uCF13"
   description: "\uD3C9\uBC94\uD55C \uD50C\uB85C\uD53C \uB514\uC2A4\uCF13, \uD68C\uC0C9
-    \uBE5B\uC774 \uB3C8\uB2E4.\n\uC774\uB3D9\uC18D\uB3C4\uC640 \uC810\uD504\uB825\uC774
-    \uC99D\uAC00\uD55C\uB2E4"
+    \uBE5B\uC774 \uB3C8\uB2E4.\n\uC774\uB3D9\uC18D\uB3C4 1\uACFC \uC810\uD504\uB825\uC774
+    2 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 0
-  prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
+  prefab: {fileID: 6402603472621646608, guid: 5beff14e7d684cd49991fb87e9e55cee, type: 3}
   moveSpeedBonus: 1
   jumpForceBonus: 2
   maxJumpCountBonus: 0

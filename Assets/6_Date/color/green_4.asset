@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uB179\uC0C9 \uC218\uB0C9 \uCFE8\uB7EC"
   description: "\uBE5B\uB098\uB294 \uC218\uB0C9 \uCFE8\uB7EC, \uB179\uBE5B\uC774
-    \uB3C8\uB2E4.\n\uC7AC\uC7A5\uC804\uC2DC\uAC04\uC774 \uB354 \uAC10\uC18C\uD55C\uB2E4"
+    \uB3C8\uB2E4.\n\uD0C4\uC18D\uC774 0.4 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 1
-  prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
+  prefab: {fileID: 6402603472621646608, guid: bc1e2ae2a5f4c83459beddb780db6a58, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0
   maxJumpCountBonus: 0
@@ -28,4 +28,4 @@ MonoBehaviour:
   meleeRangeBonus: 0
   bulletSizeBonus: 0
   bulletLifeTimeBonus: 0
-  bulletSpeedBonus: 0
+  bulletSpeedBonus: 0.4
