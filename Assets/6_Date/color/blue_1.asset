@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec579ed98ad2b54aa085a547cc4fc05, type: 3}
+  m_Name: blue_1
+  m_EditorClassIdentifier: 
+  itemName: "\uD478\uB978\uC0C9 \uC218\uB0C9 \uCFE8\uB7EC"
+  description: "\uBE5B\uB098\uB294 \uC218\uB0C9 \uCFE8\uB7EC, \uD478\uB978 \uBE5B\uC774
+    \uB3C8\uB2E4.\n\uACF5\uACA9\uB825\uC774 \uC99D\uAC00\uD55C\uB2E4"
+  rarity: 2
+  prefab: {fileID: 6402603472621646608, guid: da1d7aea2857f334b8e143ed0fe7bd53, type: 3}
+  moveSpeedBonus: 0
+  jumpForceBonus: 0
+  maxJumpCountBonus: 0
+  attackDamageBonus: 2
+  attackCooldownBonus: 0
+  maxHPBonus: 0
+  healAmount: 0
+  knockbackPowerBonus: 0
+  meleeRangeBonus: 0
+  bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
+  bulletSpeedBonus: 0
