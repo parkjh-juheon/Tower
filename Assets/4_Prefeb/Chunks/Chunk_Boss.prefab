@@ -362,6 +362,8 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 3.5
   stopDistance: 3
+  footstepSFX: {fileID: 8300000, guid: d4bd5666a4f6a7447835785675f626e5, type: 3}
+  footstepInterval: 0.6
 --- !u!114 &5800857294410140672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -420,6 +422,9 @@ MonoBehaviour:
     m_Bits: 1024
   backOffDistance: 1
   impulseSource: {fileID: 0}
+  meleeSFX: {fileID: 8300000, guid: fe6d4e348d8e58546aa52059ca51bf97, type: 3}
+  rangedSFX: {fileID: 8300000, guid: f5c96feb986244a4bb6769850c574d9c, type: 3}
+  dashSFX: {fileID: 8300000, guid: d760ff43ff22e454ca5e6413bc2d55f9, type: 3}
 --- !u!50 &7096503433530401989
 Rigidbody2D:
   serializedVersion: 5

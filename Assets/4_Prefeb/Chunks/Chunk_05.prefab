@@ -722,7 +722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5
 --- !u!1 &1335038431676280406
@@ -3180,7 +3180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5
 --- !u!1 &2073080349028376512
@@ -4094,7 +4094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5
 --- !u!1 &2973265421808289720
@@ -7981,7 +7981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5
 --- !u!1 &8024760859740443111
@@ -8419,7 +8419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5
 --- !u!1 &8664440110559722890
@@ -8664,6 +8664,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4ec313f2aadbc4cbeee730d0995015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateAngle: 90
+  rotateAngle: -90
   rotateDuration: 0.4
   returnDelay: 1.5

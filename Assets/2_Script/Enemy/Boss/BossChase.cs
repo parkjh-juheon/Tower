@@ -7,8 +7,14 @@ public class BossChase : MonoBehaviour
     public float moveSpeed = 2f;
     public float stopDistance = 3f; // 공격 사거리 안에서 정지
 
+    [Header("발소리 설정")]
+    public AudioClip footstepSFX;       // 발소리 클립
+    public float footstepInterval = 0.6f; // 발소리 간격 (초)
+
     private bool isChasing = false;
     private bool reachedAttackRange = false;
+    private bool isMoving = false;
+    private float nextFootstepTime = 0f;
 
     private Rigidbody2D rb;
 
@@ -51,6 +57,7 @@ public class BossChase : MonoBehaviour
             reachedAttackRange = true;
             StopMoving();
         }
+        HandleFootstepSound();
     }
 
     void MoveTowards(Vector3 target)
@@ -72,6 +79,16 @@ public class BossChase : MonoBehaviour
     void StopMoving()
     {
         rb.linearVelocity = Vector2.zero;
+    }
+
+    void HandleFootstepSound()
+    {
+        if (isMoving && Time.time >= nextFootstepTime)
+        {
+            // 발소리 재생
+            AudioManager.Instance?.PlaySFX(footstepSFX);
+            nextFootstepTime = Time.time + footstepInterval;
+        }
     }
 
     public void StartChase(float distanceLimit)

@@ -52,6 +52,12 @@ public class BossAttack : MonoBehaviour
     private bool canDash = true;
     private Vector2 dashDir;
 
+    [Header("»ç¿îµå")]
+    public AudioClip meleeSFX;
+    public AudioClip rangedSFX;
+    public AudioClip dashSFX;
+
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -106,6 +112,8 @@ public class BossAttack : MonoBehaviour
         bossChase.StopChase();
         anim.SetTrigger("Attack");
 
+        AudioManager.Instance?.PlaySFX(meleeSFX);
+
         yield return new WaitForSeconds(meleeCooldown);
         isAttacking = false;
         bossChase.ResumeChase();
@@ -131,6 +139,8 @@ public class BossAttack : MonoBehaviour
         isAttacking = true;
         bossChase.StopChase();
         anim.SetTrigger("RangedAttack");
+
+        AudioManager.Instance?.PlaySFX(rangedSFX);
 
         yield return new WaitForSeconds(rangedCooldown * 0.5f);
 
@@ -239,6 +249,9 @@ public class BossAttack : MonoBehaviour
 
         if (((1 << collision.collider.gameObject.layer) & wallLayer) != 0)
         {
+
+            AudioManager.Instance?.PlaySFX(dashSFX);
+
             Debug.Log("Dash hit wall! Stopping dash.");
             rb.MovePosition(rb.position - dashDir * backOffDistance);
             StopDash();
