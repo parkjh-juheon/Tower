@@ -412,33 +412,60 @@ public class PlayerController : MonoBehaviour
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
-                int damage = (int)(stats.attackDamage * 2);
+                int damage = (int)(stats.attackDamage * 3);
                 float knockback = stats.knockbackPower * 1.5f;
-                enemy.TakeDamage(damage, transform.position, knockback);
+
+                // 수평 넉백 방향 지정
+                Vector2 knockbackDir = new Vector2(facingDirection, 0).normalized;
+                Vector2 attackerPos = (Vector2)transform.position + knockbackDir;
+                enemy.TakeDamage(damage, attackerPos, knockback);
+
             }
 
             BossHealth boss = hit.GetComponent<BossHealth>();
             if (boss != null)
-                boss.TakeDamage((int)(stats.attackDamage * 2));
+                boss.TakeDamage((int)(stats.attackDamage * 3));
         }
     }
 
     private void AirAttackHitCheck()
     {
+        // 이미 히트했거나 공중 공격 중이 아니면 패스
+        if (!isAirAttacking || airAttackHasHit) return;
+
         Vector2 center = (Vector2)transform.position + new Vector2(facingDirection * airAttackOffsetX, 0);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, LayerMask.GetMask("Enemy"));
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, airAttackBoxSize, 0f, enemyLayer);
 
         foreach (var hit in hits)
         {
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
-                enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
+            {
+                int damage = (int)stats.attackDamage;
+                float knockback = stats.knockbackPower * 1.5f;
+
+                // 수평 넉백 방향 지정
+                Vector2 knockbackDir = new Vector2(facingDirection, 0).normalized;
+                Vector2 attackerPos = (Vector2)transform.position + knockbackDir;
+                enemy.TakeDamage(damage, attackerPos, knockback);
+
+
+                airAttackHasHit = true; // 한 번만 타격
+                EndAirAttack();          // 즉시 공중공격 종료
+                return;
+            }
 
             BossHealth boss = hit.GetComponent<BossHealth>();
             if (boss != null)
-                boss.TakeDamage((int)stats.attackDamage);
+            {
+                boss.TakeDamage((int)(stats.attackDamage * 3));
+                airAttackHasHit = true;
+                EndAirAttack();
+                return;
+            }
         }
     }
+
 
     private void EndAirAttack()
     {

@@ -4800,10 +4800,45 @@ MonoBehaviour:
   enemyTag: Enemy
   checkInterval: 1
   itemPool:
-  - {fileID: 11400000, guid: 6db57656178911a468c1e283450fe4ba, type: 2}
-  - {fileID: 11400000, guid: bac355d2062bd56438c76c3966696e53, type: 2}
-  - {fileID: 11400000, guid: 214d64561edc2544991a270581caf245, type: 2}
-  - {fileID: 11400000, guid: f592624061679fe47902b52afc49cf1e, type: 2}
+  - {fileID: 11400000, guid: 903ef7449c3c128449c901aeb0258ad3, type: 2}
+  - {fileID: 11400000, guid: 8db59468f4cd88e4ab72c9e53cadcb02, type: 2}
+  - {fileID: 11400000, guid: d148238eed895d24c9d301cc7cc7e012, type: 2}
+  - {fileID: 11400000, guid: 049e1b5971b42b745b599bc30c7d6eba, type: 2}
+  - {fileID: 11400000, guid: b6844c6c5f2459f43a259fd98baa706c, type: 2}
+  - {fileID: 11400000, guid: 6f91ed2631358f04f8eeb092aebddb6c, type: 2}
+  - {fileID: 11400000, guid: b563890a2fee0ca409f6b80678d25a84, type: 2}
+  - {fileID: 11400000, guid: 039c1837e2ca5a94589893521f490f33, type: 2}
+  - {fileID: 11400000, guid: f66dafcf00b3d1441b1cec621e12b429, type: 2}
+  - {fileID: 11400000, guid: e2d91196a731b7847a17ffeb669b3a07, type: 2}
+  - {fileID: 11400000, guid: 150827ab436c3264bbdc3d4600542e40, type: 2}
+  - {fileID: 11400000, guid: 0f3b9d9cb2c36634f88b21432892ab00, type: 2}
+  - {fileID: 11400000, guid: 1e64be694f0812d4e9fbbe697742c3a9, type: 2}
+  - {fileID: 11400000, guid: 6e53d73d827978545a6bcfda13ed1a76, type: 2}
+  - {fileID: 11400000, guid: 699636fcfc79a0d41b9a252b00be9e4f, type: 2}
+  - {fileID: 11400000, guid: 4ef20d92ab9e2f745b1fc33aaa2a8b80, type: 2}
+  - {fileID: 11400000, guid: a94cf569e7f7fe74c8f1abef074f2717, type: 2}
+  - {fileID: 11400000, guid: d59942e97cd2fbd47b0eaac9c7dac83b, type: 2}
+  - {fileID: 11400000, guid: 50f004496cc5d544fa0b3084d3b12170, type: 2}
+  - {fileID: 11400000, guid: 0baa17bf1b252474992baa9195c6ab91, type: 2}
+  - {fileID: 11400000, guid: fa1e7324355795645a681829b9310420, type: 2}
+  - {fileID: 11400000, guid: fca7a471968cbac4c8689902e169944a, type: 2}
+  - {fileID: 11400000, guid: 4f3e931c8f88d5b439659fad91f1aaf9, type: 2}
+  - {fileID: 11400000, guid: 14b008e592b8d0847bf3a3917ccb0657, type: 2}
+  - {fileID: 11400000, guid: 3d5bf738b82ff4940bb0440228db346a, type: 2}
+  - {fileID: 11400000, guid: f58f3b84e3603a64397ff0ae65ef89ef, type: 2}
+  - {fileID: 11400000, guid: 1aa1884e837f3b34c8b740e5d03543a0, type: 2}
+  - {fileID: 11400000, guid: 20ee362d9b5bcc1498423a48fb2ef5fe, type: 2}
+  - {fileID: 11400000, guid: d5b87343a63cfe447b6e346cb8ee2c8f, type: 2}
+  - {fileID: 11400000, guid: 49adc1ee67532534ea9a0853d47bfe95, type: 2}
+  - {fileID: 11400000, guid: fe489bcee9b71284b93b6bef072e58ed, type: 2}
+  - {fileID: 11400000, guid: 8946f5370cf56dd4fb7a137ec2576f5d, type: 2}
+  - {fileID: 11400000, guid: fbb5503b20c1f5e4b9bacd874b6f2cc8, type: 2}
+  - {fileID: 11400000, guid: 1ba93de6baaba584dbe33ca0b3bb0815, type: 2}
+  - {fileID: 11400000, guid: 481411e6cbbc0f64dabb407e57ee80d1, type: 2}
+  - {fileID: 11400000, guid: caaeb6dffa75b894493feb855c489c78, type: 2}
+  - {fileID: 11400000, guid: 3d8eed5060ea47949b8e247b0a613383, type: 2}
+  - {fileID: 11400000, guid: d1500a6642601bd4dbac5eed3f5f83c9, type: 2}
+  - {fileID: 11400000, guid: b5a23d5d0b771ff48a0d580f77c67a54, type: 2}
   dropCount: 1
   dropRadius: 1.5
 --- !u!1 &4389680267529104630
@@ -5301,7 +5336,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 5279952819080994503}
   - {fileID: 7332326676626293018}
-  damage: 30
+  damage: 15
   knockbackForce: 6
   explosionPrefab: {fileID: 2962579926642019452, guid: 05baa31a17f965c44bca2e1f5eedc378, type: 3}
 --- !u!61 &2696017171668287560
@@ -6595,7 +6630,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 8509913618152599755}
   - {fileID: 1184346310393067167}
-  damage: 30
+  damage: 15
   knockbackForce: 6
   explosionPrefab: {fileID: 2962579926642019452, guid: 05baa31a17f965c44bca2e1f5eedc378, type: 3}
 --- !u!61 &1078864814309191475
@@ -7569,7 +7604,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 4227052551582066978}
   - {fileID: 820039230924511522}
-  damage: 30
+  damage: 15
   knockbackForce: 6
   explosionPrefab: {fileID: 2962579926642019452, guid: 05baa31a17f965c44bca2e1f5eedc378, type: 3}
 --- !u!61 &1112735779864614293
@@ -8297,7 +8332,7 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 4825991068144662266}
   - {fileID: 709924169759834146}
-  damage: 30
+  damage: 15
   knockbackForce: 6
   explosionPrefab: {fileID: 2962579926642019452, guid: 05baa31a17f965c44bca2e1f5eedc378, type: 3}
 --- !u!61 &8075477557244382649

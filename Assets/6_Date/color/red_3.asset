@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: "\uBD89\uC740 \uD50C\uB85C\uD53C \uB514\uC2A4\uCF13"
   description: "\uBE5B\uB098\uB294 \uD50C\uB85C\uD53C \uB514\uC2A4\uCF13, \uBD89\uC740
     \uBE5B\uC774 \uB3C8\uB2E4.\n\uCD5C\uB300\uCCB4\uB825\uC774 30 \uC99D\uAC00\uD55C\uB2E4"
-  rarity: 1
+  rarity: 0
   prefab: {fileID: 6402603472621646608, guid: 28322553f2d4f494cb62b669aad22ff7, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0

@@ -23,7 +23,7 @@ MonoBehaviour:
   attackDamageBonus: 3
   attackCooldownBonus: 0
   maxHPBonus: 0
-  healAmount: 0
+  healAmount: 5
   knockbackPowerBonus: 0
   meleeRangeBonus: 0
   bulletSizeBonus: 0

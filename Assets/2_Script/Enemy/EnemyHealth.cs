@@ -59,13 +59,16 @@ public class EnemyHealth : MonoBehaviour
 
         Vector2 direction = ((Vector2)transform.position - attackerPosition).normalized;
 
-        // 플레이어 넉백 파워 기반
-        float scaledForce = knockbackPower; // 필요 시 추가 조정 가능
+        direction.y = Mathf.Clamp(direction.y, -0.01f, 0.01f);
+        direction = direction.normalized;
 
-        rb.AddForce(direction * scaledForce, ForceMode2D.Impulse);
+        Debug.Log($"[Knockback] Enemy '{name}' ← 방향({direction.x:F2}, {direction.y:F2}) 힘({knockbackPower:F2})");
+
+        rb.AddForce(direction * knockbackPower, ForceMode2D.Impulse);
 
         Invoke(nameof(EndKnockback), knockbackDuration);
     }
+
 
     void EndKnockback()
     {
