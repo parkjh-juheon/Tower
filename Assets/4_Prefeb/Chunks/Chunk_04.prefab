@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
@@ -504,7 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 5032389070257749663}
   healthFillImage: {fileID: 6678630114890719321}
@@ -1309,6 +1309,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d8eed5060ea47949b8e247b0a613383, type: 2}
   - {fileID: 11400000, guid: d1500a6642601bd4dbac5eed3f5f83c9, type: 2}
   - {fileID: 11400000, guid: b5a23d5d0b771ff48a0d580f77c67a54, type: 2}
+  - {fileID: 11400000, guid: aaaa888faf5b4b8419eea5d9523bc94a, type: 2}
+  - {fileID: 11400000, guid: f10516782abc5f04584cef33c206b779, type: 2}
+  - {fileID: 11400000, guid: f10516782abc5f04584cef33c206b779, type: 2}
   dropCount: 1
   dropRadius: 1.5
 --- !u!1 &1015839434150648474
@@ -1532,7 +1535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 1651117077512328240}
   healthFillImage: {fileID: 4885868253996279082}
@@ -1823,7 +1826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 1640782036170069299}
   healthFillImage: {fileID: 2312594666177971438}
@@ -6984,7 +6987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detectionRange: 6
-  explosionRange: 1
+  explosionRange: 1.5
   moveSpeed: 2
   chaseSpeed: 5
   returnSpeed: 2
@@ -15326,7 +15329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 5407780557811505487}
   healthFillImage: {fileID: 1438653060883789199}
@@ -16566,7 +16569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 2268774184630067404}
   healthFillImage: {fileID: 1887494765606917735}
@@ -16857,7 +16860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 3334714850822187167}
   healthFillImage: {fileID: 8310927003691640815}
@@ -17073,7 +17076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 7475794021305797421}
   healthFillImage: {fileID: 7213937061499029278}
@@ -18863,7 +18866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 60
   currentHP: 0
   healthBarUI: {fileID: 1858187121206330459}
   healthFillImage: {fileID: 302291281758552238}

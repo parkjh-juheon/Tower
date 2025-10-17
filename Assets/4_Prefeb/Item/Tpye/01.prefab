@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b936b6568d372fc4a85869be575470dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: aaaa888faf5b4b8419eea5d9523bc94a, type: 2}
   newAttackType: 1
   giveAmmo: 10
   interactDistance: 2.5

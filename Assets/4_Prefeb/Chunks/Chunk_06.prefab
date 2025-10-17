@@ -12721,6 +12721,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d8eed5060ea47949b8e247b0a613383, type: 2}
   - {fileID: 11400000, guid: d1500a6642601bd4dbac5eed3f5f83c9, type: 2}
   - {fileID: 11400000, guid: b5a23d5d0b771ff48a0d580f77c67a54, type: 2}
+  - {fileID: 11400000, guid: aaaa888faf5b4b8419eea5d9523bc94a, type: 2}
+  - {fileID: 11400000, guid: f10516782abc5f04584cef33c206b779, type: 2}
+  - {fileID: 11400000, guid: f10516782abc5f04584cef33c206b779, type: 2}
   dropCount: 1
   dropRadius: 1.5
 --- !u!1 &3593938961840910183

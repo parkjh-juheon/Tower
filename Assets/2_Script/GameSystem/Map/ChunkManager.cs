@@ -97,9 +97,9 @@ public class ChunkManager : MonoBehaviour
     private ItemData GetRandomItemByRarity()
     {
         // Èñ±Íµµ È®·ü ºÐÆ÷ (ÇÕ = 1.0f)
-        float commonChance = 0.7f;
-        float rareChance = 0.2f;
-        float epicChance = 0.09f;
+        float commonChance = 0.5f;
+        float rareChance = 0.3f;
+        float epicChance = 0.13f;
 
         float roll = Random.value;
 
