@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eec579ed98ad2b54aa085a547cc4fc05, type: 3}
   m_Name: risk_1
   m_EditorClassIdentifier: 
-  itemName: "\uBD88\uC548\uC801\uC778 \uC81C\uD2B8\uD329"
+  itemName: "\uBD88\uC548\uC815\uD55C \uC81C\uD2B8\uD329"
   description: "\uC5B8\uC81C\uB098 \uAE0D\uC815\uC801\uC77C \uC218\uB294 \uC5C6\uB2E4\n\uC810\uD504\uB825\uC774
-    4.5 \uAC10\uC18C\uD558\uC9C0\uB9CC \uC810\uD504 \uD69F\uC218\uAC00 2 \uC99D\uAC00\uD55C\uB2E4"
+    3 \uAC10\uC18C\uD558\uC9C0\uB9CC \uC810\uD504 \uD69F\uC218\uAC00 3 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 3
   prefab: {fileID: 6402603472621646608, guid: 8c3cc70c526c5aa4f8ef2b95e7554592, type: 3}
   moveSpeedBonus: 0
-  jumpForceBonus: -4.5
-  maxJumpCountBonus: 2
+  jumpForceBonus: -3
+  maxJumpCountBonus: 3
   attackDamageBonus: 0
   attackCooldownBonus: 0
   maxHPBonus: 0
