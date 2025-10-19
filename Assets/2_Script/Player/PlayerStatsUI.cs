@@ -19,17 +19,40 @@ public class PlayerStatsUI : MonoBehaviour
     // 각 스탯 이름 → Text 참조 저장
     private Dictionary<string, TextMeshProUGUI> statTexts = new();
 
-    private void Awake() => Instance = this;
+    private void Awake()
+    {
+        // 안전한 싱글턴 패턴: 이미 존재하면 중복 파괴
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
-        if (player == null || player.stats == null) return;
-        CreateStatRows();
+        // 필수 구성요소가 빠졌으면 더 이상 진행하지 않음
+        if (player == null || player.stats == null || statsPanel == null || statRowPrefab == null)
+        {
+            Debug.LogWarning("[PlayerStatsUI] 필수 UI 또는 player가 할당되지 않았습니다.");
+            return;
+        }
+
+        // 이미 생성된 행이 있으면 건너뛰기 (중복 방지)
+        if (statTexts.Count == 0)
+        {
+            CreateStatRows();
+        }
+
         UpdateStatsDisplay();
     }
 
     void Update()
     {
+        // player가 유효하지 않으면 갱신하지 않음
         if (player == null || player.stats == null) return;
         UpdateStatsDisplay();
     }
@@ -46,12 +69,16 @@ public class PlayerStatsUI : MonoBehaviour
 
         foreach (string name in statNames)
         {
+            if (statRowPrefab == null) break;
+
             GameObject row = Instantiate(statRowPrefab, statsPanel);
             row.name = $"StatRow_{name}";
 
             TextMeshProUGUI text = row.GetComponentInChildren<TextMeshProUGUI>();
             if (text != null)
                 statTexts[name] = text;
+            else
+                Debug.LogWarning($"[PlayerStatsUI] StatRow prefab에 TextMeshProUGUI가 없습니다: {name}");
         }
     }
 
@@ -59,6 +86,7 @@ public class PlayerStatsUI : MonoBehaviour
     void UpdateStatsDisplay()
     {
         var s = player.stats;
+        if (s == null) return;
 
         // 공통 스탯
         SetStatText("moveSpeed", s.moveSpeed);
@@ -101,39 +129,54 @@ public class PlayerStatsUI : MonoBehaviour
     void SetRowActive(string statName, bool active)
     {
         if (statTexts.TryGetValue(statName, out var text))
-            text.transform.parent.gameObject.SetActive(active);
+        {
+            if (text != null && text.transform != null && text.transform.parent != null)
+                text.transform.parent.gameObject.SetActive(active);
+        }
     }
-
 
     void SetStatText(string statName, float value)
     {
-        if (statTexts.TryGetValue(statName, out var text))
+        if (statTexts.TryGetValue(statName, out var text) && text != null)
         {
             text.text = $"{statName}: {value:F2}";
         }
     }
 
-    //  변화량 텍스트 표시
+    // 변화량 텍스트 표시
     public void ShowStatChange(string statName, float oldValue, float newValue)
     {
+        // 안전 검사들
+        if (string.IsNullOrEmpty(statName)) return;
+        if (changeTextPrefab == null) return;
         if (!statTexts.ContainsKey(statName)) return;
+        if (this == null || gameObject == null) return;
+
         float change = newValue - oldValue;
         if (Mathf.Approximately(change, 0f)) return;
 
         string color = change > 0 ? "#00FF00" : "#FF0000";
         string text = $"{(change > 0 ? "+" : "")}{change:F1}";
 
-        // 해당 스탯의 Row에 붙이기
-        Transform statRow = statTexts[statName].transform.parent;
+        Transform statRow = statTexts[statName]?.transform?.parent;
+        if (statRow == null) return;
+
+        // 인스턴스화 후 안전하게 텍스트 적용
         TextMeshProUGUI tmp = Instantiate(changeTextPrefab, statRow);
+        if (tmp == null) return;
+
         tmp.text = $"<color={color}>{text}</color>";
 
-        StartCoroutine(HideChangeText(tmp, 1.5f));
+        StartCoroutine(HideChangeTextSafe(tmp, 1.5f));
     }
 
-    private IEnumerator HideChangeText(TextMeshProUGUI tmp, float delay)
+    private IEnumerator HideChangeTextSafe(TextMeshProUGUI tmp, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(tmp.gameObject);
+        // 코루틴이 돌아올 때 객체가 이미 파괴되었는지 안전 검사
+        if (tmp != null && tmp.gameObject != null)
+        {
+            Destroy(tmp.gameObject);
+        }
     }
 }

@@ -20,6 +20,7 @@ public class StatItem : MonoBehaviour
 
     private void Start()
     {
+        // 플레이어 참조 확보
         foreach (var p in GameObject.FindGameObjectsWithTag("Player"))
         {
             if (p.activeInHierarchy)
@@ -28,6 +29,9 @@ public class StatItem : MonoBehaviour
                 break;
             }
         }
+
+        if (player == null)
+            Debug.LogWarning("[StatItem] Player 객체를 찾지 못했습니다.");
     }
 
     private void Update()
@@ -37,6 +41,7 @@ public class StatItem : MonoBehaviour
         float distance = Vector2.Distance(transform.position, player.position);
         Animator animator = player.GetComponent<Animator>();
 
+        // 접근/이탈 감지
         if (distance <= interactDistance && !isPlayerInRange)
         {
             isPlayerInRange = true;
@@ -50,6 +55,7 @@ public class StatItem : MonoBehaviour
             if (animator != null) animator.SetBool("NearItem", false);
         }
 
+        // 획득 입력
         if (isPlayerInRange && !pickedUp && Input.GetKeyDown(KeyCode.C))
         {
             PickupItem();
@@ -61,6 +67,12 @@ public class StatItem : MonoBehaviour
         if (pickedUp) return;
         pickedUp = true;
 
+        if (player == null)
+        {
+            Debug.LogWarning("[StatItem] Player가 없습니다. 아이템을 적용할 수 없습니다.");
+            return;
+        }
+
         Animator animator = player.GetComponent<Animator>();
         if (animator != null)
         {
@@ -69,13 +81,17 @@ public class StatItem : MonoBehaviour
             StartCoroutine(ReturnToIdle(animator, 0.8f));
         }
 
-        PlayerController controller = player.GetComponent<PlayerController>();
-        PlayerHealth health = player.GetComponent<PlayerHealth>();
+        PlayerController controller = player.GetComponent<PlayerController>() ??
+                                      player.GetComponentInChildren<PlayerController>();
+        PlayerHealth health = player.GetComponent<PlayerHealth>() ??
+                              player.GetComponentInChildren<PlayerHealth>();
 
-        if (controller == null) controller = player.GetComponentInChildren<PlayerController>();
-        if (health == null) health = player.GetComponentInChildren<PlayerHealth>();
+        if (controller == null || controller.stats == null)
+        {
+            Debug.LogWarning("[StatItem] PlayerController 또는 stats가 없습니다. 아이템 적용 실패.");
+            return;
+        }
 
-        if (controller == null || controller.stats == null) return;
         var stats = controller.stats;
 
         // ---------------------
@@ -131,14 +147,25 @@ public class StatItem : MonoBehaviour
         }
 
         // ---------------------
-        //  변화 감지 & UI 출력
+        //  변화 감지 & UI 출력 (안전하게)
         // ---------------------
         void TryShowChange(string name, float newValue)
         {
             if (!before.ContainsKey(name)) return;
             float oldValue = before[name];
-            if (!Mathf.Approximately(oldValue, newValue))
-                PlayerStatsUI.Instance?.ShowStatChange(name, oldValue, newValue);
+            if (Mathf.Approximately(oldValue, newValue)) return;
+
+            if (PlayerStatsUI.Instance != null && PlayerStatsUI.Instance.gameObject != null)
+            {
+                try
+                {
+                    PlayerStatsUI.Instance.ShowStatChange(name, oldValue, newValue);
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"[StatItem] ShowStatChange 오류: {e.Message}");
+                }
+            }
         }
 
         // 공통 스탯
@@ -178,22 +205,20 @@ public class StatItem : MonoBehaviour
             GameObject effect = Instantiate(pickupEffectPrefab, transform.position, Quaternion.identity);
 
             // 등급에 따른 색상 지정
-            Color effectColor = Color.white; // 기본(일반)
-
+            Color effectColor = Color.white;
             switch (data.rarity)
             {
                 case ItemRarity.Rare:
-                    effectColor = new Color(0.6f, 1.5f, 0.6f); // 밝은 연두색
+                    effectColor = new Color(0.6f, 1.5f, 0.6f);
                     break;
                 case ItemRarity.Epic:
-                    effectColor = new Color(0.8f, 0.4f, 1.0f); // 밝은 보라
+                    effectColor = new Color(0.8f, 0.4f, 1.0f);
                     break;
                 case ItemRarity.Legendary:
-                    effectColor = new Color(1.2f, 1.0f, 0.3f); // 황금빛
+                    effectColor = new Color(1.2f, 1.0f, 0.3f);
                     break;
             }
 
-            // 파티클 색상 변경
             ParticleSystem ps = effect.GetComponent<ParticleSystem>();
             if (ps != null)
             {
@@ -208,6 +233,7 @@ public class StatItem : MonoBehaviour
         ItemUIManager.Instance?.HideItemInfo();
         ItemTooltip.Instance?.HideTooltip();
 
+        // 약간의 딜레이 후 제거 (연출용)
         Destroy(gameObject, 0.05f);
     }
 
