@@ -368,15 +368,13 @@ public class PlayerController : MonoBehaviour
             {
                 if (jumpSound != null) AudioManager.Instance.PlaySFX(jumpSound);
 
-                // 낙하 중 점프 시
                 if (groundJumpCount == 0 && currentJumpCount == 0)
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);
                     currentJumpCount = 1;
-                    maxJumpCount = baseMaxJumpCount + 1;
+                    stats.maxJumpCount = baseMaxJumpCount + 1;
                     animator?.SetTrigger("Jump");
                 }
-
                 else
                 {
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, stats.jumpForce);

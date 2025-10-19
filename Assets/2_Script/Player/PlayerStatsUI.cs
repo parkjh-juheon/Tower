@@ -146,11 +146,8 @@ public class PlayerStatsUI : MonoBehaviour
     // 변화량 텍스트 표시
     public void ShowStatChange(string statName, float oldValue, float newValue)
     {
-        // 안전 검사들
-        if (string.IsNullOrEmpty(statName)) return;
-        if (changeTextPrefab == null) return;
         if (!statTexts.ContainsKey(statName)) return;
-        if (this == null || gameObject == null) return;
+        if (changeTextPrefab == null) return;
 
         float change = newValue - oldValue;
         if (Mathf.Approximately(change, 0f)) return;
@@ -161,13 +158,20 @@ public class PlayerStatsUI : MonoBehaviour
         Transform statRow = statTexts[statName]?.transform?.parent;
         if (statRow == null) return;
 
-        // 인스턴스화 후 안전하게 텍스트 적용
         TextMeshProUGUI tmp = Instantiate(changeTextPrefab, statRow);
         if (tmp == null) return;
 
         tmp.text = $"<color={color}>{text}</color>";
 
-        StartCoroutine(HideChangeTextSafe(tmp, 1.5f));
+        if (isActiveAndEnabled)
+        {
+            StartCoroutine(HideChangeTextSafe(tmp, 1.5f));
+        }
+        else
+        {
+            // 비활성 중이면 Destroy만 실행하고 코루틴 생략
+            Destroy(tmp.gameObject, 1.5f);
+        }
     }
 
     private IEnumerator HideChangeTextSafe(TextMeshProUGUI tmp, float delay)
