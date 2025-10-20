@@ -496,7 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 150
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 4621972300888236669}
   healthFillImage: {fileID: 4374764723481835794}
