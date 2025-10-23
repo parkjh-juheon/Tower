@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uBCF4\uB77C\uC0C9 USB"
   description: "\uD76C\uADC0\uD55C USB, \uBCF4\uB78F\uBE5B\uC774 \uB3C8\uB2E4.\n\uACF5\uACA9\uBC94\uC704\uAC00
-    0.45 \uC99D\uAC00\uD558\uACE0 \uD0C4 \uD06C\uAE30\uAC00 2.5 \uC99D\uAC00\uD55C\uB2E4"
+    0.35 \uC99D\uAC00\uD558\uACE0 \uD0C4 \uD06C\uAE30\uAC00 2 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 2
   prefab: {fileID: 6402603472621646608, guid: d845c7163d90dff4aaea42c69d229f40, type: 3}
   moveSpeedBonus: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   maxHPBonus: 0
   healAmount: 5
   knockbackPowerBonus: 0
-  meleeRangeBonus: 0.45
-  bulletSizeBonus: 2.5
+  meleeRangeBonus: 0.35
+  bulletSizeBonus: 2
   bulletLifeTimeBonus: 0
   bulletSpeedBonus: 0

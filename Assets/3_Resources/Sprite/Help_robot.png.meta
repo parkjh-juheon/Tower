@@ -1,13 +1,25 @@
 fileFormatVersion: 2
-guid: bc6fb1cce418dc445a3df256d8f25b96
+guid: 6231932a37100eb449196f762aa340ab
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6726426021950081582
-    second: etc-weapon_0
+      213: -2290241512880109117
+    second: Help_robot_0
   - first:
-      213: 5367460902541691413
-    second: etc-weapon_1
+      213: -8786088405560890571
+    second: Help_robot_1
+  - first:
+      213: -1167135420287858730
+    second: Help_robot_2
+  - first:
+      213: -3206607286201494221
+    second: Help_robot_3
+  - first:
+      213: 2604998889277563235
+    second: Help_robot_4
+  - first:
+      213: 3745758742848037386
+    second: Help_robot_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,13 +115,79 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: etc-weapon_0
+      name: Help_robot_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 480
+        width: 480
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c98dee6a7d6730e0800000000000000
+      internalID: -2290241512880109117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Help_robot_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 480
+        width: 480
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53b6d55552b811680800000000000000
+      internalID: -8786088405560890571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Help_robot_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 480
+        width: 480
+        height: 480
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d747fcd4808dcfe0800000000000000
+      internalID: -1167135420287858730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Help_robot_3
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 160
-        height: 160
+        width: 480
+        height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2a474e24d0195d50800000000000000
-      internalID: 6726426021950081582
+      spriteID: 335d7cb99a7df73d0800000000000000
+      internalID: -3206607286201494221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: etc-weapon_1
+      name: Help_robot_4
       rect:
         serializedVersion: 2
-        x: 160
+        x: 480
         y: 0
-        width: 160
-        height: 160
+        width: 480
+        height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,30 +218,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 51a8bc9b04d0d7a40800000000000000
-      internalID: 5367460902541691413
+      spriteID: 3612dab10b0d62420800000000000000
+      internalID: 2604998889277563235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: etc-weapon_2
+      name: Help_robot_5
       rect:
         serializedVersion: 2
-        x: 320
+        x: 960
         y: 0
-        width: 160
-        height: 160
+        width: 480
+        height: 480
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 8756d95096d9a344d9e1358cab9df535
-      internalID: -212441446
+      spriteID: a0265c11bbb9bf330800000000000000
+      internalID: 3745758742848037386
       vertices: []
       indices: 
       edges: []
@@ -172,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 39175d6204965e94bb51519367602bc1
+    spriteID: 4b6b2f360fb0a2a49b3f177be9232b56
     internalID: 0
     vertices: []
     indices: 
@@ -182,11 +260,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":160.0,"y":160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":480.0,"y":480.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      etc-weapon_0: 6726426021950081582
-      etc-weapon_1: 5367460902541691413
-      etc-weapon_2: -212441446
+      Help_robot_0: -2290241512880109117
+      Help_robot_1: -8786088405560890571
+      Help_robot_2: -1167135420287858730
+      Help_robot_3: -3206607286201494221
+      Help_robot_4: 2604998889277563235
+      Help_robot_5: 3745758742848037386
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -150,10 +150,10 @@ public class PlayerController : MonoBehaviour
 
         if (!wasGrounded && isGrounded)
         {
-            if (landSound != null) AudioManager.Instance.PlaySFX(landSound);
             currentJumpCount = 0;
             groundJumpCount = 0;
             maxJumpCount = baseMaxJumpCount;
+            stats.maxJumpCount = baseMaxJumpCount;
         }
 
         animator.SetBool("isGrounded", isGrounded);

@@ -1,13 +1,34 @@
 fileFormatVersion: 2
-guid: bc6fb1cce418dc445a3df256d8f25b96
+guid: cc2b61b0383df364b92a2070adaf17a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6726426021950081582
-    second: etc-weapon_0
+      213: 2808979260109614136
+    second: item_tier_0
   - first:
-      213: 5367460902541691413
-    second: etc-weapon_1
+      213: 8889063657760396268
+    second: item_tier_1
+  - first:
+      213: 1997275917056565772
+    second: item_tier_2
+  - first:
+      213: -8473645160773125487
+    second: item_tier_3
+  - first:
+      213: 8145506350299435934
+    second: item_tier_4
+  - first:
+      213: 3271810785985918176
+    second: item_tier_5
+  - first:
+      213: 5025307603039471858
+    second: item_tier_6
+  - first:
+      213: 4797135027684879970
+    second: item_tier_7
+  - first:
+      213: 3376316100819528446
+    second: item_tier_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +61,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -103,67 +124,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: etc-weapon_0
+      name: item_tier_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83ce54421cf7bf620800000000000000
+      internalID: 2808979260109614136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_tier_1
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 160
+        width: 160
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce394aaec4c4c5b70800000000000000
+      internalID: 8889063657760396268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: item_tier_2
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 160
         height: 160
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2a474e24d0195d50800000000000000
-      internalID: 6726426021950081582
+      spriteID: c0269925ddfb7bb10800000000000000
+      internalID: 1997275917056565772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: etc-weapon_1
+      name: item_tier_3
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 160
         height: 160
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 51a8bc9b04d0d7a40800000000000000
-      internalID: 5367460902541691413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: etc-weapon_2
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 160
-        height: 160
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8756d95096d9a344d9e1358cab9df535
-      internalID: -212441446
+      spriteID: 19af86f1f90976a80800000000000000
+      internalID: -8473645160773125487
       vertices: []
       indices: 
       edges: []
@@ -172,7 +215,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 39175d6204965e94bb51519367602bc1
+    spriteID: 58c16fe0ce119b24d8a12724517944a6
     internalID: 0
     vertices: []
     indices: 
@@ -182,11 +225,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":160.0,"y":160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":160.0,"y":160.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      etc-weapon_0: 6726426021950081582
-      etc-weapon_1: 5367460902541691413
-      etc-weapon_2: -212441446
+      item_tier_0: 2808979260109614136
+      item_tier_1: 8889063657760396268
+      item_tier_2: 1997275917056565772
+      item_tier_3: -8473645160773125487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

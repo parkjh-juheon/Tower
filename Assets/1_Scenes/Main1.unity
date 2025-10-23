@@ -7142,6 +7142,7 @@ MonoBehaviour:
   - {fileID: 9138042663278197080, guid: 8010f40677647974b87849dc56919ed0, type: 3}
   - {fileID: 7854561399278015114, guid: 326d37f1d69545a4389300eb6ecc5312, type: 3}
   - {fileID: 542332622545630084, guid: e58800e4674a6f84dbcef8ea4631c3a6, type: 3}
+  - {fileID: 4666141867624119671, guid: de6b38dbf8a675c49bfa392524e33852, type: 3}
   bossChunkPrefab: {fileID: 3267896105102208660, guid: 86c656ade60b3db47982e5a53075a3e8, type: 3}
   chunksPerRound: 8
   itemPool:
