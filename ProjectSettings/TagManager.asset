@@ -9,6 +9,7 @@ TagManager:
   - Boss
   - Wall
   - GroundChecker
+  - Item
   layers:
   - Default
   - TransparentFX

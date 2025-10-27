@@ -233,6 +233,12 @@ public class StatItem : MonoBehaviour
         ItemUIManager.Instance?.HideItemInfo();
         ItemTooltip.Instance?.HideTooltip();
 
+        MiniMapController miniMap = FindAnyObjectByType<MiniMapController>();
+        if (miniMap != null)
+        {
+            miniMap.UnregisterItem(transform);
+        }
+
         // 약간의 딜레이 후 제거 (연출용)
         Destroy(gameObject, 0.05f);
     }

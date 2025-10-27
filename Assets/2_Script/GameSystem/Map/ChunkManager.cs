@@ -58,6 +58,23 @@ public class ChunkManager : MonoBehaviour
 
         // 아이템 스폰 실행
         SpawnItemsInChunk(boss);
+
+        // 3) BossChunk까지 생성한 뒤, 미니맵에 적 등록
+        MiniMapController miniMap = FindAnyObjectByType<MiniMapController>();
+        if (miniMap != null)
+        {
+            foreach (var chunk in spawnedChunks)
+            {
+                foreach (var t in chunk.GetComponentsInChildren<Transform>())
+                {
+                    if (t.CompareTag("Enemy"))
+                        miniMap.RegisterEnemy(t);
+                    else if (t.CompareTag("Ground"))
+                        miniMap.RegisterGround(t);  // 이 메서드 필요
+                }
+            }
+        }
+
     }
 
     private void PositionChunkAt(GameObject chunk, Vector3 targetPoint)
@@ -90,6 +107,12 @@ public class ChunkManager : MonoBehaviour
                 StatItem statItem = itemObj.GetComponent<StatItem>();
                 if (statItem != null)
                     statItem.data = itemData;
+
+                MiniMapController miniMap = FindAnyObjectByType<MiniMapController>();
+                if (miniMap != null)
+                {
+                    miniMap.RegisterItem(itemObj.transform);
+                }
             }
         }
     }
