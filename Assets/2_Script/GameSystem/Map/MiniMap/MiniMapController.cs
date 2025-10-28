@@ -88,9 +88,10 @@ public class MiniMapController : MonoBehaviour
         icon.anchoredPosition = new Vector2(px, py);
 
         // Offscreen Ã³¸®
-        bool insideX = px >= -miniMapArea.rect.width * miniMapArea.pivot.x && px <= miniMapArea.rect.width * (1 - miniMapArea.pivot.x);
-        bool insideY = py >= -miniMapArea.rect.height * miniMapArea.pivot.y && py <= miniMapArea.rect.height * (1 - miniMapArea.pivot.y);
+        bool insideX = xNorm >= 0f && xNorm <= 1f;
+        bool insideY = yNorm >= 0f && yNorm <= 1f;
         icon.gameObject.SetActive(hideOffscreenIcons ? (insideX && insideY) : true);
+
     }
 
 
