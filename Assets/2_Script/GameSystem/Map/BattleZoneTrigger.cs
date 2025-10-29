@@ -91,9 +91,6 @@ public class BattleZoneTrigger : MonoBehaviour
             if (wall != null)
                 wall.SetActive(false);
         }
-
-        Debug.Log("[BattleZone] 전투 종료 - 벽 비활성화됨");
-
         //  전투 종료 시 아이템 드랍
         DropItems();
     }
@@ -129,7 +126,6 @@ public class BattleZoneTrigger : MonoBehaviour
     public void ReportEnemyDeath(Vector3 deathPosition)
     {
         lastEnemyPosition = deathPosition;
-        Debug.Log($"[BattleZone] 마지막 적 사망 위치 기록됨: {deathPosition}");
     }
 
     private void OnDrawGizmos()
