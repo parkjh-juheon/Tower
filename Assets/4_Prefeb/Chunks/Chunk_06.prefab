@@ -5485,7 +5485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 6784554189423857089}
   healthFillImage: {fileID: 2914242245570675417}
@@ -5742,7 +5742,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 2947557891868782548}
   healthFillImage: {fileID: 7613934905959574733}
@@ -6088,7 +6088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 9098389609465402542}
   healthFillImage: {fileID: 7833817859815498933}
@@ -6531,7 +6531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 8835403685016725710}
   healthFillImage: {fileID: 7117414328106874627}
@@ -19893,7 +19893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 842929844681184200}
   healthFillImage: {fileID: 5736783298865740954}
@@ -21461,7 +21461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 5093519995272626095}
   healthFillImage: {fileID: 2152390017021369641}
@@ -22263,7 +22263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 5033936588055101224}
   healthFillImage: {fileID: 6134059235414303343}
@@ -22520,7 +22520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 1336915801845092375}
   healthFillImage: {fileID: 4621000555962331893}
@@ -22826,7 +22826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa1c2aefffd60d43b26907a05664ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 40
   currentHP: 0
   healthBarUI: {fileID: 6543490493480418486}
   healthFillImage: {fileID: 2493101953390481911}

@@ -62,7 +62,6 @@ public class EnemyHealth : MonoBehaviour
         direction.y = Mathf.Clamp(direction.y, -0.01f, 0.01f);
         direction = direction.normalized;
 
-        Debug.Log($"[Knockback] Enemy '{name}' ← 방향({direction.x:F2}, {direction.y:F2}) 힘({knockbackPower:F2})");
 
         rb.AddForce(direction * knockbackPower, ForceMode2D.Impulse);
 
@@ -102,6 +101,10 @@ public class EnemyHealth : MonoBehaviour
         {
             zone.ReportEnemyDeath(transform.position);
         }
+
+        MiniMapController miniMap = FindAnyObjectByType<MiniMapController>();
+        if (miniMap != null)
+            miniMap.UnregisterEnemy(transform);
 
         Destroy(gameObject);
     }

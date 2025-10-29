@@ -16,7 +16,7 @@ MonoBehaviour:
   description: "\uACF5\uACA9 \uBC29\uC2DD\uC744 \uC6D0\uAC70\uB9AC \uD654\uC5FC\uBC29\uC0AC\uAE30\uB85C
     \uBCC0\uACBD\uD55C\uB2E4"
   rarity: 3
-  prefab: {fileID: 6244623210105367116, guid: 1817186979b828f4aa6d73eed363ed6f, type: 3}
+  prefab: {fileID: 6244623210105367116, guid: 3327375e5507bd94c8a7230162bda9e2, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0
   maxJumpCountBonus: 0
