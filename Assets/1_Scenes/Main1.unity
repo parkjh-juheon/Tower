@@ -7026,10 +7026,10 @@ MonoBehaviour:
   itemNameText: {fileID: 1503900630}
   rarityImage: {fileID: 578166486}
   descriptionText: {fileID: 441700114}
-  commonSprite: {fileID: -3983950619504736678, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
-  rareSprite: {fileID: -9176472066801411641, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
-  epicSprite: {fileID: -8880520576215733831, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
-  legendarySprite: {fileID: -5390123095117124330, guid: 74f8b4d56cb24724abef2f7c526fd9ca, type: 3}
+  commonSprite: {fileID: 2808979260109614136, guid: cc2b61b0383df364b92a2070adaf17a8, type: 3}
+  rareSprite: {fileID: 8889063657760396268, guid: cc2b61b0383df364b92a2070adaf17a8, type: 3}
+  epicSprite: {fileID: 1997275917056565772, guid: cc2b61b0383df364b92a2070adaf17a8, type: 3}
+  legendarySprite: {fileID: -8473645160773125487, guid: cc2b61b0383df364b92a2070adaf17a8, type: 3}
 --- !u!4 &786941833
 Transform:
   m_ObjectHideFlags: 0
@@ -7817,7 +7817,7 @@ Transform:
   m_GameObject: {fileID: 969501963}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.28, y: 6.5, z: -10}
+  m_LocalPosition: {x: 0.28, y: 5.71, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8528,7 +8528,7 @@ Transform:
   m_GameObject: {fileID: 1188963184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.79, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

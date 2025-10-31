@@ -13,6 +13,8 @@ public class ChunkManager : MonoBehaviour
 
     private List<GameObject> spawnedChunks = new List<GameObject>();
 
+    private static HashSet<string> spawnedItemPositions = new HashSet<string>();
+
     private void Start()
     {
         BuildTower();
@@ -93,26 +95,30 @@ public class ChunkManager : MonoBehaviour
     {
         Chunk chunk = chunkGO.GetComponent<Chunk>();
         if (chunk == null || chunk.itemSpawnPoints == null || chunk.itemSpawnPoints.Length == 0)
-        {
             return;
-        }
 
         foreach (Transform spawnPoint in chunk.itemSpawnPoints)
         {
-            if (Random.value < 1f) // 스폰 확률
+            string key = $"{chunkGO.name}_{spawnPoint.position.x:F2}_{spawnPoint.position.y:F2}_{spawnPoint.position.z:F2}";
+
+            // 이미 생성된 위치라면 스킵
+            if (spawnedItemPositions.Contains(key))
+                continue;
+
+            if (Random.value < 1f)
             {
                 ItemData itemData = GetRandomItemByRarity();
-
                 GameObject itemObj = Instantiate(itemData.prefab, spawnPoint.position, Quaternion.identity, chunkGO.transform);
+
                 StatItem statItem = itemObj.GetComponent<StatItem>();
                 if (statItem != null)
                     statItem.data = itemData;
 
                 MiniMapController miniMap = FindAnyObjectByType<MiniMapController>();
                 if (miniMap != null)
-                {
                     miniMap.RegisterItem(itemObj.transform);
-                }
+
+                spawnedItemPositions.Add(key);
             }
         }
     }
