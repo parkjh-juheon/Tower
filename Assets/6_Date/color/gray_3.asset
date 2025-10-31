@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uD68C\uC0C9 \uC804\uC790 \uCE69\uC14B"
   description: "\uD3C9\uBC94\uD55C \uC804\uC790 \uCE69\uC14B, \uD68C\uC0C9 \uBE5B\uC774
-    \uB3C8\uB2E4.\n\uC810\uD504\uB825\uC774 1.5 \uC99D\uAC00\uD55C\uB2E4"
+    \uB3C8\uB2E4.\n\uC810\uD504\uB825\uC774 1.5 \uC99D\uAC00\uD558\uACE0 \uACF5\uACA9\uB825\uC774
+    5 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 0
   prefab: {fileID: 6402603472621646608, guid: 779476b8f032fcb498b9d7453aba6772, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 1.5
   maxJumpCountBonus: 0
-  attackDamageBonus: 0
+  attackDamageBonus: 5
   attackCooldownBonus: 0
   maxHPBonus: 0
   healAmount: 5

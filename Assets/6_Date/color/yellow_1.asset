@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uB178\uB780\uC0C9 \uBD80\uD488 \uCE74\uB4DC"
   description: "\uBE5B\uB098\uB294 \uBD80\uD488 \uCE74\uB4DC, \uB178\uB780 \uBE5B\uC774
-    \uB3C8\uB2E4.\n\uACF5\uACA9\uBC94\uC704\uAC00 1 \uC99D\uAC00\uD558\uACE0 \uD0C4\uC0AC\uAC70\uB9AC\uAC00
+    \uB3C8\uB2E4.\n\uACF5\uACA9\uBC94\uC704\uAC00 0.15 \uC99D\uAC00\uD558\uACE0 \uD0C4\uC0AC\uAC70\uB9AC\uAC00
     0.1 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 1
   prefab: {fileID: 6402603472621646608, guid: f6323ff2ae60962459b8a02036b85f20, type: 3}
@@ -26,7 +26,7 @@ MonoBehaviour:
   maxHPBonus: 0
   healAmount: 5
   knockbackPowerBonus: 0
-  meleeRangeBonus: 1
+  meleeRangeBonus: 0.15
   bulletSizeBonus: 0
   bulletLifeTimeBonus: 0.1
   bulletSpeedBonus: 0
