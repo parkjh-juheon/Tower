@@ -15,16 +15,16 @@ MonoBehaviour:
   itemName: "\uB9DD\uAC00\uC9C4 \uC81C\uD2B8\uD329"
   description: "\uC2EC\uD558\uAC8C \uD30C\uC190\uB418\uC5B4 \uBE44\uD589\uAE30\uB2A5\uC740
     \uB9DD\uAC00\uC84C\uC9C0\uB9CC, \uC7A0\uAE50\uC758 \uCCB4\uACF5\uC740 \uAC00\uB2A5\uD560
-    \uAC83\uC774\uB2E4.\n\uC810\uD504 \uD69F\uC218\uAC00 1\uD68C \uB298\uC5B4\uB09C\uB2E4"
+    \uAC83\uC774\uB2E4.\n\uC810\uD504 \uD69F\uC218\uAC00 2\uD68C \uB298\uC5B4\uB09C\uB2E4"
   rarity: 3
   prefab: {fileID: 6402603472621646608, guid: 89d722566739ee64cbddd24efaf405e9, type: 3}
   moveSpeedBonus: 0
   jumpForceBonus: 0
-  maxJumpCountBonus: 1
+  maxJumpCountBonus: 2
   attackDamageBonus: 0
   attackCooldownBonus: 0
   maxHPBonus: 0
-  healAmount: 0
+  healAmount: 5
   knockbackPowerBonus: 0
   meleeRangeBonus: 0
   bulletSizeBonus: 0

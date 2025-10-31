@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: gray_2
   m_EditorClassIdentifier: 
   itemName: "\uD68C\uC0C9 USB"
-  description: "\uD3C9\uBC94\uD55C USB, \uD68C\uC0C9 \uBE5B\uC774 \uB3C8\uB2E4.\n\uC774\uB3D9\uC18D\uB3C4
-    1 \uAC10\uC18C\uD558\uBA70 \uC810\uD504\uB825\uC774 1 \uC99D\uAC00\uD55C\uB2E4"
+  description: "\uD3C9\uBC94\uD55C USB, \uD68C\uC0C9 \uBE5B\uC774 \uB3C8\uB2E4.\n\uC774\uB3D9\uC18D\uB3C4\uAC00
+    2 \uAC10\uC18C\uD558\uACE0 \uCCB4\uB825\uC744 30 \uD68C\uBCF5\uD55C\uB2E4"
   rarity: 0
   prefab: {fileID: 6402603472621646608, guid: 5a1ac093cad31a94d90147dc964c5e82, type: 3}
-  moveSpeedBonus: -1
-  jumpForceBonus: 1
+  moveSpeedBonus: -2
+  jumpForceBonus: 0
   maxJumpCountBonus: 0
   attackDamageBonus: 0
   attackCooldownBonus: 0
   maxHPBonus: 0
-  healAmount: 5
+  healAmount: 30
   knockbackPowerBonus: 0
   meleeRangeBonus: 0
   bulletSizeBonus: 0

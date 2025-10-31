@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: green_1
   m_EditorClassIdentifier: 
   itemName: "\uB179\uC0C9 USB"
-  description: "\uBE5B\uB098\uB294 USB, \uB179\uBE5B\uC774 \uB3C8\uB2E4.\n\uD0C4\uC18D\uC774
-    0.15 \uC99D\uAC00\uD558\uACE0 \uACF5\uACA9\uC18D\uB3C4\uAC00 0.05 \uC99D\uAC00\uD55C\uB2E4"
+  description: "\uBE5B\uB098\uB294 USB, \uB179\uBE5B\uC774 \uB3C8\uB2E4.\n\uCD5C\uB300\uCCB4\uB825\uC774
+    30 \uC99D\uAC00\uD558\uACE0 \uACF5\uACA9\uC18D\uB3C4\uAC00 0.05 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 1
   prefab: {fileID: 6402603472621646608, guid: 1a649f49f09f04944ab43fe74b83dde1, type: 3}
   moveSpeedBonus: 0
@@ -22,10 +22,10 @@ MonoBehaviour:
   maxJumpCountBonus: 0
   attackDamageBonus: 0
   attackCooldownBonus: -0.05
-  maxHPBonus: 0
-  healAmount: 5
+  maxHPBonus: 30
+  healAmount: 35
   knockbackPowerBonus: 0
   meleeRangeBonus: 0
   bulletSizeBonus: 0
   bulletLifeTimeBonus: 0
-  bulletSpeedBonus: 0.15
+  bulletSpeedBonus: 0

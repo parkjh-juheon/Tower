@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: "\uAC80\uC740\uC0C9 \uBD80\uD488 \uCE74\uB4DC"
   description: "\uBE5B\uB098\uB294 \uBD80\uD488 \uCE74\uB4DC, \uD751\uBE5B\uC774
     \uB3C8\uB2E4.\n\uACF5\uACA9\uC18D\uB3C4\uAC00 0.05 \uC99D\uAC00\uD558\uACE0 \uB109\uBC31\uD30C\uC6CC\uAC00
-    0.2 \uC99D\uAC00\uD55C\uB2E4"
+    0.5 \uC99D\uAC00\uD55C\uB2E4"
   rarity: 2
   prefab: {fileID: 6402603472621646608, guid: 0a6f8f9f91412504792b232a5429eecb, type: 3}
   moveSpeedBonus: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   attackCooldownBonus: -0.05
   maxHPBonus: 0
   healAmount: 5
-  knockbackPowerBonus: 0.2
+  knockbackPowerBonus: 0.5
   meleeRangeBonus: 0
   bulletSizeBonus: 0
   bulletLifeTimeBonus: 0
