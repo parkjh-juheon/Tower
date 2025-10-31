@@ -197,7 +197,6 @@ public class PlayerController : MonoBehaviour
             && Time.time >= lastAttackTime + stats.attackCooldown)
         {
             HandleMeleeAttack();
-            lastAttackTime = Time.time;
         }
         else if ((attackType == AttackType.Ranged || attackType == AttackType.RapidFire)
             && Input.GetKey(KeyCode.X)
@@ -257,33 +256,46 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMeleeAttack()
     {
-        float speedRatio = baseAttackCooldown / stats.attackCooldown;
-        animator.speed = speedRatio;
-
-        if (meleeAttackSound != null) AudioManager.Instance.PlaySFX(meleeAttackSound);
-
+        //  1) 쿨다운 체크 (입력-애니메이션 싱크 통합)
+        if (Time.time < lastAttackTime + stats.attackCooldown)
+            return;
+        lastAttackTime = Time.time;
         if (!isGrounded) StartAirAttack();
-        else
+        //  2) 애니메이션 속도도 동기화
+
+        animator.speed = Mathf.Clamp(baseAttackCooldown / stats.attackCooldown, 0.5f, 3f);
+
+        if (meleeAttackSound != null)
+            AudioManager.Instance.PlaySFX(meleeAttackSound);
+
+        currentAttackIndex = (currentAttackIndex % 3) + 1;
+        animator?.SetTrigger($"Attack{currentAttackIndex}");
+
+        // 3) 타격 판정
+        Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * stats.meleeRange * 0.5f;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, stats.meleeRange, enemyLayer);
+
+        foreach (var hit in hits)
         {
-            currentAttackIndex = (currentAttackIndex % 3) + 1;
-            animator?.SetTrigger($"Attack{currentAttackIndex}");
+            EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
+            if (enemy != null)
+                enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
 
-            Vector2 attackPosition = (Vector2)transform.position + Vector2.right * facingDirection * stats.meleeRange * 0.5f;
-            Collider2D[] hits = Physics2D.OverlapCircleAll(attackPosition, stats.meleeRange, enemyLayer);
-
-            foreach (var hit in hits)
-            {
-                EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
-                if (enemy != null)
-                    enemy.TakeDamage((int)stats.attackDamage, transform.position, stats.knockbackPower);
-
-                BossHealth boss = hit.GetComponent<BossHealth>();
-                if (boss != null)
-                    boss.TakeDamage((int)stats.attackDamage);
-            }
+            BossHealth boss = hit.GetComponent<BossHealth>();
+            if (boss != null)
+                boss.TakeDamage((int)stats.attackDamage);
         }
-        StartCoroutine(ResetAnimatorSpeed());
+
+        //  4) 쿨다운 끝나면 애니메이터 속도 복원
+        StartCoroutine(ResetAnimatorSpeed(stats.attackCooldown));
     }
+
+    private IEnumerator ResetAnimatorSpeed(float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        animator.speed = 1f;
+    }
+
 
     private void HandleRangedAttack()
     {
