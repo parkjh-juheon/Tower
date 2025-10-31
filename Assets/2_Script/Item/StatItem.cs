@@ -118,7 +118,7 @@ public class StatItem : MonoBehaviour
         // ---------------------
         stats.moveSpeed += data.moveSpeedBonus;
         stats.jumpForce += data.jumpForceBonus;
-        stats.maxJumpCount += data.maxJumpCountBonus;
+        controller.baseMaxJumpCount += data.maxJumpCountBonus;
         stats.attackDamage += data.attackDamageBonus;
         stats.attackCooldown = Mathf.Max(0.05f, stats.attackCooldown + data.attackCooldownBonus);
 

@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("점프 설정")]
     [SerializeField] private int maxJumpCount = 1;
-    private int baseMaxJumpCount;
+    public int baseMaxJumpCount;
     private int currentJumpCount = 0;
     private int groundJumpCount = 0;
 
