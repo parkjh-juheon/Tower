@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec579ed98ad2b54aa085a547cc4fc05, type: 3}
+  m_Name: random_c2
+  m_EditorClassIdentifier: 
+  itemName: "\uAE08\uC18D\uBD80\uD488 \uBB34\uB354\uAE30"
+  description: "\uC5EC\uB7EC \uAE08\uC18D \uBD80\uD488\uC774 \uB4A4\uC11E\uC5EC\uC788\uB2E4\n\uACF5\uACA9\uB825,
+    \uACF5\uACA9\uC18D\uB3C4, \uD0C4\uD06C\uAE30, \uACF5\uACA9\uBC94\uC704\uC911\n\uB79C\uB364\uD55C
+    \uC2A4\uD0EF\uC774 \uBCC0\uD654\uD55C\uB2E4"
+  rarity: 1
+  prefab: {fileID: 6402603472621646608, guid: 63bd0d306bf928f4ea85ac51dbb05d1a, type: 3}
+  moveSpeedBonus: 0
+  jumpForceBonus: 0
+  maxJumpCountBonus: 0
+  attackDamageBonus: -3
+  attackCooldownBonus: -0.1
+  maxHPBonus: 0
+  healAmount: 5
+  knockbackPowerBonus: 0
+  meleeRangeBonus: 0
+  bulletSizeBonus: 0
+  bulletLifeTimeBonus: 0
+  bulletSpeedBonus: 0
