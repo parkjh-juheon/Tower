@@ -19,6 +19,8 @@ public class BattleZoneTrigger : MonoBehaviour
     private bool battleEnded = false;
     private Collider2D battleZoneCollider;
 
+    private static HashSet<string> spawnedItemPositions = new HashSet<string>();
+
     // 마지막 적이 죽은 위치
     private Vector3 lastEnemyPosition;
 
@@ -103,7 +105,6 @@ public class BattleZoneTrigger : MonoBehaviour
             return;
         }
 
-        //  마지막 적의 위치를 기준으로 드랍 (없으면 전투구역 중앙)
         Vector3 center = (lastEnemyPosition != Vector3.zero)
             ? lastEnemyPosition
             : battleZoneCollider.bounds.center;
@@ -113,14 +114,23 @@ public class BattleZoneTrigger : MonoBehaviour
             ItemData itemData = itemPool[Random.Range(0, itemPool.Count)];
             Vector3 dropPos = center + (Vector3)Random.insideUnitCircle * dropRadius;
 
+            string key = $"{itemData.itemName}_{dropPos.x:F2}_{dropPos.y:F2}";
+            if (spawnedItemPositions.Contains(key))
+            {
+                Debug.Log($"[BattleZone] {itemData.itemName} 이미 생성된 위치이므로 스킵됨");
+                continue;
+            }
+
             GameObject itemObj = Instantiate(itemData.prefab, dropPos, Quaternion.identity);
             StatItem statItem = itemObj.GetComponent<StatItem>();
             if (statItem != null)
                 statItem.data = itemData;
 
+            spawnedItemPositions.Add(key); 
             Debug.Log($"[BattleZone] 아이템 드랍됨: {itemData.itemName} at {dropPos}");
         }
     }
+
 
     //  외부(적)에서 호출할 수 있는 메서드
     public void ReportEnemyDeath(Vector3 deathPosition)

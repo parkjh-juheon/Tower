@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip landSound;
     public AudioClip meleeAttackSound;
     public AudioClip shootSound;
-    public AudioClip reloadSound;   
+    public AudioClip reloadSound;
 
     private float footstepTimer = 0f;
     private float footstepInterval = 0.4f;
